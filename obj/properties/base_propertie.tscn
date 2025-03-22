@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duscfnbgaycpa"]
+
+[ext_resource type="Script" path="res://v1.1/obj/properties/base_propertie.gd" id="1_j1t88"]
+
+[node name="BasePropertie" type="Node"]
+script = ExtResource("1_j1t88")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjwxrif5lufsp"]
+
+[ext_resource type="Script" uid="uid://cvocxgkuuvspo" path="res://obj/people/people.gd" id="1_1wru1"]
+
+[node name="People" type="Node"]
+script = ExtResource("1_1wru1")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="def" type="Node" parent="SubViewport"]
+
+[node name="atk" type="Node" parent="SubViewport"]
+
+[node name="hp" type="Node" parent="SubViewport"]
+
+[node name="max_life" type="Node" parent="SubViewport"]
+
+[node name="lv" type="Node" parent="SubViewport"]
+
+[node name="lingqi" type="Node" parent="SubViewport"]
+
+[node name="attack_speed" type="Node" parent="SubViewport"]
+
+[node name="action_cool_time" type="Node" parent="SubViewport"]

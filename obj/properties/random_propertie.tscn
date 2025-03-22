@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdtgbn7rklcd0"]
+
+[ext_resource type="Script" path="res://v1.1/obj/properties/random_propertie.gd" id="1_vwdoc"]
+
+[node name="RandomPropertie" type="Node"]
+script = ExtResource("1_vwdoc")
+min_v = null
+max_v = null

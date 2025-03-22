@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bltpd0vxsks1m"]
+
+[ext_resource type="Script" path="res://v1.1/obj/properties/bar_propertie.gd" id="1_ou4kx"]
+
+[node name="BarPropertie" type="Node"]
+script = ExtResource("1_ou4kx")

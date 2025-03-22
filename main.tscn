@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqi0vduabab5i"]
+
+[ext_resource type="Script" uid="uid://dpl8guc5yc7tu" path="res://main.gd" id="1_ig7tw"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ig7tw")
+
+[node name="people_list" type="SubViewport" parent="."]
+
+[node name="时间流逝" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="时间流逝" to="." method="_on_时间流逝_timeout"]
