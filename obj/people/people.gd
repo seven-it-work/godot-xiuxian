@@ -47,6 +47,10 @@ var is_fight:bool=false
 @export var child_list:Array=[]
 ## 怀孕周期 （天为单位）
 @export var pregnancy:BarPropertie
+## 已经怀孕次数
+@export var pregnancy_times:int=0;
+# 最大怀孕次数
+const MAX_PREGNANCY_COUNT = 10
 
 func do_action():
 	# 年龄计算
@@ -61,6 +65,10 @@ func do_action():
 	if pregnancy.get_current()>=pregnancy.max_v:
 		# todo 生产
 		return
+	else:
+		# 概率流产计算
+		print(_calculate_abortion_probability())
+		pass
 	if is_player:
 		return
 	if action_cool_times>0:
@@ -191,19 +199,35 @@ func _交好(target_people:People):
 		#"送礼":
 			#pass
 		"双修":
-			# todo 相互之间提示对方当前灵气值的 5%~15%
+			# 相互之间提示对方当前灵气值的 5%~15%
+			var lingqi_percentage = randf_range(0.05, 0.15) * lingqi.get_current()
+			Log.debug("{self.name_str} 提示 {target_people.name_str} 当前灵气值的 {lingqi_percentage}%")
+			# 增加关系值
 			add_relation(target_people,randi_range(-1,14))
 			pass
 		"拜师":
-			# todo 如果已经有师傅了，还是要拜师 则原来师傅将对你-100仇恨
+			# 如果已经有师傅了，还是要拜师 则原来师傅将对你-100仇恨
+			if shi_fu != "" and shi_fu != target_people.id:
+				var old_master:People = GlobalInfo.people_map[shi_fu]
+				add_relation(old_master, -100)
+			# 增加关系值
+			add_relation(target_people, randi_range(5,20))
+			# 更新师傅ID
+			shi_fu = target_people.id
 			add_relation(target_people,randi_range(5,20))
 			pass
 		"成为道侣":
-			# todo 道侣一个新人，道侣列表中的所有人之前关系-20
+			# 道侣一个新人，道侣列表中的所有人之前关系-20
+			for id in lover_list:
+				var other:People = GlobalInfo.people_map[id]
+				add_relation(other, -20)
 			add_relation(target_people,randi_range(10,30))
 			pass
 		"结婚":
-			# todo 结婚一个新人，结婚列表中的所有人之前关系-50
+			# 结婚一个新人，结婚列表中的所有人之前关系-50
+			for id in wife_list:
+				var other:People = GlobalInfo.people_map[id]
+				add_relation(other, -50)
 			add_relation(target_people,randi_range(20,40))
 			pass
 		"交配":
@@ -225,6 +249,27 @@ func _交恶(target_people:People):
 func _什么都不做(target_people:People):
 	Log.debug("什么都不做")
 	pass
+
+# 计算流产概率的函数
+func _calculate_abortion_probability():
+	# 基础流产概率
+	var base_probability = 0.001
+	# 根据怀孕次数增加流产概率
+	var pregnancy_count_factor = min(pregnancy_times / MAX_PREGNANCY_COUNT, 1.0) * 0.002
+	# 根据怀孕周期增加流产概率
+	var pregnancy_weeks_factor = min(pregnancy.get_current() / 280, 1.0) * 0.003
+	# 根据年龄增加流产概率
+	var age_factor = min(get_age() / max_life.max_v, 1.0) * 0.001
+	# 计算最终流产概率
+	var total_probability = base_probability + pregnancy_count_factor + pregnancy_weeks_factor + age_factor
+	# 确保概率不超过 1.0
+	print(min(total_probability, 1.0)*100)
+
+
+## 获得当前年龄 (天)
+func get_age()->int:
+	return ObjectUtils.calculate_time_difference(self.birth,GlobalInfo.game_time)
+
 
 ## 是否死亡
 func is_dead()->bool:
@@ -249,7 +294,7 @@ func add_relation(target:People,n:int=5):
 func _init() -> void:
 	self.load_json(JSON.parse_string(FileAccess.open("res://obj/people/people.json",FileAccess.READ).get_as_text()))
 	id=uuid.v4()
-	birth=GlobalInfo.game_time
+	#birth=GlobalInfo.game_time
 	pass
 
 func _ready() -> void:

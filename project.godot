@@ -15,16 +15,14 @@ cmd_path="res://addons/GDExcelExporter/ee.exe"
 
 [application]
 
-config/name="修仙1.0"
-run/main_scene="uid://cqi0vduabab5i"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/name="修仙1.1"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
 
-BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
-BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 Log="*res://addons/logger/logger.gd"
 uuid="*res://addons/uuid/uuid.gd"
@@ -36,7 +34,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDExcelExporter/plugin.cfg", "res://addons/beehave/plugin.cfg", "res://addons/logger/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/uuid/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDExcelExporter/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/logger/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/uuid/plugin.cfg")
 
 [rendering]
 
