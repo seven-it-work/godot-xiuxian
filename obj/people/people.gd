@@ -50,7 +50,7 @@ var is_fight:bool=false
 ## 已经怀孕次数
 @export var pregnancy_times:int=0;
 # 最大怀孕次数
-const MAX_PREGNANCY_COUNT = 10
+const MAX_PREGNANCY_COUNT:float = 10.0
 
 func do_action():
 	# 年龄计算
@@ -61,44 +61,46 @@ func do_action():
 		GlobalInfo.remove_people(self)
 		return
 	# 怀孕周期计算
-	pregnancy.add_current(1)
-	if pregnancy.get_current()>=pregnancy.max_v:
-		# todo 生产
-		return
-	else:
-		# 概率流产计算
-		print(_calculate_abortion_probability())
-		pass
-	if is_player:
-		return
+	if is_pregnancy():
+		pregnancy.add_current(1)
+		if pregnancy.get_current()>=pregnancy.max_v:
+			# todo 生产
+			action_cool_times=action_cool_time.get_current()
+			return
+		else:
+			# 概率流产计算
+			if _calculate_abortion_probability():
+				action_cool_times=action_cool_time.get_current()
+				return
+			pass
 	if action_cool_times>0:
 		action_cool_times-=1
 		return
-	else:
-		action_cool_times=action_cool_time.get_current()
+	if is_player:
+		return
 	# 恢复
-	var 恢复占比=(hp.max_v-hp.get_current())/hp.max_v*100
-	if ObjectUtils.probability(恢复占比):
-		Log.debug("恢复")
-		recover()
+	if _恢复():
+		action_cool_times=action_cool_time.get_current()
 		return
 	## 修炼判断
-	if ObjectUtils.probability(50):
-		# 修炼
-		if lingqi.get_current()>=lingqi.max_v:
-			# 不能吸收灵力了
-			if can_update():
-				# 升级
-				do_update()
-				return
-		else:
-			xiu_lian()
-			return
+	if _修炼():
+		action_cool_times=action_cool_time.get_current()
+		return
+	## 社交
+	if _社交():
+		action_cool_times=action_cool_time.get_current()
+		return
+	pass
+	
+	
+func _社交()->bool:
+	if GlobalInfo.place_map.is_empty():
+		return false
 	var place:Place=GlobalInfo.place_map[place_id]
 	# 随机选择一个人
 	var target_people_list=place.get_other_people_id_list(id)
 	if target_people_list.is_empty():
-		return
+		return false
 	var target_people:People=GlobalInfo.people_map[target_people_list.pick_random()]
 	var weight_1={
 		"交好":45,
@@ -116,22 +118,41 @@ func do_action():
 		_交恶.bind(target_people):weight_1["交恶"],
 		_什么都不做.bind(target_people):weight_1["什么都不做"],
 	})
-	temp[0].call()
-	pass
-
-func _交好(target_people:People):
+	return temp[0].call()
+func _修炼()->bool:
+	if ObjectUtils.probability(50):
+		# 修炼
+		if lingqi.get_current()>=lingqi.max_v:
+			# 不能吸收灵力了
+			if can_update():
+				# 升级
+				do_update()
+				return true
+		else:
+			xiu_lian()
+			return true
+	return false
+func _恢复()->bool:
+	var 恢复占比=(hp.max_v-hp.get_current())/hp.max_v*100
+	if ObjectUtils.probability(恢复占比):
+		Log.debug("恢复")
+		recover()
+		return true
+	return false
+func _交好(target_people:People)->bool:
 	Log.debug("交好")
 	var weight_1={
-		"问好":50,
+		"问好":70,
 		"论道":50,
-		"切磋":10,
+		"切磋":30,
 		#待开发"送礼":10,
 		"双修":10,
-		"拜师":1,
+		"拜师":10,
 		"成为道侣":10,
 		"结婚":10,
 		"交配":10,
 	}
+	# 特殊关系影响
 	match target_people.id:
 		shi_fu:
 			weight_1["问好"]+=50
@@ -159,43 +180,61 @@ func _交好(target_people:People):
 			weight_1["结婚"]-=10
 		wife_list:
 			weight_1["双修"]+=10
-			weight_1["交配"]+=20
+			weight_1["交配"]+=30
 			weight_1["拜师"]-=1
 			weight_1["成为道侣"]-=10
 			weight_1["结婚"]-=10
 		lover_list:
 			weight_1["双修"]+=10
-			weight_1["交配"]+=10
+			weight_1["交配"]+=20
 			weight_1["结婚"]+=10
 			weight_1["拜师"]-=1
 			weight_1["成为道侣"]-=10
 		_:
 			# 没有深度关系
 			pass
+	# 关系值影响
+	if relation.has(target_people.id):
+		var re:Relation=relation.get(target_people.id)
+		weight_1["问好"]+=re.relation_value*0.1
+		weight_1["论道"]+=re.relation_value*0.1
+		weight_1["切磋"]+=re.relation_value*0.1
+		weight_1["双修"]+=re.relation_value*0.5
+		weight_1["拜师"]+=re.relation_value*0.1
+		weight_1["成为道侣"]+=re.relation_value*0.4
+		weight_1["结婚"]+=re.relation_value*0.3
+		weight_1["交配"]+=re.relation_value*0.2
 	# 怀孕了不能做
 	if !target_people.is_man:
 		if target_people.pregnancy.get_current()>0:
-			weight_1["交配"]=0
-			weight_1["双修"]=0
+			weight_1["交配"]-=10
+			weight_1["双修"]-=10
 	if !self.is_man:
 		if self.pregnancy.get_current()>0:
-			weight_1["交配"]=0
-			weight_1["双修"]=0
+			weight_1["交配"]-=10
+			weight_1["双修"]-=10
+	# 如果是同性，双修=0 成为道侣=0 结婚=0 交配=0
+	if target_people.is_man==is_man:
+		weight_1["交配"]-=10
+		weight_1["双修"]-=10
+		weight_1["成为道侣"]-=10
+		weight_1["结婚"]-=10
+	
 	var action=ObjectUtils.weight_selector(weight_1)[0]
 	Log.debug(action)
 	match action:
 		"问好":
 			## 增加关系值
 			add_relation(target_people)
-			pass
+			return true
 		"论道":
 			## 增加关系值
 			add_relation(target_people,randi_range(-5,10))
-			pass
+			return true
 		"切磋":
 			## todo 战斗切磋
 			add_relation(target_people,randi_range(-3,6))
-			pass
+			return true
 		#"送礼":
 			#pass
 		"双修":
@@ -204,7 +243,7 @@ func _交好(target_people:People):
 			Log.debug("{self.name_str} 提示 {target_people.name_str} 当前灵气值的 {lingqi_percentage}%")
 			# 增加关系值
 			add_relation(target_people,randi_range(-1,14))
-			pass
+			return true
 		"拜师":
 			# 如果已经有师傅了，还是要拜师 则原来师傅将对你-100仇恨
 			if shi_fu != "" and shi_fu != target_people.id:
@@ -215,29 +254,40 @@ func _交好(target_people:People):
 			# 更新师傅ID
 			shi_fu = target_people.id
 			add_relation(target_people,randi_range(5,20))
-			pass
+			return true
 		"成为道侣":
 			# 道侣一个新人，道侣列表中的所有人之前关系-20
 			for id in lover_list:
 				var other:People = GlobalInfo.people_map[id]
 				add_relation(other, -20)
+			lover_list.append(target_people.id)
+			target_people.lover_list.append(self.id)
 			add_relation(target_people,randi_range(10,30))
-			pass
+			return true
 		"结婚":
 			# 结婚一个新人，结婚列表中的所有人之前关系-50
 			for id in wife_list:
 				var other:People = GlobalInfo.people_map[id]
 				add_relation(other, -50)
+			wife_list.append(target_people.id)
+			target_people.wife_list.append(self.id)
 			add_relation(target_people,randi_range(20,40))
-			pass
+			return true
 		"交配":
-			# todo 如果已经怀孕概率流产
 			add_relation(target_people,randi_range(-2,10))
-			pass
+			if target_people.is_man==is_man:
+				return true
+			if !target_people.is_man:
+				if target_people._calculate_pregnancy_probability():
+					target_people.pregnancy.current=1;
+			elif is_man:
+				if _calculate_pregnancy_probability():
+					pregnancy.current=1;
+			return true
 		_:
 			Log.err("没有开发这个操作",action)
-	pass
-func _交恶(target_people:People):
+	return false
+func _交恶(target_people:People)->bool:
 	Log.debug("交恶")
 	var weight_1={
 		"攻击":50,
@@ -245,30 +295,73 @@ func _交恶(target_people:People):
 		#"偷窃":10,
 	}
 	# todo
-	pass
+	return false
 func _什么都不做(target_people:People):
 	Log.debug("什么都不做")
-	pass
+	return false
 
-# 计算流产概率的函数
-func _calculate_abortion_probability():
+# 判断是否怀孕
+func is_pregnancy()->bool:
+	return pregnancy.get_current()>0
+
+# 计算是否怀孕成功
+func _calculate_pregnancy_probability()->bool:
+	# 基础怀孕率
+	var pregnancy_probabilty=0.5;
+	var age_probabilty=0;
+	if get_age()<13*365:
+	# 如果年龄小于13岁 年龄越小 越不可能
+		age_probabilty=min(1,get_age()/max_life.max_v)
+	else:
+	# 否则年龄越大，越不可能
+		age_probabilty=min(1,1-get_age()/max_life.max_v)
+	# 健康度判断(这个是负向概率，越健康越小)
+	var hp_probabilty=1-hp.get_current()/hp.max_v
+	var total_probability=min(1,(pregnancy_probabilty+age_probabilty-hp_probabilty))*100
+	Log.dbg("怀孕概率计算信息：",{
+		"年龄":get_age(),
+		"最大年龄":max_life.max_v,
+		"年龄产生概率":age_probabilty,
+		"健康度":hp_probabilty,
+		"总概率":total_probability
+	})
+	return ObjectUtils.probability(total_probability);
+# 计算是否流产成功
+func _calculate_abortion_probability()->bool:
 	# 基础流产概率
-	var base_probability = 0.001
+	var base_probability = 0
 	# 根据怀孕次数增加流产概率
-	var pregnancy_count_factor = min(pregnancy_times / MAX_PREGNANCY_COUNT, 1.0) * 0.002
-	# 根据怀孕周期增加流产概率
-	var pregnancy_weeks_factor = min(pregnancy.get_current() / 280, 1.0) * 0.003
+	var pregnancy_count_factor = min(pregnancy_times / MAX_PREGNANCY_COUNT, 1.0) * 0.003
+	# 如果怀孕周期小于100天 那么随着天数增加概率流产
+	var pregnancy_weeks_factor = 0
+	if pregnancy.get_current()<=pregnancy.max_v/2:
+		pregnancy_weeks_factor=min(pregnancy.get_current() / pregnancy.max_v, 1.0) * 0.001
+	else:
+		# 否则概率为随时间增加为-概率（趋于稳定）
+		pregnancy_weeks_factor=-(pregnancy.get_current()-pregnancy.max_v/2)/pregnancy.max_v * 0.001
 	# 根据年龄增加流产概率
-	var age_factor = min(get_age() / max_life.max_v, 1.0) * 0.001
+	var age_factor = min(get_age() / max_life.max_v, 1.0) * 0.002
 	# 计算最终流产概率
 	var total_probability = base_probability + pregnancy_count_factor + pregnancy_weeks_factor + age_factor
 	# 确保概率不超过 1.0
-	print(min(total_probability, 1.0)*100)
+	if ObjectUtils.probability(min(total_probability, 1.0)*100):
+		Log.dbg("流产概率计算信息：",{
+		"怀孕次数":pregnancy_times,
+		"怀孕次数产生概率":pregnancy_count_factor,
+		"怀孕周期":pregnancy.get_current(),
+		"怀孕周期产生概率":pregnancy_weeks_factor,
+		"年龄":get_age(),
+		"最大年龄":max_life.max_v,
+		"年龄产生概率":age_factor,
+		"总概率":total_probability,
+		})
+		return true
+	return false
 
 
 ## 获得当前年龄 (天)
 func get_age()->int:
-	return ObjectUtils.calculate_time_difference(self.birth,GlobalInfo.game_time)
+	return GlobalInfo.game_time-self.birth
 
 
 ## 是否死亡
@@ -449,3 +542,18 @@ func lu_ding(target:People):
 	GlobalInfo.remove_people(target)
 	# todo target情侣仇恨+25 父母+50 儿子+25
 	pass
+
+## 日志输出辅助方法
+func str_format(msg:String)->String:
+	var data=save_json()
+	var result:=msg;
+	var regex:=RegEx.new()
+	regex.compile("\\{([^}]+)\\}")
+	for match in regex.search_all(msg):
+		var placeholder:=match.get_string()
+		var key_path:=match.get_string(1)
+		# 字典中取值
+		var value=ObjectUtils.get_nested_value(data,key_path)
+		if value!=null:
+			result=result.replace(placeholder,str(value))
+	return result

@@ -134,3 +134,16 @@ static func calculate_time_difference(timestamp1: int, timestamp2: int, unit: St
 			return (timestamp2 - timestamp1)/24/60/60
 		_:
 			return 0  # 默认返回 0，如果单位无效
+
+
+	
+## 从json中获取path的值 path用. 来表示子
+static func get_nested_value(data:Dictionary,key_path:String):
+	var keys=key_path.split(".")
+	var current=data
+	for key in keys:
+		if current is Dictionary && key in current:
+			current=current[key]
+		else:
+			return null
+	return current;

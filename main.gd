@@ -29,8 +29,8 @@ func _start_game():
 
 func _on_时间流逝_timeout() -> void:
 	if !GlobalInfo.is_pause:
-		# 现实1秒钟  游戏5分钟
-		GlobalInfo.game_time+=1*60*5
+		# 现实1秒钟  游戏1天
+		GlobalInfo.game_time+=1
 		for data:People in GlobalInfo.people_map.values():
 			data.do_action()
 		for data:Place in GlobalInfo.place_map.values():

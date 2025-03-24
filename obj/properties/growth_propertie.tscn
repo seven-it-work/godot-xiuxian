@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://ds03ubqcbsisa"]
 
-[ext_resource type="Script" path="res://v1.1/obj/properties/growth_propertie.gd" id="1_sse36"]
+[sub_resource type="Resource" id="Resource_i63yj"]
+metadata/__load_path__ = "res://obj/properties/growth_propertie.gd"
 
 [node name="GrowthPropertie" type="Node"]
-script = ExtResource("1_sse36")
+script = SubResource("Resource_i63yj")

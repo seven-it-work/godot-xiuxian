@@ -5,8 +5,8 @@ static var place_map:Dictionary={}
 static var people_map:Dictionary={}
 static var is_debugger:bool=false
 static var player:People
-# +1表示+1秒
-static var game_time:float=Time.get_unix_time_from_system()
+# 游戏开始时间 每+1标识一天 基础单位天
+static var game_time:int=10000
 
 static func remove_people(target:People):
 	GlobalInfo.place_map[target.place_id].outgoing(target)
@@ -21,6 +21,7 @@ static func start_new():
 	for i in 10:
 		var people:People=preload("res://obj/people/People.tscn").instantiate()
 		people.name_str="ai%s"%i
+		people.is_man=randi_range(0,1)==0
 		people_map[people.id]=people;
 		var p:Place= place_map.values().pick_random()
 		p.enter(people)
