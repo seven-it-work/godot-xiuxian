@@ -64,6 +64,8 @@ func do_action():
 	if is_pregnancy():
 		pregnancy.add_current(1)
 		if pregnancy.get_current()>=pregnancy.max_v:
+			# 每次生产新的人类就往statistics_map中的key为出生人数+1
+			GlobalInfo.statistics_map["出生人数"]+=1
 			# todo 生产
 			action_cool_times=action_cool_time.get_current()
 			return
@@ -90,6 +92,12 @@ func do_action():
 	if _社交():
 		action_cool_times=action_cool_time.get_current()
 		return
+	## 随机50~90的概率进行移动
+	if ObjectUtils.probability(randi_range(50,90)):
+		move_to(GlobalInfo.place_map.values().pick_random())
+		action_cool_times=action_cool_time.get_current()
+		return
+	# 什么都不做
 	pass
 	
 	
@@ -101,11 +109,18 @@ func _社交()->bool:
 	var target_people_list=place.get_other_people_id_list(id)
 	if target_people_list.is_empty():
 		return false
-	var target_people:People=GlobalInfo.people_map[target_people_list.pick_random()]
+	# 如果target_people_list.pick_random()的随机一个不在relation中，则重新选择
+	var target_id=target_people_list.pick_random()
+	if !GlobalInfo.people_map.has(target_id):
+		# 这里出错了，打印错误信息
+		Log.err("社交时，target_id:%s不存在"%target_id,GlobalInfo.people_map)
+		return _社交()
+	var target_people:People=GlobalInfo.get_people_by_id(target_id)
+	if target_people==null:
+		return false
 	var weight_1={
-		"交好":45,
-		"交恶":45,
-		"什么都不做":10,
+		"交好":GlobalInfo.game_setting["最大人口数"],
+		"交恶":GlobalInfo.people_map.values().size(),
 	}
 	if relation.has(target_people.id):
 		var re=relation.get(target_people.id)
@@ -116,7 +131,7 @@ func _社交()->bool:
 	var temp=ObjectUtils.weight_selector({
 		_交好.bind(target_people):weight_1["交好"],
 		_交恶.bind(target_people):weight_1["交恶"],
-		_什么都不做.bind(target_people):weight_1["什么都不做"],
+		# _什么都不做.bind(target_people):weight_1["什么都不做"],
 	})
 	return temp[0].call()
 func _修炼()->bool:
@@ -135,12 +150,12 @@ func _修炼()->bool:
 func _恢复()->bool:
 	var 恢复占比=(hp.max_v-hp.get_current())/hp.max_v*100
 	if ObjectUtils.probability(恢复占比):
-		Log.debug("恢复")
+		#Log.debug("恢复")
 		recover()
 		return true
 	return false
 func _交好(target_people:People)->bool:
-	Log.debug("交好")
+	Log.debug(str_format("{name_str} 与 %s 交好 "%target_people.name_str))
 	var weight_1={
 		"问好":70,
 		"论道":50,
@@ -221,7 +236,7 @@ func _交好(target_people:People)->bool:
 		weight_1["结婚"]-=10
 	
 	var action=ObjectUtils.weight_selector(weight_1)[0]
-	Log.debug(action)
+	Log.debug(str_format("{name_str}执行动作%s"%action),weight_1)
 	match action:
 		"问好":
 			## 增加关系值
@@ -238,17 +253,22 @@ func _交好(target_people:People)->bool:
 		#"送礼":
 			#pass
 		"双修":
-			# 相互之间提示对方当前灵气值的 5%~15%
+			# 相互之间提升对方当前灵气值的 5%~15%
 			var lingqi_percentage = randf_range(0.05, 0.15) * lingqi.get_current()
-			Log.debug("{self.name_str} 提示 {target_people.name_str} 当前灵气值的 {lingqi_percentage}%")
+			target_people.lingqi.add_current(lingqi_percentage)
+			lingqi.add_current(lingqi_percentage)
 			# 增加关系值
 			add_relation(target_people,randi_range(-1,14))
 			return true
 		"拜师":
 			# 如果已经有师傅了，还是要拜师 则原来师傅将对你-100仇恨
 			if shi_fu != "" and shi_fu != target_people.id:
-				var old_master:People = GlobalInfo.people_map[shi_fu]
-				add_relation(old_master, -100)
+				var old_master:People = GlobalInfo.get_people_by_id(shi_fu)
+				if old_master==null:
+					# 师傅已经死亡了
+					pass
+				else:
+					add_relation(old_master, -100)
 			# 增加关系值
 			add_relation(target_people, randi_range(5,20))
 			# 更新师傅ID
@@ -258,7 +278,10 @@ func _交好(target_people:People)->bool:
 		"成为道侣":
 			# 道侣一个新人，道侣列表中的所有人之前关系-20
 			for id in lover_list:
-				var other:People = GlobalInfo.people_map[id]
+				var other:People = GlobalInfo.get_people_by_id(id)
+				if other==null:
+					# 对方已经死亡了
+					continue
 				add_relation(other, -20)
 			lover_list.append(target_people.id)
 			target_people.lover_list.append(self.id)
@@ -267,7 +290,10 @@ func _交好(target_people:People)->bool:
 		"结婚":
 			# 结婚一个新人，结婚列表中的所有人之前关系-50
 			for id in wife_list:
-				var other:People = GlobalInfo.people_map[id]
+				var other:People = GlobalInfo.get_people_by_id(id)
+				if other==null:
+					# 对方已经死亡了
+					continue
 				add_relation(other, -50)
 			wife_list.append(target_people.id)
 			target_people.wife_list.append(self.id)
@@ -288,17 +314,73 @@ func _交好(target_people:People)->bool:
 			Log.err("没有开发这个操作",action)
 	return false
 func _交恶(target_people:People)->bool:
-	Log.debug("交恶")
+	Log.debug(str_format("{name_str} 与 %s 交恶 "%target_people.name_str))
 	var weight_1={
-		"攻击":50,
-		"辱骂":50,
+		"攻击":GlobalInfo.people_map.values().size(),
+		"辱骂":GlobalInfo.game_setting["最大人口数"],
 		#"偷窃":10,
 	}
-	# todo
+	# 使用ObjectUtils.weight_selector权重选择器对weight_1进行选择
+	var action=ObjectUtils.weight_selector(weight_1)[0]
+	Log.debug(str_format("{name_str}执行动作%s"%action),weight_1)
+	match action:
+		"攻击":
+			# 调用self和target的集气速度
+			var self_speed=attack_speed.get_current()
+			var target_speed=target_people.attack_speed.get_current()
+			while true:
+				# slef_speed-1
+				self_speed-=1
+				# target_speed-1
+				target_speed-=1
+				# 如果self_speed<=0 则self攻击target
+				if self_speed<=0:
+					do_attack(target_people)
+					# 重置self_speed
+					self_speed=attack_speed.get_current()
+				if target_speed<=0:
+					target_people.do_attack(self)
+					# 重置target_speed
+					target_speed=target_people.attack_speed.get_current()
+				# 如果self的生命值或者targbet的生命值小于0退出循环
+				if hp.get_current()<=0 or target_people.hp.get_current()<=0:
+					break
+			# 如果self的生命值小于0，则战斗失败
+			if hp.get_current()<=0:
+				target_people._after_beat(self)
+			# 如果target_people的生命值小于0，则战斗胜利
+			if target_people.hp.get_current()<=0:
+				_after_beat(target_people)
+			return true
+		"辱骂":
+			return true
+		_:
+			Log.err("没有开发这个操作",action)
 	return false
-func _什么都不做(target_people:People):
-	Log.debug("什么都不做")
-	return false
+
+# func _什么都不做(target_people:People):
+# 	Log.debug("什么都不做")
+# 	return false
+
+# 击败他人的后续策略动作方法
+func _after_beat(target:People):
+	# todo 后续可以更具对方击败策略去做扩展
+	# 通过概率计算工具ObjectUtils.probability计算是否击杀他人
+	print(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"])
+	if ObjectUtils.probability(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"]):
+		# 记录日志
+		Log.debug("击杀他人",{
+			"source":self.name_str,
+			"target":target.name_str,
+			"source_id":self.id,
+			"target_id":target.id,
+		})
+		# 击杀他人
+		GlobalInfo.remove_people(target)
+	else:
+		target.hp.current=1
+	pass
+
 
 # 判断是否怀孕
 func is_pregnancy()->bool:
@@ -358,6 +440,12 @@ func _calculate_abortion_probability()->bool:
 		return true
 	return false
 
+## 移动到其它地方
+func move_to(place:Place):
+	# 从当前地点离开
+	GlobalInfo.place_map[place_id].outgoing(self)
+	# 进入新地点
+	place.enter(self)
 
 ## 获得当前年龄 (天)
 func get_age()->int:
@@ -396,6 +484,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+
+
 ## 对目标执行攻击
 func do_attack(target:People):
 	var damge=self.atk.get_current()
@@ -410,13 +500,13 @@ func recover():
 
 ## 修炼
 func xiu_lian():
-	Log.debug("修炼")
+	#Log.debug("修炼")
 	lingqi.add_current(10)
 	pass
 
 ## 执行升级
 func do_update():
-	Log.debug("升级")
+	#Log.debug("升级")
 	self.lv.add_current(1)
 	var c_list=$SubViewport.get_children()
 	self.lingqi.random_add_growth(self.lv.get_current())

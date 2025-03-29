@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqi0vduabab5i"]
 
-[ext_resource type="Script" uid="uid://c8ths0c5yuq0n" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -8,6 +8,11 @@ script = ExtResource("1_ig7tw")
 [node name="people_list" type="SubViewport" parent="."]
 
 [node name="时间流逝" type="Timer" parent="."]
+wait_time = 0.1
 autostart = true
+
+[node name="时间str" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="timeout" from="时间流逝" to="." method="_on_时间流逝_timeout"]

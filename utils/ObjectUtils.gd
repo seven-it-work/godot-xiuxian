@@ -86,6 +86,9 @@ static func json_2_obj(json):
 			for key in json:
 				re[key]=json_2_obj(json[key])
 			return re
+	# 如果是字符串，则返回字符串
+	if json is String:
+		return json
 	print("不知道类型了",json)
 	return json
 
@@ -101,6 +104,9 @@ static func obj_2_json(obj):
 	
 	if obj is Object && obj.has_method("save_json"):
 		return obj.call("save_json")
+	# 如果是字符串，则返回字符串
+	if obj is String:
+		return obj
 	print("不知道类型了",obj)
 	return obj
 

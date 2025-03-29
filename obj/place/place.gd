@@ -20,7 +20,7 @@ func do_action():
 	if product_speeding_times>0:
 		product_speeding_times-=1
 		return
-	Log.debug("生产灵力")
+	#Log.debug("生产灵力")
 	product_speeding_times=product_speeding.get_current()
 	current_lin_qi.add_current(product_value.get_current())
 
