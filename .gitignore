@@ -4,3 +4,4 @@
 project.godot
 .idea
 *.tmp
+/.vscode
