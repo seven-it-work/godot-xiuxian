@@ -40,7 +40,7 @@ func _execute()->int:
 		SocialGoodDecision.new(people,target_people):weight_1["交好"],
 		SocialBadDecision.new(people,target_people):weight_1["交恶"],
 	})
-	return temp.execute()
+	return temp[0].execute()
 
 func _after_execute():
 	return Result.SUCCESS

@@ -29,9 +29,9 @@ func execute()->int:
 		return Result.FAILURE
 	var re= _execute()
 	if re==Result.SUCCESS:
-		# 获取执行动作key，并将它记录到static_map中
+		# 获取执行动作key，并将它记录到 statistics_map 中
 		var action_key=get_action_key()
 		if action_key!="":
-			GlobalInfo.static_map[action_key]=GlobalInfo.static_map.get(action_key,0)+1
+			GlobalInfo.statistics_map[action_key]=GlobalInfo.statistics_map.get(action_key,0)+1
 	_after_execute()
 	return re
