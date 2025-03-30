@@ -54,6 +54,29 @@
 		"name_str": "灵气",
 		"score": 10.0
 	},
+	"lingqi_absorb": {
+		"current": 0.0,
+		"filename": "res://obj/properties/random_propertie.gd",
+		"growth_factor": 1.0,
+		"max_growth": 5.0,
+		"min_growth": 0.0,
+		"name_str": "吸收灵气",
+		"score": 0.0,
+		"max_v": 10.0,
+		"min_v": 1.0
+	},
+	"lingqi_absorb_cool_time":{
+		"current": 0.0,
+		"filename": "res://obj/properties/random_propertie.gd",
+		"growth_factor": -1.0,
+		"max_growth": 1.0,
+		"min_growth": 0.0,
+		"name_str": "吸收灵气冷却时间",
+		"score": 0.0,
+		"max_v": 30.0,
+		"min_v": 5.0
+	},
+	"lingqi_absorb_cool_times":0,
 	"lv": {
 		"current": 0.0,
 		"filename": "res://obj/properties/growth_propertie.gd",

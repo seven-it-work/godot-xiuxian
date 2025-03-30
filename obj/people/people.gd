@@ -7,6 +7,12 @@ var id:String=""
 @export var lv:GrowthPropertie
 ## 灵气 ，相当于升级所需要的经验
 @export var lingqi:BarPropertie
+## 吸收灵气量
+@export var lingqi_absorb:RandomPropertie
+## 吸收灵气冷却时间
+@export var lingqi_absorb_cool_time:RandomPropertie
+## 吸收灵气冷却计数器
+@export var lingqi_absorb_cool_times:float=0
 ## 生命值
 @export var hp:BarPropertie
 ## 攻击力
@@ -135,6 +141,9 @@ func _社交()->bool:
 	})
 	return temp[0].call()
 func _修炼()->bool:
+	if lingqi_absorb_cool_times>0:
+		lingqi_absorb_cool_times-=1
+		return false
 	if ObjectUtils.probability(50):
 		# 修炼
 		if lingqi.get_current()>=lingqi.max_v:
@@ -376,7 +385,7 @@ func _after_beat(target:People):
 			"target_id":target.id,
 		})
 		# 击杀他人
-		GlobalInfo.remove_people(target)
+		kill(target)
 	else:
 		target.hp.current=1
 	pass
@@ -500,8 +509,9 @@ func recover():
 
 ## 修炼
 func xiu_lian():
+	lingqi_absorb_cool_times=lingqi_absorb_cool_time.get_current()
 	#Log.debug("修炼")
-	lingqi.add_current(10)
+	lingqi.add_current(lingqi_absorb.get_current())
 	pass
 
 ## 执行升级
@@ -587,6 +597,9 @@ func save_json():
 		"lover_list":ObjectUtils.obj_2_json(lover_list),
 		"child_list":ObjectUtils.obj_2_json(child_list),
 		"pregnancy":ObjectUtils.obj_2_json(pregnancy),
+		"lingqi_absorb":ObjectUtils.obj_2_json(lingqi_absorb),
+		"lingqi_absorb_cool_time":ObjectUtils.obj_2_json(lingqi_absorb_cool_time),
+		"lingqi_absorb_cool_times":lingqi_absorb_cool_times,
 	},true)
 	return re
 	
@@ -615,7 +628,9 @@ func load_json(json:Dictionary):
 	lover_list=json["lover_list"]
 	child_list=json["child_list"]
 	pregnancy=ObjectUtils.json_2_obj(json["pregnancy"])
-
+	lingqi_absorb=ObjectUtils.json_2_obj(json["lingqi_absorb"])
+	lingqi_absorb_cool_time=ObjectUtils.json_2_obj(json["lingqi_absorb_cool_time"])
+	lingqi_absorb_cool_times=json["lingqi_absorb_cool_times"]
 
 ## 击杀他人
 func kill(target:People):
