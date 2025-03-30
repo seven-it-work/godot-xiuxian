@@ -58,6 +58,11 @@ var is_fight:bool=false
 # 最大怀孕次数
 const MAX_PREGNANCY_COUNT:float = 10.0
 
+var recovery_decision:RecoveryDecision
+var practice_decision:PracticeDecision
+var social_decision:SocialDecision
+var move_decision:MoveDecision
+
 func do_action():
 	# 年龄计算
 	if is_dead():
@@ -87,21 +92,24 @@ func do_action():
 	if is_player:
 		return
 	# 恢复
-	if _恢复():
-		action_cool_times=action_cool_time.get_current()
+	if recovery_decision==null:
+		recovery_decision=RecoveryDecision.new(self)
+	if recovery_decision.execute()==DecisionEntity.Result.SUCCESS:
 		return
 	## 修炼判断
-	if _修炼():
-		action_cool_times=action_cool_time.get_current()
+	if practice_decision==null:
+		practice_decision=PracticeDecision.new(self)
+	if practice_decision.execute()==DecisionEntity.Result.SUCCESS:
 		return
 	## 社交
-	if _社交():
-		action_cool_times=action_cool_time.get_current()
+	if social_decision==null:
+		social_decision=SocialDecision.new(self)
+	if social_decision.execute()==DecisionEntity.Result.SUCCESS:
 		return
 	## 随机50~90的概率进行移动
-	if ObjectUtils.probability(randi_range(50,90)):
-		move_to(GlobalInfo.place_map.values().pick_random())
-		action_cool_times=action_cool_time.get_current()
+	if move_decision==null:
+		move_decision=MoveDecision.new(self)
+	if move_decision.execute()==DecisionEntity.Result.SUCCESS:
 		return
 	# 什么都不做
 	pass
