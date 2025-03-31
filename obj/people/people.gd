@@ -51,12 +51,14 @@ var is_fight:bool=false
 @export var lover_list:Array=[]
 ## 孩子id_list
 @export var child_list:Array=[]
-## 怀孕周期 （天为单位）
+## 怀孕周期 （天为单位一般是280天）
 @export var pregnancy:BarPropertie
 ## 已经怀孕次数
 @export var pregnancy_times:int=0;
 # 最大怀孕次数
 const MAX_PREGNANCY_COUNT:float = 10.0
+## 这个是怀孕的people
+@export var pregnancy_people:People
 
 var recovery_decision:RecoveryDecision
 var practice_decision:PracticeDecision
