@@ -60,6 +60,7 @@ func _on_时间流逝_timeout() -> void:
 			# 年数据计算清理
 			GlobalInfo.init_statistics_map()
 			year_count=0
+		#这里要打乱人员顺序
 		for data:People in GlobalInfo.people_map.values():
 			data.do_action()
 		for data:Place in GlobalInfo.place_map.values():

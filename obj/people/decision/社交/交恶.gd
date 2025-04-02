@@ -26,6 +26,7 @@ func _execute()->int:
 	Log.debug(people.name_str+"执行动作"+action,weight_1)
 	match action:
 		"攻击":
+		    # target有概率选择逃跑
 			# 调用self和target的集气速度
 			var self_speed=people.attack_speed.get_current()
 			var target_speed=target_people.attack_speed.get_current()

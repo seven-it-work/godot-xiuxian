@@ -108,6 +108,7 @@ func do_action():
 		social_decision=SocialDecision.new(self)
 	if social_decision.execute()==DecisionEntity.Result.SUCCESS:
 		return
+	# 还可以在此地留传承 接受传承
 	## 随机50~90的概率进行移动
 	if move_decision==null:
 		move_decision=MoveDecision.new(self)
@@ -384,6 +385,11 @@ func _交恶(target_people:People)->bool:
 # 击败他人的后续策略动作方法
 func _after_beat(target:People):
 	# todo 后续可以更具对方击败策略去做扩展
+	# 可以选的操作 放过、击杀、炉鼎、只没收物品
+	
+	#可以更具对方直系亲属能力综合评估是否击杀
+	#通过对方性别 以及魅力、当前灵力属性、对方执行亲属能力判定
+	
 	# 通过概率计算工具ObjectUtils.probability计算是否击杀他人
 	print(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"])
 	if ObjectUtils.probability(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"]):
