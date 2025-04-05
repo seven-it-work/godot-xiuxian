@@ -5,3 +5,4 @@ project.godot
 .idea
 *.tmp
 /.vscode
+addons
