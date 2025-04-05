@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdtgbn7rklcd0"]
+
+[sub_resource type="Resource" id="Resource_qgp3v"]
+metadata/__load_path__ = "res://obj/properties/random_propertie.gd"
+
+[node name="RandomPropertie" type="Node"]
+script = SubResource("Resource_qgp3v")
+min_v = null
+max_v = null

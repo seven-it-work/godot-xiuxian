@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://duscfnbgaycpa"]
+
+[sub_resource type="Resource" id="Resource_bfojr"]
+metadata/__load_path__ = "res://obj/properties/base_propertie.gd"
+
+[node name="BasePropertie" type="Node"]
+script = SubResource("Resource_bfojr")
