@@ -1,6 +1,12 @@
 class_name 交配 extends DecisionEntity
-func _init():
-	pass
+
+var people:People
+var target_people:People
+
+func _init(people:People,target_people:People):
+	self.people=people
+	self.target_people=target_people
+
 func _before_execute():
 	pass
 
