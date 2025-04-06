@@ -1,5 +1,7 @@
 @tool
 extends Node
+static var main_node:Main
+
 static var is_pause:bool=true
 static var place_map:Dictionary={}
 # 这是放在所有人一样对象
@@ -21,6 +23,7 @@ static func get_people_by_id(id:String)->People:
 		return people_map[id]
 	# 已经被移除了
 	return null
+	
 
 ## 死亡，移除人
 static func remove_people(target:People):
@@ -57,7 +60,7 @@ static func start_new():
 		var p:Place= place_map.values().pick_random()
 		p.enter(people)
 	var people=preload("res://obj/people/People.tscn").instantiate()
-	#people.is_player=true
+	people.is_player=true
 	people.name_str="玩家"
 	people_map[people.id]=people;
 	var p:Place= place_map.values().pick_random()

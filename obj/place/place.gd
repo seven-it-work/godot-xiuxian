@@ -2,6 +2,8 @@ class_name Place extends Action
 ## 唯一id
 var id:String=""
 @export var name_str:String=""
+## 描述
+@export var description:String=""
 ## 用于的人员idlist
 @export var people_id_list:Array=[]
 ## 灵气值
@@ -30,6 +32,7 @@ func save_json():
 		"filename" : get_script().resource_path,
 		"id":self.id,
 		"name_str":self.name_str,
+		"description":self.description,
 		"people_id_list":ObjectUtils.obj_2_json(people_id_list),
 		"current_lin_qi":ObjectUtils.obj_2_json(current_lin_qi),
 		"product_speeding":ObjectUtils.obj_2_json(product_speeding),
@@ -40,6 +43,7 @@ func save_json():
 func load_json(json:Dictionary):
 	id=json["id"]
 	name_str=json["name_str"]
+	description=json["description"]
 	people_id_list=json["people_id_list"]
 	current_lin_qi=ObjectUtils.json_2_obj(json["current_lin_qi"])
 	product_speeding=ObjectUtils.json_2_obj(json["product_speeding"])

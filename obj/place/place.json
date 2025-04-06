@@ -2,6 +2,7 @@
 	"filename": "res://obj/place/place.gd",
 	"id": "",
 	"name_str": "",
+	"description": "有人的地方就有江湖",
 	"people_id_list": [],
 	"product_speeding_times": 0.0,
 	"current_lin_qi": {

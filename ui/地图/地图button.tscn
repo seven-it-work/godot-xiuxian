@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpuc7a4xyriur"]
+
+[ext_resource type="Script" path="res://ui/地图/地图button.gd" id="1_2xymq"]
+
+[node name="地图button" type="PanelContainer"]
+custom_minimum_size = Vector2(160, 150)
+offset_right = 160.0
+offset_bottom = 150.0
+script = ExtResource("1_2xymq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+text = "地图描述"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "{地图名称}"

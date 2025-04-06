@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://clfwwieoue705"]
+
+[ext_resource type="PackedScene" uid="uid://ca18mecieqdb8" path="res://ui/tips/地图点击tips/地图详情.tscn" id="1_21xrs"]
+[ext_resource type="Script" path="res://ui/core/地图内容/地图内容.gd" id="1_t27h5"]
+
+[node name="地图内容" type="VBoxContainer"]
+offset_right = 1143.0
+offset_bottom = 645.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_t27h5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="所在地的人员信息" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "所在地的人员信息："
+
+[node name="人员" type="GridContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+columns = 10
+
+[node name="探索信息" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "探索信息："
+
+[node name="探索" type="GridContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+columns = 10
+
+[node name="空白" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="操作" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/操作"]
+layout_mode = 2
+text = "操作"
+
+[node name="空白" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="地图详情" parent="HBoxContainer" instance=ExtResource("1_21xrs")]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 1

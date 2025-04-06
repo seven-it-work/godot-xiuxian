@@ -1,22 +1,40 @@
+class_name Main
 extends Node2D
 
+func _init() -> void:
+	GlobalInfo.main_node=self
+	pass
 
 func _ready() -> void:
 	Log.info("开始")
-	#if GlobalInfo.has_save_file():
-		#$game_start/continue_game.show()
 	_on_start_game_pressed()
-	#$game_core/core.init_data()
 	pass
 
 func _process(delta: float) -> void:
+	pass
+
+# 切换tips
+func change_tips(tipsTscnName:String,data):
+	var tips=$HBoxContainer/tips.find_child(tipsTscnName)
+	if tips:
+		# 隐藏其它的节点
+		for i in $HBoxContainer/tips.get_children():
+			i.hide()
+		if tips.has_method("init"):
+			tips.init(data)
+		tips.show()
+		pass
+	else:
+		Log.error("不存在场景",tipsTscnName)
 	pass
 
 func _on_start_game_pressed() -> void:
 #	新游戏
 	GlobalInfo.start_new()
 	_start_game()
-	$"HBoxContainer/玩家信息/VBoxContainer/人物详情".init(GlobalInfo.player)
+	$"HBoxContainer/玩家信息/VBoxContainer/VBoxContainer/人物详情".init(GlobalInfo.player)
+	$"HBoxContainer/core/地图".init()
+	$"HBoxContainer/core/地图内容".init(GlobalInfo.place_map[GlobalInfo.player.place_id])
 	pass # Replace with function body.
 	
 func _start_game():
@@ -66,4 +84,18 @@ func _on_时间流逝_timeout() -> void:
 			data.execute(true)
 		GlobalInfo.ai_interaction_queue.clear()
 		pass
+	pass # Replace with function body.
+
+
+func _on_暂停_pressed() -> void:
+	GlobalInfo.is_pause=!GlobalInfo.is_pause
+	if GlobalInfo.is_pause:
+		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".text="继续"
+	else:
+		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".text="暂停"
+	pass # Replace with function body.
+
+
+func _on_游戏速度_value_changed(value: float) -> void:
+	$"时间流逝".wait_time=1/value
 	pass # Replace with function body.
