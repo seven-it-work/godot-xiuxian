@@ -1,19 +1,92 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqi0vduabab5i"]
+[gd_scene load_steps=5 format=3 uid="uid://cqi0vduabab5i"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cdewsuqswvjmv" path="res://ui/others/游戏时间/游戏时间.tscn" id="2_hc0md"]
+[ext_resource type="PackedScene" uid="uid://duns6b76maa2a" path="res://ui/tips/地图点击tips.tscn" id="2_jl8uk"]
+[ext_resource type="PackedScene" uid="uid://dekyku5jukbs2" path="res://ui/人物详情/人物详情.tscn" id="3_hb7c7"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="玩家信息" type="ScrollContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/玩家信息"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="游戏时间" parent="HBoxContainer/玩家信息/VBoxContainer" instance=ExtResource("2_hc0md")]
+layout_mode = 2
+
+[node name="人物详情" parent="HBoxContainer/玩家信息/VBoxContainer" instance=ExtResource("3_hb7c7")]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="HBoxContainer/玩家信息/VBoxContainer"]
+layout_mode = 2
+text = "游戏设置"
+alignment = 0
+
+[node name="Button" type="Button" parent="HBoxContainer/玩家信息/VBoxContainer"]
+layout_mode = 2
+text = "游戏设置"
+alignment = 0
+
+[node name="core" type="ScrollContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="地图" type="PanelContainer" parent="HBoxContainer/core"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/core/地图"]
+layout_mode = 2
+text = "我是地图"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/core/地图"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/core/地图/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer/core/地图/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "次金山"
+
+[node name="Button2" type="Button" parent="HBoxContainer/core/地图/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "次金山"
+
+[node name="地图详情" type="PanelContainer" parent="HBoxContainer/core"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/core/地图详情"]
+layout_mode = 2
+text = "我是地图详情"
+
+[node name="tips" type="ScrollContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="地图点击tips" parent="HBoxContainer/tips" instance=ExtResource("2_jl8uk")]
+layout_mode = 2
 
 [node name="people_list" type="SubViewport" parent="."]
 
 [node name="时间流逝" type="Timer" parent="."]
 wait_time = 0.01
 autostart = true
-
-[node name="时间str" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "时间"
 
 [connection signal="timeout" from="时间流逝" to="." method="_on_时间流逝_timeout"]

@@ -10,20 +10,13 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	# 将游戏时间GlobalInfo.game_time转换为年月日
-	var year=GlobalInfo.game_time/365
-	var days=GlobalInfo.game_time%365
-	var time_dir=Time.get_date_dict_from_unix_time(days*86400)
-	var month=time_dir["month"]
-	var day=time_dir["day"]
-	# 将时间字符串给到时间str这个Label
-	$"时间str".text=str(year)+"年"+str(month)+"月"+str(day)+"日"
 	pass
 
 func _on_start_game_pressed() -> void:
 #	新游戏
 	GlobalInfo.start_new()
 	_start_game()
+	$"HBoxContainer/玩家信息/VBoxContainer/人物详情".init(GlobalInfo.player)
 	pass # Replace with function body.
 	
 func _start_game():

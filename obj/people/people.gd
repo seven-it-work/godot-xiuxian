@@ -28,7 +28,7 @@ var id:String=""
 @export var attack_speed:RandomPropertie;
 ## 性别
 @export var is_man:bool=true
-## 最大寿命 （天为单位）
+## 最大寿命 （天为单位），这里没有用current改为birth来计算年龄
 @export var max_life:BarPropertie
 ## 出生时间
 @export var birth:float=0;
@@ -37,7 +37,7 @@ var id:String=""
 ## 冷却计数器
 var action_cool_times:int=0;
 var is_fight:bool=false
-## 魅力
+## 魅力(todo 目前没有用)
 @export var charm:int=0;
 ## 师傅id
 @export var shi_fu:String=""
