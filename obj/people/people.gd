@@ -59,7 +59,10 @@ var is_fight:bool=false
 const MAX_PREGNANCY_COUNT:float = 10.0
 ## 这个是怀孕的people
 @export var pregnancy_people:People
+## 战斗逃跑概率
+@export var fight_escape_probability:RandomPropertie
 
+#### 这下面是决策
 var recovery_decision:RecoveryDecision
 var practice_decision:PracticeDecision
 var social_decision:SocialDecision
@@ -391,7 +394,7 @@ func _after_beat(target:People):
 	#通过对方性别 以及魅力、当前灵力属性、对方执行亲属能力判定
 	
 	# 通过概率计算工具ObjectUtils.probability计算是否击杀他人
-	print(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"])
+	# print(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"])
 	if ObjectUtils.probability(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"]):
 		# 记录日志
 		Log.debug("击杀他人",{
@@ -473,9 +476,13 @@ func move_to(place:Place):
 	place.enter(self)
 
 ## 获得当前年龄 (天)
-func get_age()->int:
-	return GlobalInfo.game_time-self.birth
-
+func get_age(unit:String="day")->int:
+	var re=GlobalInfo.game_time-self.birth
+	if unit=="day":
+		return re
+	elif unit=="year":
+		return re/365
+	return re
 
 ## 是否死亡
 func is_dead()->bool:
@@ -554,7 +561,7 @@ func get_combat_capability()->float:
 #	攻击力：战力=（max+min）/2/(1+0.1*pow((max-min))/12
 	re+=atk.get_current_score()*0.3
 	re+=def.get_current_score()*0.2
-	print(self.name_str,re)
+	# print(self.name_str,re)
 	return re;
 
 ## 进行判断是否能进行攻击（一般ai使用）
@@ -616,6 +623,7 @@ func save_json():
 		"lingqi_absorb":ObjectUtils.obj_2_json(lingqi_absorb),
 		"lingqi_absorb_cool_time":ObjectUtils.obj_2_json(lingqi_absorb_cool_time),
 		"lingqi_absorb_cool_times":lingqi_absorb_cool_times,
+		"fight_escape_probability":ObjectUtils.obj_2_json(fight_escape_probability),
 	},true)
 	return re
 	
@@ -647,7 +655,7 @@ func load_json(json:Dictionary):
 	lingqi_absorb=ObjectUtils.json_2_obj(json["lingqi_absorb"])
 	lingqi_absorb_cool_time=ObjectUtils.json_2_obj(json["lingqi_absorb_cool_time"])
 	lingqi_absorb_cool_times=json["lingqi_absorb_cool_times"]
-
+	fight_escape_probability=ObjectUtils.json_2_obj(json["fight_escape_probability"])
 ## 击杀他人
 func kill(target:People):
 	GlobalInfo.remove_people(target)

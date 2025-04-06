@@ -67,5 +67,10 @@ func _on_时间流逝_timeout() -> void:
 			data.do_action()
 		# 人物年龄处理
 		# 人物生育处理
+		# 执行ai与玩家的交互动作
+		for data:DecisionEntity in GlobalInfo.ai_interaction_queue:
+			# todo 如果玩家愿意则执行，否则不执行
+			data.execute(true)
+		GlobalInfo.ai_interaction_queue.clear()
 		pass
 	pass # Replace with function body.

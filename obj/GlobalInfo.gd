@@ -12,6 +12,8 @@ static var game_time:int=10000
 static var statistics_map:Dictionary={}
 # 一些游戏设置信息
 static var game_setting:Dictionary={}
+# 一个队列，拥有记录玩家与ai的交互动作，里面存的是交互方法
+static var ai_interaction_queue:Array=[]
 
 ## 通过人员id获取人员
 static func get_people_by_id(id:String)->People:

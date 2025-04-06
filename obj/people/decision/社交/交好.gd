@@ -3,6 +3,11 @@ extends DecisionEntity
 
 @onready var people:People
 @onready var target_people:People
+var doubleXiuDecision:DoubleXiuDecision
+var becomeTeacherDecision:BecomeTeacherDecision
+var becomeLoverDecision:BecomeLoverDecision
+var marriageDecision:MarriageDecision
+var mateDecision:MateDecision
 
 func get_action_key()->String:
 	return "交好"
@@ -113,63 +118,25 @@ func _execute()->int:
 		#"送礼":
 			#pass
 		"双修":
-			# 相互之间提升对方当前灵气值的 5%~15%
-			var lingqi_percentage = randf_range(0.05, 0.15) * people.lingqi.get_current()
-			target_people.lingqi.add_current(lingqi_percentage)
-			people.lingqi.add_current(lingqi_percentage)
-			# 增加关系值
-			people.add_relation(target_people,randi_range(-1,14))
-			return Result.SUCCESS
+			if doubleXiuDecision==null:
+				doubleXiuDecision=DoubleXiuDecision.new(people,target_people)
+			return doubleXiuDecision.execute()
 		"拜师":
-			# 如果已经有师傅了，还是要拜师 则原来师傅将对你-100仇恨
-			if people.shi_fu != "" and people.shi_fu != target_people.id:
-				var old_master:People = GlobalInfo.get_people_by_id(people.shi_fu)
-				if old_master==null:
-					# 师傅已经死亡了
-					pass
-				else:
-					people.add_relation(old_master, -100)
-			# 增加关系值
-			people.add_relation(target_people, randi_range(5,20))
-			# 更新师傅ID
-			people.shi_fu = target_people.id
-			people.add_relation(target_people,randi_range(5,20))
-			return Result.SUCCESS
+			if becomeTeacherDecision==null:
+				becomeTeacherDecision=BecomeTeacherDecision.new(people,target_people)
+			return becomeTeacherDecision.execute()
 		"成为道侣":
-			# 道侣一个新人，道侣列表中的所有人之前关系-20
-			for id in people.lover_list:
-				var other:People = GlobalInfo.get_people_by_id(id)
-				if other==null:
-					# 对方已经死亡了
-					continue
-				people.add_relation(other, -20)
-			people.lover_list.append(target_people.id)
-			target_people.lover_list.append(people.id)
-			people.add_relation(target_people,randi_range(10,30))
-			return Result.SUCCESS
+			if becomeLoverDecision==null:
+				becomeLoverDecision=BecomeLoverDecision.new(people,target_people)
+			return becomeLoverDecision.execute()
 		"结婚":
-			# 结婚一个新人，结婚列表中的所有人之前关系-50
-			for id in people.wife_list:
-				var other:People = GlobalInfo.get_people_by_id(id)
-				if other==null:
-					# 对方已经死亡了
-					continue
-				people.add_relation(other, -50)
-			people.wife_list.append(target_people.id)
-			target_people.wife_list.append(people.id)
-			people.add_relation(target_people,randi_range(20,40))
-			return Result.SUCCESS
+			if marriageDecision==null:
+				marriageDecision=MarriageDecision.new(people,target_people)
+			return marriageDecision.execute()
 		"交配":
-			people.add_relation(target_people,randi_range(-2,10))
-			if target_people.is_man==people.is_man:
-				return Result.SUCCESS
-			if !target_people.is_man:
-				if target_people._calculate_pregnancy_probability():
-					target_people.pregnancy.current=1;
-			elif people.is_man:
-				if target_people._calculate_pregnancy_probability():
-					target_people.pregnancy.current=1;
-			return Result.SUCCESS
+			if mateDecision==null:
+				mateDecision=MateDecision.new(people,target_people)
+			return mateDecision.execute()
 		_:
 			Log.err("没有开发这个操作",action)
 	return Result.SUCCESS

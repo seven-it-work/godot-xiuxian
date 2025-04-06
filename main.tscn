@@ -8,7 +8,7 @@ script = ExtResource("1_ig7tw")
 [node name="people_list" type="SubViewport" parent="."]
 
 [node name="时间流逝" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.01
 autostart = true
 
 [node name="时间str" type="Label" parent="."]

@@ -121,6 +121,17 @@
 		"max_v": 280,
 		"min_v": 0
 	},
+	"fight_escape_probability":{
+		"current": 0.0,
+		"filename": "res://obj/properties/random_propertie.gd",
+		"growth_factor": 0.0,
+		"max_growth": 0.0,
+		"min_growth": 0.0,
+		"name_str": "战斗逃跑概率",
+		"score": 0.0,
+		"max_v": 20.0,
+		"min_v": 0.0
+	},
 	"name_str": "",
 	"place_id": "",
 	"relation": {

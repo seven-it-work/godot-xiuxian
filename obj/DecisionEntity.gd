@@ -24,9 +24,10 @@ func _execute()->int:
 	return Result.SUCCESS
 
 ## 执行 0表示失败 200 表示成功
-func execute()->int:
-	if _before_execute()==Result.FAILURE:
-		return Result.FAILURE
+func execute(ignore_before_execute:bool=false)->int:
+	if !ignore_before_execute:
+		if _before_execute()==Result.FAILURE:
+			return Result.FAILURE
 	var re= _execute()
 	if re==Result.SUCCESS:
 		# 获取执行动作key，并将它记录到 statistics_map 中
