@@ -43,9 +43,9 @@ static func calculate_abortion_probability(people:People)->bool:
 	if ObjectUtils.probability(min(total_probability, 1.0)*100):
 		Log.dbg("流产概率计算信息：",{
 		"怀孕次数":people.pregnancy_times,
-		"怀孕次数产生概率":people.pregnancy_count_factor,
+		"怀孕次数产生概率":pregnancy_count_factor,
 		"怀孕周期":people.pregnancy.get_current(),
-		"怀孕周期产生概率":people.pregnancy_weeks_factor,
+		"怀孕周期产生概率":pregnancy_weeks_factor,
 		"年龄":people.get_age(),
 		"最大年龄":people.max_life.max_v,
 		"年龄产生概率":age_factor,

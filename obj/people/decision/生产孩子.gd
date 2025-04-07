@@ -36,7 +36,7 @@ func _生产孩子(people:People):
 	# 孩子出生成功。设置孩子属性
 	people.pregnancy_people.birth=GlobalInfo.game_time
 	# 孩子进入母亲所在地
-	var place:Place=GlobalInfo.place_map[self.place_id]
+	var place:Place=GlobalInfo.place_map[people.place_id]
 	place.enter(people.pregnancy_people)
 	# 将孩子加入到 GlobalInfo.people_map 中
 	GlobalInfo.people_map[people.pregnancy_people.id]=people.pregnancy_people

@@ -35,8 +35,9 @@ static func remove_people(target:People):
 
 ## 初始化统计信息里的一些数据
 static func init_statistics_map():
+	statistics_map.clear()
 	statistics_map["年初人口数"]=people_map.values().size()
-	statistics_map["出生人数"]=0
+	statistics_map["生产孩子"]=0
 	statistics_map["死亡人数"]=0
 
 

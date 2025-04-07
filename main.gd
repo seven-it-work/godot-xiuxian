@@ -63,7 +63,7 @@ func _on_时间流逝_timeout() -> void:
 			# 平均人口
 			var avg_people_size:float=(GlobalInfo.people_map.values().size()+GlobalInfo.statistics_map["年初人口数"])/2
 			# 计算年出生率
-			var birth_rate=GlobalInfo.statistics_map["出生人数"]/avg_people_size
+			var birth_rate=GlobalInfo.statistics_map["生产孩子"]/avg_people_size
 			# 计算年死亡率
 			var death_rate=GlobalInfo.statistics_map["死亡人数"]/avg_people_size
 			# 计算年人口增长率

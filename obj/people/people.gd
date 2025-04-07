@@ -108,16 +108,16 @@ func do_action():
 		practice_decision=PracticeDecision.new(self)
 	if practice_decision.execute()==DecisionEntity.Result.SUCCESS:
 		return
-	## 社交
-	if social_decision==null:
-		social_decision=SocialDecision.new(self)
-	if social_decision.execute()==DecisionEntity.Result.SUCCESS:
-		return
 	# 还可以在此地留传承 接受传承
 	## 随机50~90的概率进行移动
 	if move_decision==null:
 		move_decision=MoveDecision.new(self)
 	if move_decision.execute()==DecisionEntity.Result.SUCCESS:
+		return
+	## 社交
+	if social_decision==null:
+		social_decision=SocialDecision.new(self)
+	if social_decision.execute()==DecisionEntity.Result.SUCCESS:
 		return
 	# 什么都不做
 	pass

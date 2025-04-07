@@ -10,6 +10,36 @@ class_name GrowthPropertie
 ## 成长评分
 @onready var score:float=0;
 
+## 继承父母
+# 两种模式
+# 1、区间混合(稳定)
+# max_growth=(father.max_growth+mother.max_growth)/2
+# 然后再上下波动-5%~5%
+# 随机择优
+# 父亲权重=范围(0,1)
+# max_growth=(father.max_growth*父亲权重+mother.max_growth*(1-mother.max_growth))
+# 然后再上下波动-2%~2%
+# 然后再有1%概率突变，突变再上下波动-5%~5%
+func inherit_parent(father:GrowthPropertie,mother:GrowthPropertie):
+	if randi_range(0,1)==0:
+		# 区间混合
+		max_growth=(father.max_growth+mother.max_growth)/2
+		min_growth=(father.min_growth+mother.min_growth)/2
+		# 然后再上下波动-5%~5%
+		max_growth=max_growth*(1+randf_range(-0.05,0.05))
+		min_growth=min_growth*(1+randf_range(-0.05,0.05))
+	else:
+		# 随机择优
+		var father_weight=randf_range(0,1)
+		max_growth=father.max_growth*father_weight+mother.max_growth*(1-father_weight)
+		min_growth=father.min_growth*father_weight+mother.min_growth*(1-father_weight)
+		# 再上下波动-2%~2%
+		max_growth=max_growth*(1+randf_range(-0.02,0.02))
+		min_growth=min_growth*(1+randf_range(-0.02,0.02))
+	# 然后再有1%概率突变，突变再上下波动-5%~5%
+	if ObjectUtils.probability(1):
+		max_growth=max_growth*(1+randf_range(-0.05,0.05))
+		min_growth=min_growth*(1+randf_range(-0.05,0.05))
 
 func save_json():
 	var re:Dictionary=super.save_json()
