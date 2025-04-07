@@ -55,7 +55,19 @@ func _after_execute():
 	pass
 
 ## 生成新小孩
-func _生成新的小孩():
+func _生成新的小孩(father:People,mother:People):
+	# 创建一下新的people对象为小孩
+	# 将小孩的父母关系添加好
+	# 小孩的属性设置
+	# 小孩的属性取值公式有两种：
+	# 1、区间混合(稳定)
+	# max_growth=(father.max_growth+mother.max_growth)/2
+	# 然后再上下波动-5%~5%
+	# 2、概率择优（波动）
+	# 父亲权重=范围(0,1)
+	# max_growth=(father.max_growth*父亲权重+mother.max_growth*(1-mother.max_growth))
+	# 然后再上下波动-2%~2%
+	# 然后再有1%概率突变，突变再上下波动-5%~5%
 	pass
 
 # 计算是否怀孕成功
