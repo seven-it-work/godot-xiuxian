@@ -13,6 +13,9 @@ func _before_execute()->int:
 	var recovery_rate=(people.hp.max_v-people.hp.get_current())/people.hp.max_v*100
 	if ObjectUtils.probability(recovery_rate):
 		return Result.SUCCESS
+	# 如果已经怀孕，则生命值不满时就恢复
+	if people.is_pregnancy() && people.hp.get_current()<people.hp.max_v:
+		return Result.SUCCESS
 	return Result.FAILURE
 
 func _after_execute():

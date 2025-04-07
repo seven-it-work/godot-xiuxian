@@ -14,9 +14,11 @@ func _after_execute():
 
 func _before_execute()->int:
 	if people.lingqi_absorb_cool_times>0:
-		people.lingqi_absorb_cool_times-=1
 		return Result.FAILURE
 	if ObjectUtils.probability(50):
+		return Result.SUCCESS
+	# 如果怀孕了则进行修炼
+	if people.is_pregnancy():
 		return Result.SUCCESS
 	return Result.FAILURE
 

@@ -10,7 +10,12 @@ func get_action_key()->String:
 	return "移动"
 
 func _before_execute()->int:
-	if ObjectUtils.probability(randi_range(50,90)):
+	if people.is_pregnancy():
+		# 如果怀孕了，当前地方人越多，就大概移动
+		if ObjectUtils.probability(1,people.current_place().get_all_people().size()):
+			return Result.FAILURE
+		return Result.SUCCESS
+	elif ObjectUtils.probability(randi_range(50,90)):
 		return Result.SUCCESS
 	return Result.FAILURE
 

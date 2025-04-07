@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://032gjitbhijh"]
+
+[ext_resource type="PackedScene" uid="uid://dekyku5jukbs2" path="res://ui/人物详情/人物详情.tscn" id="1_2mcjh"]
+[ext_resource type="Script" path="res://ui/tips/人员点击tips/人员点击tips.gd" id="1_qya16"]
+
+[node name="人员点击tips" type="VBoxContainer"]
+script = ExtResource("1_qya16")
+
+[node name="人物详情" parent="." instance=ExtResource("1_2mcjh")]
+layout_mode = 2
+
+[node name="空" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="操作" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="操作"]
+layout_mode = 2
+text = "操作"

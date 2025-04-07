@@ -14,7 +14,7 @@ func init(people:People):
 	$寿命.propertie=people.max_life
 	$灵气值.propertie=people.lingqi
 	$吸收灵气量.propertie=people.lingqi_absorb
-	$吸收灵气冷却时间.propertie=people.lingqi_absorb_cool_time
+	$吸收灵气冷却.propertie=people.lingqi_absorb_cool_time
 	$生命值.propertie=people.hp
 	$攻击力.propertie=people.atk
 	$防御力.propertie=people.def

@@ -11,6 +11,11 @@ func get_action_key()->String:
 	return "社交"
 
 func _before_execute()->int:
+	# 怀孕大概率不社交 规避风险
+	if people.is_pregnancy():
+		if ObjectUtils.probability(80,100):
+			return Result.FAILURE
+		
 	if GlobalInfo.place_map.is_empty():
 		return Result.FAILURE
 	var place:Place=GlobalInfo.place_map[people.place_id]

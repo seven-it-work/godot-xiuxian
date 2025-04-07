@@ -1,15 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqi0vduabab5i"]
+[gd_scene load_steps=10 format=3 uid="uid://cqi0vduabab5i"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cdewsuqswvjmv" path="res://ui/others/游戏时间/游戏时间.tscn" id="2_hc0md"]
 [ext_resource type="PackedScene" uid="uid://duns6b76maa2a" path="res://ui/tips/地图点击tips/地图点击tips.tscn" id="2_jl8uk"]
 [ext_resource type="PackedScene" uid="uid://dekyku5jukbs2" path="res://ui/人物详情/人物详情.tscn" id="3_hb7c7"]
 [ext_resource type="PackedScene" uid="uid://dlkk8ls71gbkh" path="res://ui/地图/地图.tscn" id="4_quw5l"]
-[ext_resource type="PackedScene" uid="uid://clfwwieoue705" path="res://ui/core/地图内容/地图内容.tscn" id="5_fmg3q"]
+[ext_resource type="PackedScene" uid="uid://bh58wwtdxvjqh" path="res://ui/core/地图内容/地图内容.tscn" id="5_fmg3q"]
+[ext_resource type="PackedScene" uid="uid://032gjitbhijh" path="res://ui/tips/人员点击tips/人员点击tips.tscn" id="7_i4727"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwkk2"]
 content_margin_left = 60.0
 content_margin_top = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfejm"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -74,6 +81,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_kwkk2")
 
 [node name="地图内容" parent="HBoxContainer/core" instance=ExtResource("5_fmg3q")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bfejm")
 
 [node name="tips" type="ScrollContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(160, 0)
@@ -86,12 +94,11 @@ layout_mode = 2
 [node name="空tips" type="Control" parent="HBoxContainer/tips"]
 layout_mode = 2
 
-[node name="人员点击tips" type="VBoxContainer" parent="HBoxContainer/tips"]
+[node name="人员点击tips" parent="HBoxContainer/tips" instance=ExtResource("7_i4727")]
+visible = false
 layout_mode = 2
-
-[node name="Label" type="Label" parent="HBoxContainer/tips/人员点击tips"]
-layout_mode = 2
-text = "人员点击tips"
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="people_list" type="SubViewport" parent="."]
 

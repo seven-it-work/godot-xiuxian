@@ -11,6 +11,10 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
+	if GlobalInfo.is_pause:
+		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".text="继续"
+	else:
+		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".text="暂停"
 	pass
 
 # 切换tips
@@ -89,10 +93,8 @@ func _on_时间流逝_timeout() -> void:
 
 func _on_暂停_pressed() -> void:
 	GlobalInfo.is_pause=!GlobalInfo.is_pause
-	if GlobalInfo.is_pause:
-		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".text="继续"
-	else:
-		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".text="暂停"
+	if !GlobalInfo.is_pause:
+		$"HBoxContainer/tips/人员点击tips".hide()
 	pass # Replace with function body.
 
 

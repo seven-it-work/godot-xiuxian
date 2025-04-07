@@ -33,9 +33,9 @@ layout_mode = 2
 layout_mode = 2
 "名称" = "吸收灵气量"
 
-[node name="吸收灵气冷却时间" parent="." instance=ExtResource("2_egbrg")]
+[node name="吸收灵气冷却" parent="." instance=ExtResource("2_egbrg")]
 layout_mode = 2
-"名称" = "吸收灵气冷却时间"
+"名称" = "吸收灵气冷却"
 
 [node name="生命值" parent="." instance=ExtResource("1_1i8yk")]
 layout_mode = 2
