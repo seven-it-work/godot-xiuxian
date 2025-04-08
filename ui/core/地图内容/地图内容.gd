@@ -13,14 +13,14 @@ func _process(delta: float) -> void:
 		if not ArrayUtls.is_equal(new_people_id_cache,people_id_cache):
 			update_people_list()
 	if GlobalInfo.player:
-		$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".show()
-		$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".init(func(): return GlobalInfo.player.action_cool_times)
 		if GlobalInfo.player.can_update():
+			$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".disabled=false
 			if !$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".visible:
 				$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".show()
 				$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".init(func(): return GlobalInfo.player.action_cool_times)
 				$"VBoxContainer/HBoxContainer/VBoxContainer/操作/修炼".disabled=true
 		else:
+			$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".disabled=true
 			if $"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".visible:
 				$"VBoxContainer/HBoxContainer/VBoxContainer/操作/升级".hide()
 				
@@ -52,9 +52,12 @@ func _show_detail(people:People):
 func _on_修炼_pressed() -> void:
 	GlobalInfo.player.xiu_lian()
 	$"VBoxContainer/HBoxContainer/VBoxContainer/操作/修炼".init(func(): return maxi(GlobalInfo.player.action_cool_times,GlobalInfo.player.lingqi_absorb_cool_times))
+	GlobalInfo.player.action_cool_times=GlobalInfo.player.action_cool_time.get_current()
 	pass # Replace with function body.
 
 
 func _on_升级_pressed() -> void:
 	GlobalInfo.player.do_update()
+	$"VBoxContainer/HBoxContainer/VBoxContainer/操作/修炼".disabled=false
+	GlobalInfo.player.action_cool_times=GlobalInfo.player.action_cool_time.get_current()
 	pass # Replace with function body.

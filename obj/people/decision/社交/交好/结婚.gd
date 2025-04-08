@@ -1,13 +1,17 @@
 class_name MarriageDecision
 extends DecisionEntity
-var people:People
-var target_people:People
 
-func _init(people:People,target_people:People):
-	self.people=people
-	self.target_people=target_people
 
-func _before_execute()->int:
+func _before_execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	# 18岁以下不能结婚
 	if target_people.get_age("year")<18:
 		return Result.FAILURE
@@ -20,7 +24,16 @@ func _before_execute()->int:
 		return Result.FAILURE
 	return Result.SUCCESS
 
-func _execute()->int:
+func _execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	# 结婚一个新人，结婚列表中的所有人之前关系-50
 	for id in people.wife_list:
 		var other:People = GlobalInfo.get_people_by_id(id)
@@ -33,8 +46,8 @@ func _execute()->int:
 	people.add_relation(target_people,randi_range(20,40))
 	return Result.SUCCESS
 
-func get_action_key()->String:
+func get_action_key(dic:Dictionary={})->String:
 	return "结婚"
 
-func _after_execute():
+func _after_execute(dic:Dictionary={}):
 	pass

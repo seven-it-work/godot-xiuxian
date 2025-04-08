@@ -1,14 +1,16 @@
 class_name BecomeLoverDecision
 extends DecisionEntity
 
-var people:People
-var target_people:People
-
-func _init(people:People,target_people:People):
-	self.people=people
-	self.target_people=target_people
-
-func _before_execute()->int:
+func _before_execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	# 15岁以下不能成为道侣
 	if target_people.get_age("year")<15:
 		return Result.FAILURE
@@ -18,7 +20,16 @@ func _before_execute()->int:
 		return Result.FAILURE
 	return Result.SUCCESS
 
-func _execute()->int:
+func _execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	# 道侣一个新人，道侣列表中的所有人之前关系-20
 	for id in people.lover_list:
 		var other:People = GlobalInfo.get_people_by_id(id)
@@ -31,8 +42,8 @@ func _execute()->int:
 	people.add_relation(target_people,randi_range(10,30))
 	return Result.SUCCESS
 
-func get_action_key()->String:
+func get_action_key(dic:Dictionary={})->String:
 	return "成为道侣"
 
-func _after_execute():
+func _after_execute(dic:Dictionary={}):
 	pass

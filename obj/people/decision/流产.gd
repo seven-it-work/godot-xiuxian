@@ -1,23 +1,22 @@
 class_name AbortionDecision
 extends DecisionEntity
 
-@onready var people:People
-
-func _init(people:People):
-	self.people=people
-
-func get_action_key()->String:
+func get_action_key(dic:Dictionary={})->String:
 	return "流产"
 
-func _before_execute()->int:
+func _before_execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
 	if !people.is_pregnancy():
 		return Result.FAILURE
 	return calculate_abortion_probability(people)
 
-func _after_execute():
+func _after_execute(dic:Dictionary={}):
 	pass
 
-func _execute()->int:
+func _execute(dic:Dictionary={})->int:
 	# todo 流产了，执行流产动作
 	return Result.SUCCESS
 

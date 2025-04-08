@@ -1,24 +1,37 @@
 class_name SocialBadDecision
 extends DecisionEntity
 
-@onready var people:People
-@onready var target_people:People
-var attackBehaviorDecision:AttackBehaviorDecision
+var attackBehaviorDecision:AttackBehaviorDecision=AttackBehaviorDecision.new()
 
-func get_action_key()->String:
+func get_action_key(dic:Dictionary={})->String:
 	return "交恶"
 
-func _init(people:People,target_people:People):
-	self.people=people
-	self.target_people=target_people
 
-func _before_execute()->int:
+func _before_execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	# 不能欺负10岁以下的人
 	if target_people.get_age("year")<10:
 		return Result.FAILURE
 	return Result.SUCCESS
 
-func _execute()->int:
+func _execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	Log.debug(people.name_str+" 与 "+target_people.name_str+" 交恶 ")
 	var weight_1={
 		"攻击":GlobalInfo.people_map.values().size(),
@@ -33,9 +46,7 @@ func _execute()->int:
 	Log.debug(people.name_str+"执行动作"+action,weight_1)
 	match action:
 		"攻击":
-			if attackBehaviorDecision==null:
-				attackBehaviorDecision=AttackBehaviorDecision.new(people,target_people)
-			return attackBehaviorDecision.execute()
+			return attackBehaviorDecision.execute(dic)
 		"辱骂":
 			people.add_relation(target_people,randi_range(-10,1))
 			return Result.SUCCESS
@@ -43,5 +54,14 @@ func _execute()->int:
 			Log.err("没有开发这个操作",action)
 	return Result.SUCCESS
 
-func _after_execute():
+func _after_execute(dic:Dictionary={}):
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	people.action_cool_times=people.action_cool_time.get_current()

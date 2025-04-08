@@ -1,30 +1,39 @@
 class_name PregnancyDecision
 extends DecisionEntity
 
-var people:People
-var target_people:People
 
-func get_action_key()->String:
+func get_action_key(dic:Dictionary={})->String:
 	return "怀孕"
 
-func _init(people:People,target_people:People) -> void:
-	self.people=people
-	self.target_people=target_people
 
-func _before_execute()->int:
+func _before_execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
 	if people.is_pregnancy():
 		return Result.FAILURE
 	if people.is_man:
 		return Result.FAILURE
 	return _calculate_pregnancy_probability(people)
 
-func _execute()->int:
+func _execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
+
 	people.pregnancy.current=1;
 	# 生产孩子胚胎
 	people.pregnancy_people=_generate_new_child(target_people,people)
 	return Result.SUCCESS
 
-func _after_execute():
+func _after_execute(dic:Dictionary={}):
 	pass
 
 

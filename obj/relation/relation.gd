@@ -1,4 +1,4 @@
-class_name Relation extends Node2D
+class_name Relation extends Node
 
 ## 唯一id
 var id:String=""

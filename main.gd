@@ -75,17 +75,17 @@ func _on_时间流逝_timeout() -> void:
 			# 年数据计算清理
 			GlobalInfo.init_statistics_map()
 			year_count=0
-		#这里要打乱人员顺序
+#		#这里要打乱人员顺序
 		for data:People in GlobalInfo.people_map.values():
+			if data.is_player:
+				data.hp.add_current(100)
 			data.do_action()
 		for data:Place in GlobalInfo.place_map.values():
 			data.do_action()
-		# 人物年龄处理
-		# 人物生育处理
 		# 执行ai与玩家的交互动作
-		for data:DecisionEntity in GlobalInfo.ai_interaction_queue:
-			# todo 如果玩家愿意则执行，否则不执行
-			data.execute(true)
+		#for data:DecisionEntity in GlobalInfo.ai_interaction_queue:
+			## todo 如果玩家愿意则执行，否则不执行
+			#data.execute({"people":self},true)
 		GlobalInfo.ai_interaction_queue.clear()
 		pass
 	pass # Replace with function body.

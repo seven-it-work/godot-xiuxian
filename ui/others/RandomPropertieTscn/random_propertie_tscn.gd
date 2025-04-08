@@ -6,4 +6,4 @@ extends HBoxContainer
 func _process(delta: float) -> void:
 	$Label.text=名称
 	if propertie:
-		$value.text="%s~%s"%[propertie.min_v,propertie.max_v]
+		$value.text="%.1f~%.1f"%[propertie.min_v,propertie.max_v]

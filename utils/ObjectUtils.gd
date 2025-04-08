@@ -153,3 +153,29 @@ static func get_nested_value(data:Dictionary,key_path:String):
 		else:
 			return null
 	return current;
+
+## 释放对象以及其属性对象
+static func free_obj(obj):
+	if obj==null: return
+	if obj is Dictionary:
+		for i in obj.values():
+			free_obj(i)
+	elif obj is Array:
+		for i in obj:
+			free_obj(i)
+	elif obj is Node:
+		for i in obj.get_property_list():
+			if i.usage==4102:
+				if obj[i.name]:
+					free_obj(obj[i.name])
+		obj.queue_free()
+	elif obj is Object:
+		for i in obj.get_property_list():
+			if i.usage==4102:
+				if obj[i.name]:
+					free_obj(obj[i.name])
+		obj.free()
+	else:
+		# 不释放
+		pass
+	pass

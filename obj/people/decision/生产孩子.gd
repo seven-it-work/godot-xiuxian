@@ -1,23 +1,31 @@
 class_name ProduceChildrenDecision
 extends DecisionEntity
 
-@onready var people:People
 
-func _init(people:People):
-	self.people=people
-
-func get_action_key()->String:
+func get_action_key(dic:Dictionary={})->String:
 	return "生产孩子"
 
-func _before_execute()->int:
+func _before_execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
 	if !people.is_pregnancy():
 		return Result.FAILURE
 	return Result.SUCCESS
 
-func _after_execute():
+func _after_execute(dic:Dictionary={}):
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
 	people.action_cool_times=people.action_cool_time.get_current()
 
-func _execute()->int:
+func _execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
 	_生产孩子(people)
 	return Result.SUCCESS
 

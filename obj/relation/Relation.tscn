@@ -1,7 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqcufoo3e8yp"]
+[gd_scene format=3 uid="uid://dqcufoo3e8yp"]
 
-[sub_resource type="Resource" id="Resource_c2w4l"]
-metadata/__load_path__ = "res://obj/relation/relation.gd"
-
-[node name="Relation" type="Node2D"]
-script = SubResource("Resource_c2w4l")
+[node name="Relation" type="Node"]

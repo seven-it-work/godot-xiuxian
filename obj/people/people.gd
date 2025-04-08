@@ -62,12 +62,7 @@ const MAX_PREGNANCY_COUNT:float = 10.0
 ## 战斗逃跑概率
 @export var fight_escape_probability:RandomPropertie
 
-#### 这下面是决策
-var recovery_decision:RecoveryDecision
-var practice_decision:PracticeDecision
-var social_decision:SocialDecision
-var move_decision:MoveDecision
-var abortion_decision:AbortionDecision
+
 
 func do_action():
 	# 年龄计算
@@ -81,43 +76,33 @@ func do_action():
 	if is_pregnancy():
 		pregnancy.add_current(1)
 		if pregnancy.get_current()>=pregnancy.max_v:
-			ProduceChildrenDecision.new(self).execute()
+			GlobalInfo.produce_children_decision.execute({"people":self})
 			return
 		else:
 			# 概率流产计算
-			if abortion_decision==null:
-				abortion_decision=AbortionDecision.new(self)
-			if abortion_decision.execute()==DecisionEntity.Result.SUCCESS:
+			if GlobalInfo.abortion_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
 				action_cool_times=action_cool_time.get_current()
 			return
 			pass
+	if lingqi_absorb_cool_times>0:
+		lingqi_absorb_cool_times-=1
 	if action_cool_times>0:
 		action_cool_times-=1
 		return
-	if lingqi_absorb_cool_times>0:
-		lingqi_absorb_cool_times-=1
 	if is_player:
 		return
 	# 恢复
-	if recovery_decision==null:
-		recovery_decision=RecoveryDecision.new(self)
-	if recovery_decision.execute()==DecisionEntity.Result.SUCCESS:
+	if GlobalInfo.recovery_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
 		return
 	## 修炼判断
-	if practice_decision==null:
-		practice_decision=PracticeDecision.new(self)
-	if practice_decision.execute()==DecisionEntity.Result.SUCCESS:
+	if GlobalInfo.practice_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
+		return
+	## 社交
+	if GlobalInfo.social_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
 		return
 	# 还可以在此地留传承 接受传承
 	## 随机50~90的概率进行移动
-	if move_decision==null:
-		move_decision=MoveDecision.new(self)
-	if move_decision.execute()==DecisionEntity.Result.SUCCESS:
-		return
-	## 社交
-	if social_decision==null:
-		social_decision=SocialDecision.new(self)
-	if social_decision.execute()==DecisionEntity.Result.SUCCESS:
+	if GlobalInfo.move_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
 		return
 	# 什么都不做
 	pass
@@ -178,17 +163,18 @@ func is_dead()->bool:
 	return hp.get_current()<=0;
 
 ## 创建新的关系
-func _add_new_relation(target:People):
+func _add_new_relation(target:People,is_add_target:bool):
 	var re=Relation.create_relation(self.id,target.id)
 	relation[target.id]=re;
-	target.relation[self.id]=re;
+	if is_add_target:
+		target._add_new_relation(self,false)
 
 ## 添加关系
 func add_relation(target:People,n:int=5):
 	if relation.has(target.id):
 		relation[target.id].add_relation(n)
 	else:
-		_add_new_relation(target)
+		_add_new_relation(target,true)
 		self.add_relation(target,n)
 
 func _init() -> void:
@@ -225,13 +211,16 @@ func xiu_lian():
 
 ## 执行升级
 func do_update():
-	#Log.debug("升级")
-	self.lv.add_current(1)
-	var c_list=$SubViewport.get_children()
+	Log.debug("升级")
+	var up_field_list=[
+		"lv","atk","attack_speed","def","hp","lingqi",
+		"lingqi_absorb","lingqi_absorb_cool_time",
+		"action_cool_time","max_life","fight_escape_probability",
+		
+	]
 	self.lingqi.random_add_growth(self.lv.get_current())
-	for i in c_list:
-		if i is GrowthPropertie:
-			i.do_growth()
+	for i in up_field_list:
+		self[i].do_growth()
 	self.lingqi.current=0
 	pass
 
@@ -362,11 +351,12 @@ func lu_ding(target:People):
 func current_place()->Place:
 	return GlobalInfo.place_map[place_id]
 
+
+var regex:=RegEx.new()
 ## 日志输出辅助方法
 func str_format(msg:String)->String:
 	var data=save_json()
 	var result:=msg;
-	var regex:=RegEx.new()
 	regex.compile("\\{([^}]+)\\}")
 	for match in regex.search_all(msg):
 		var placeholder:=match.get_string()

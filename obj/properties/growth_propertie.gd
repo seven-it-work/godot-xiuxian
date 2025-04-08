@@ -88,6 +88,6 @@ func random_add_growth(growth_num:float):
 		else:
 			min_growth+=add;
 
-## 执行成长(一般有子类去实现)
+## 执行成长
 func do_growth():
-	pass
+	current+=get_growth()

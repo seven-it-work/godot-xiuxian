@@ -7,10 +7,12 @@ func _process(delta: float) -> void:
 		$人物名称.text = people.name_str
 		$人物等级.text = "等级：" + str(people.lv.current)
 		$年龄.text = "年龄：%s岁" % str(people.get_age("year"))
+		$寿命.propertie.current=people.get_age()
 	pass
 
 func init(people:People):
 	self.people=people
+	$寿命.propertie=people.max_life
 	$寿命.propertie=people.max_life
 	$灵气值.propertie=people.lingqi
 	$吸收灵气量.propertie=people.lingqi_absorb

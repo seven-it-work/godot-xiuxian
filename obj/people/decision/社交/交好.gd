@@ -1,25 +1,28 @@
 class_name SocialGoodDecision
 extends DecisionEntity
 
-@onready var people:People
-@onready var target_people:People
-var doubleXiuDecision:DoubleXiuDecision
-var becomeTeacherDecision:BecomeTeacherDecision
-var becomeLoverDecision:BecomeLoverDecision
-var marriageDecision:MarriageDecision
-var mateDecision:MateDecision
+var doubleXiuDecision:DoubleXiuDecision=DoubleXiuDecision.new()
+var becomeTeacherDecision:BecomeTeacherDecision=BecomeTeacherDecision.new()
+var becomeLoverDecision:BecomeLoverDecision=BecomeLoverDecision.new()
+var marriageDecision:MarriageDecision=MarriageDecision.new()
+var mateDecision:MateDecision=MateDecision.new()
 
-func get_action_key()->String:
+func get_action_key(dic:Dictionary={})->String:
 	return "交好"
 
-func _init(people:People,target_people:People):
-	self.people=people
-	self.target_people=target_people
-
-func _before_execute()->int:
+func _before_execute(dic:Dictionary={})->int:
 	return Result.SUCCESS
 
-func _execute()->int:
+func _execute(dic:Dictionary={})->int:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	Log.debug(people.name_str+" 与 "+target_people.name_str+" 交好 ")
 	var weight_1={
 		"问好":70,
@@ -118,28 +121,27 @@ func _execute()->int:
 		#"送礼":
 			#pass
 		"双修":
-			if doubleXiuDecision==null:
-				doubleXiuDecision=DoubleXiuDecision.new(people,target_people)
-			return doubleXiuDecision.execute()
+			return doubleXiuDecision.execute(dic)
 		"拜师":
-			if becomeTeacherDecision==null:
-				becomeTeacherDecision=BecomeTeacherDecision.new(people,target_people)
-			return becomeTeacherDecision.execute()
+			return becomeTeacherDecision.execute(dic)
 		"成为道侣":
-			if becomeLoverDecision==null:
-				becomeLoverDecision=BecomeLoverDecision.new(people,target_people)
-			return becomeLoverDecision.execute()
+			return becomeLoverDecision.execute(dic)
 		"结婚":
-			if marriageDecision==null:
-				marriageDecision=MarriageDecision.new(people,target_people)
-			return marriageDecision.execute()
+			return marriageDecision.execute(dic)
 		"交配":
-			if mateDecision==null:
-				mateDecision=MateDecision.new(people,target_people)
-			return mateDecision.execute()
+			return mateDecision.execute(dic)
 		_:
 			Log.err("没有开发这个操作",action)
 	return Result.SUCCESS
 
-func _after_execute():
+func _after_execute(dic:Dictionary={}):
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var people=dic.get("people")
+	
+	if !dic.has("target_people"):
+		Log.err("参数错误")
+		return Result.FAILURE
+	var target_people=dic.get("target_people")
 	people.action_cool_times=people.action_cool_time.get_current()

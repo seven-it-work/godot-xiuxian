@@ -17,6 +17,14 @@ static var game_setting:Dictionary={}
 # 一个队列，拥有记录玩家与ai的交互动作，里面存的是交互方法
 static var ai_interaction_queue:Array=[]
 
+#### 这下面是决策
+static var recovery_decision:RecoveryDecision=RecoveryDecision.new()
+static var practice_decision:PracticeDecision=PracticeDecision.new()
+static var social_decision:SocialDecision=SocialDecision.new()
+static var move_decision:MoveDecision=MoveDecision.new()
+static var abortion_decision:AbortionDecision=AbortionDecision.new()
+static var produce_children_decision:ProduceChildrenDecision=ProduceChildrenDecision.new()
+
 ## 通过人员id获取人员
 static func get_people_by_id(id:String)->People:
 	if people_map.has(id):
@@ -32,6 +40,7 @@ static func remove_people(target:People):
 	GlobalInfo.people_map.erase(target.id)
 	# 在statistics_map中key为死亡人数+1
 	statistics_map["死亡人数"]+=1
+	ObjectUtils.free_obj(target)
 
 ## 初始化统计信息里的一些数据
 static func init_statistics_map():

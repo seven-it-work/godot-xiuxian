@@ -2,5 +2,22 @@
 
 [ext_resource type="Script" path="res://ui/others/动作冷却按钮/动作冷却按钮.gd" id="1_rg171"]
 
-[node name="动作冷却按钮" type="Button"]
+[node name="动作冷却按钮" type="PanelContainer"]
+offset_right = 68.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
 script = ExtResource("1_rg171")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="自动" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "{操作}"
+
+[connection signal="toggled" from="HBoxContainer/自动" to="." method="_on_自动_toggled"]
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]
