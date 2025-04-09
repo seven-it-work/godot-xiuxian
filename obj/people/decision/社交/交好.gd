@@ -6,22 +6,24 @@ var becomeTeacherDecision:BecomeTeacherDecision=BecomeTeacherDecision.new()
 var becomeLoverDecision:BecomeLoverDecision=BecomeLoverDecision.new()
 var marriageDecision:MarriageDecision=MarriageDecision.new()
 var mateDecision:MateDecision=MateDecision.new()
+var friendlyDecision:FriendlyDecision=FriendlyDecision.new()
+var argumentDecision:ArgumentDecision=ArgumentDecision.new()
 
 func get_action_key(dic:Dictionary={})->String:
 	return "交好"
 
-func _before_execute(dic:Dictionary={})->int:
-	return Result.SUCCESS
+func _before_execute(dic:Dictionary={})->Dictionary:
+	return DecisionEntity.Success()
 
-func _execute(dic:Dictionary={})->int:
+func _execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	Log.debug(people.name_str+" 与 "+target_people.name_str+" 交好 ")
 	var weight_1={
@@ -107,17 +109,13 @@ func _execute(dic:Dictionary={})->int:
 	Log.debug(people.name_str+"执行动作"+action,weight_1)
 	match action:
 		"问好":
-			## 增加关系值
-			people.add_relation(target_people)
-			return Result.SUCCESS
+			return friendlyDecision.execute(dic)
 		"论道":
-			## 增加关系值
-			people.add_relation(target_people,randi_range(-5,10))
-			return Result.SUCCESS
+			return argumentDecision.execute(dic)
 		"切磋":
 			## todo 战斗切磋
 			people.add_relation(target_people,randi_range(-3,6))
-			return Result.SUCCESS
+			return DecisionEntity.Success()
 		#"送礼":
 			#pass
 		"双修":
@@ -132,16 +130,16 @@ func _execute(dic:Dictionary={})->int:
 			return mateDecision.execute(dic)
 		_:
 			Log.err("没有开发这个操作",action)
-	return Result.SUCCESS
+	return DecisionEntity.Success()
 
 func _after_execute(dic:Dictionary={}):
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	people.action_cool_times=people.action_cool_time.get_current()

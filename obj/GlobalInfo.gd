@@ -36,7 +36,12 @@ static func get_people_by_id(id:String)->People:
 ## 死亡，移除人
 static func remove_people(target:People):
 	if GlobalInfo.place_map.has(target.place_id):
-		GlobalInfo.place_map.get(target.place_id).outgoing(target)
+		var p=GlobalInfo.place_map.get(target.place_id)
+		# 人物死亡后，将当前人物的修为转移给大地，当前大地随机升级0~人物等级次
+		for i in randi_range(0,target.lv.current):
+			p.do_update()
+		p.outgoing(target)
+
 	GlobalInfo.people_map.erase(target.id)
 	# 在statistics_map中key为死亡人数+1
 	statistics_map["死亡人数"]+=1

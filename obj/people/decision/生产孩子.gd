@@ -5,29 +5,29 @@ extends DecisionEntity
 func get_action_key(dic:Dictionary={})->String:
 	return "生产孩子"
 
-func _before_execute(dic:Dictionary={})->int:
+func _before_execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	if !people.is_pregnancy():
-		return Result.FAILURE
-	return Result.SUCCESS
+		return DecisionEntity.Error("我都没有怀孕，怎么生孩子")
+	return DecisionEntity.Success()
 
 func _after_execute(dic:Dictionary={}):
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	people.action_cool_times=people.action_cool_time.get_current()
 
-func _execute(dic:Dictionary={})->int:
+func _execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	_生产孩子(people)
-	return Result.SUCCESS
+	return DecisionEntity.Success()
 
 func _生产孩子(people:People):
 	if !people.is_pregnancy():
@@ -48,5 +48,6 @@ func _生产孩子(people:People):
 	place.enter(people.pregnancy_people)
 	# 将孩子加入到 GlobalInfo.people_map 中
 	GlobalInfo.people_map[people.pregnancy_people.id]=people.pregnancy_people
+	people.pregnancy.current=0
 	people.pregnancy_people=null
 	pass

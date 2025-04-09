@@ -73,8 +73,8 @@
 		"min_growth": 0,
 		"name_str": "吸收灵气冷却时间",
 		"score": 0,
-		"max_v": 300,
-		"min_v": 280
+		"max_v": 120,
+		"min_v": 60
 	},
 	"lingqi_absorb_cool_times": 0,
 	"lv": {
@@ -92,12 +92,12 @@
 		"current": 0,
 		"filename": "res://obj/properties/random_propertie.gd",
 		"growth_factor": -1,
-		"max_growth": 1,
-		"min_growth": 3,
+		"max_growth": 2,
+		"min_growth": 0,
 		"name_str": "动作速度",
 		"score": 0,
-		"max_v": 100,
-		"min_v": 120
+		"max_v": 200,
+		"min_v": 20
 	},
 	"max_life": {
 		"current": 0,

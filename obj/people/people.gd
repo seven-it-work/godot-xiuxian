@@ -69,6 +69,8 @@ func do_action():
 	if is_dead():
 		if is_player:
 			# todo 游戏结束
+			print("死亡了")
+			GlobalInfo.is_pause=true
 			return
 		GlobalInfo.remove_people(self)
 		return
@@ -80,7 +82,8 @@ func do_action():
 			return
 		else:
 			# 概率流产计算
-			if GlobalInfo.abortion_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
+			var re=GlobalInfo.abortion_decision.execute({"people":self})
+			if DecisionEntity.is_success(re):
 				action_cool_times=action_cool_time.get_current()
 			return
 			pass
@@ -92,17 +95,17 @@ func do_action():
 	if is_player:
 		return
 	# 恢复
-	if GlobalInfo.recovery_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
+	if DecisionEntity.is_success(GlobalInfo.recovery_decision.execute({"people":self})):
 		return
 	## 修炼判断
-	if GlobalInfo.practice_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
+	if DecisionEntity.is_success(GlobalInfo.practice_decision.execute({"people":self})):
 		return
 	## 社交
-	if GlobalInfo.social_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
+	if DecisionEntity.is_success(GlobalInfo.social_decision.execute({"people":self})):
 		return
 	# 还可以在此地留传承 接受传承
 	## 随机50~90的概率进行移动
-	if GlobalInfo.move_decision.execute({"people":self})==DecisionEntity.Result.SUCCESS:
+	if DecisionEntity.is_success(GlobalInfo.move_decision.execute({"people":self})):
 		return
 	# 什么都不做
 	pass
@@ -117,19 +120,19 @@ func _after_beat(target:People):
 	
 	# 通过概率计算工具ObjectUtils.probability计算是否击杀他人
 	# print(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"])
-	if ObjectUtils.probability(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"]):
+	#if ObjectUtils.probability(GlobalInfo.people_map.values().size(),GlobalInfo.game_setting["最大人口数"]):
 		# 记录日志
-		Log.debug("击杀他人",{
-			"source":self.name_str,
-			"target":target.name_str,
-			"source_id":self.id,
-			"target_id":target.id,
-		})
-		# 击杀他人
-		kill(target)
-	else:
-		target.hp.current=1
-	pass
+	Log.debug("击杀他人",{
+		"source":self.name_str,
+		"target":target.name_str,
+		"source_id":self.id,
+		"target_id":target.id,
+	})
+	# 击杀他人
+	kill(target)
+	#else:
+		#target.hp.current=1
+	#pass
 
 
 # 判断是否怀孕
@@ -204,9 +207,10 @@ func recover():
 
 ## 修炼
 func xiu_lian():
+	# 重置时间
 	lingqi_absorb_cool_times=lingqi_absorb_cool_time.get_current()
 	#Log.debug("修炼")
-	lingqi.add_current(lingqi_absorb.get_current())
+	lingqi.add_current(GlobalInfo.place_map[self.place_id].lingqi_absorbed(lingqi_absorb.get_current()))
 	pass
 
 ## 执行升级

@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://oqnpc424ghxf"
+valid=false
+
+[deps]
+
+source_file="res://数据.csv"
+
+[params]
+
+compress=true
+delimiter=0

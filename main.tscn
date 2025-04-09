@@ -27,7 +27,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="玩家信息" type="ScrollContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/玩家信息"]
@@ -65,7 +65,6 @@ text = "游戏速度"
 [node name="游戏速度" type="SpinBox" parent="HBoxContainer/玩家信息/VBoxContainer/相关按钮/游戏速度"]
 layout_mode = 2
 min_value = 1.0
-max_value = 10.0
 value = 1.0
 
 [node name="core" type="ScrollContainer" parent="HBoxContainer"]
@@ -84,7 +83,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bfejm")
 
 [node name="tips" type="ScrollContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="地图点击tips" parent="HBoxContainer/tips" instance=ExtResource("2_jl8uk")]

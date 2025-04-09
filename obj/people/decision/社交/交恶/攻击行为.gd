@@ -2,21 +2,21 @@ class_name AttackBehaviorDecision
 extends DecisionEntity
 
 
-func _before_execute(dic:Dictionary={})->int:
+func _before_execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	# 如果target_people是玩家 则加入到GlobalInfo.ai_interaction_queue队列中
 	if target_people.is_player:
 		GlobalInfo.ai_interaction_queue.append(self)
-		return Result.FAILURE
-	return Result.SUCCESS
+		return DecisionEntity.Error("对象是玩家")
+	return DecisionEntity.Success()
 
 # 判断是否需要逃跑
 static func need_escape(people:People)->bool:
@@ -36,15 +36,15 @@ static func need_escape(people:People)->bool:
 		Log.debug(people.name_str+"不需要逃跑")
 		return false
 
-func _execute(dic:Dictionary={})->int:
+func _execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	# 调用self和target的集气速度
 	var self_speed=people.attack_speed.get_current()
@@ -59,7 +59,7 @@ func _execute(dic:Dictionary={})->int:
 			# 如果需要逃跑
 			if need_escape(people):
 				Log.debug(people.name_str+"选择逃跑")
-				return Result.SUCCESS
+				return DecisionEntity.Success()
 			else:
 				people.do_attack(target_people)
 				# 重置self_speed
@@ -68,7 +68,7 @@ func _execute(dic:Dictionary={})->int:
 			# 如果需要逃跑
 			if need_escape(target_people):
 				Log.debug(target_people.name_str+"选择逃跑")
-				return Result.SUCCESS
+				return DecisionEntity.Success()
 			else:
 				target_people.do_attack(people)
 				# 重置target_speed
@@ -82,7 +82,7 @@ func _execute(dic:Dictionary={})->int:
 	# 如果target_people的生命值小于0，则战斗胜利
 	if target_people.hp.get_current()<=0:
 		people._after_beat(people)
-	return Result.SUCCESS
+	return DecisionEntity.Success()
 
 func get_action_key(dic:Dictionary={})->String:
 	return "攻击行为"

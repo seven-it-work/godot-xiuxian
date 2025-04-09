@@ -1,31 +1,31 @@
 class_name BecomeTeacherDecision
 extends DecisionEntity
 
-func _before_execute(dic:Dictionary={})->int:
+func _before_execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	# 如果说target_people是玩家 则加入到GlobalInfo.ai_interaction_queue队列中
 	if target_people.is_player:
 		GlobalInfo.ai_interaction_queue.append(self)
-		return Result.FAILURE
-	return Result.SUCCESS
+		return DecisionEntity.Error("对象是玩家")
+	return DecisionEntity.Success()
 
-func _execute(dic:Dictionary={})->int:
+func _execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	# 如果已经有师傅了，还是要拜师 则原来师傅将对你-100仇恨
 	if people.shi_fu != "" and people.shi_fu != target_people.id:
@@ -40,7 +40,7 @@ func _execute(dic:Dictionary={})->int:
 	# 更新师傅ID
 	people.shi_fu = target_people.id
 	people.add_relation(target_people,randi_range(5,20))
-	return Result.SUCCESS
+	return DecisionEntity.Success()
 
 func get_action_key(dic:Dictionary={})->String:
 	return "拜师"

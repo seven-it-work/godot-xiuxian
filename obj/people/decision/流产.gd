@@ -4,21 +4,30 @@ extends DecisionEntity
 func get_action_key(dic:Dictionary={})->String:
 	return "流产"
 
-func _before_execute(dic:Dictionary={})->int:
+func _before_execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	if !people.is_pregnancy():
-		return Result.FAILURE
-	return calculate_abortion_probability(people)
+		return DecisionEntity.Error("我都没有怀孕，怎么流产！")
+	if calculate_abortion_probability(people):
+		return DecisionEntity.Success("我流产了")
+	else:
+		return DecisionEntity.Error("我没有流产")
 
 func _after_execute(dic:Dictionary={}):
 	pass
 
-func _execute(dic:Dictionary={})->int:
-	# todo 流产了，执行流产动作
-	return Result.SUCCESS
+func _execute(dic:Dictionary={})->Dictionary:
+	if !dic.has("people"):
+		Log.err("参数错误")
+		return DecisionEntity.ErrorCode(-1,"参数错误")
+	var people:People=dic.get("people")
+	people.pregnancy.current=0
+	ObjectUtils.free_obj(people.pregnancy_people)
+	people.pregnancy_people=null;
+	return DecisionEntity.Success()
 
 
 # 计算是否流产成功

@@ -7,35 +7,35 @@ func get_action_key(dic:Dictionary={})->String:
 	return "交恶"
 
 
-func _before_execute(dic:Dictionary={})->int:
+func _before_execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	# 不能欺负10岁以下的人
 	if target_people.get_age("year")<10:
-		return Result.FAILURE
-	return Result.SUCCESS
+		return DecisionEntity.Error()
+	return DecisionEntity.Success()
 
-func _execute(dic:Dictionary={})->int:
+func _execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	Log.debug(people.name_str+" 与 "+target_people.name_str+" 交恶 ")
 	var weight_1={
 		"攻击":GlobalInfo.people_map.values().size(),
-		"辱骂":GlobalInfo.game_setting["最大人口数"],
+		"辱骂":GlobalInfo.game_setting["最大人口数"]/2,
 		#"偷窃":10,
 		# "脱离师徒关系":10,
 		# "脱离道侣关系":10,
@@ -49,19 +49,19 @@ func _execute(dic:Dictionary={})->int:
 			return attackBehaviorDecision.execute(dic)
 		"辱骂":
 			people.add_relation(target_people,randi_range(-10,1))
-			return Result.SUCCESS
+			return DecisionEntity.Success()
 		_:
 			Log.err("没有开发这个操作",action)
-	return Result.SUCCESS
+	return DecisionEntity.Success()
 
 func _after_execute(dic:Dictionary={}):
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 	people.action_cool_times=people.action_cool_time.get_current()

@@ -66,3 +66,8 @@ is_show_auto_click = false
 game_pause_can_click = true
 
 [connection signal="pressed" from="操作/双修" to="." method="_on_双修_pressed"]
+[connection signal="pressed" from="操作/拜师" to="." method="_on_拜师_pressed"]
+[connection signal="pressed" from="操作/问好" to="." method="_on_问好_pressed"]
+[connection signal="pressed" from="操作/道侣" to="." method="_on_道侣_pressed"]
+[connection signal="pressed" from="操作/结婚" to="." method="_on_结婚_pressed"]
+[connection signal="pressed" from="操作/交配" to="." method="_on_交配_pressed"]

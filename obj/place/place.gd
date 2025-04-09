@@ -26,6 +26,24 @@ func do_action():
 	product_speeding_times=product_speeding.get_current()
 	current_lin_qi.add_current(product_value.get_current())
 
+## 灵气被吸收
+func lingqi_absorbed(num:float)->float:
+	var re=minf(current_lin_qi.current,num)
+	current_lin_qi.add_current(-num);
+	return re;
+		
+
+## 执行升级
+func do_update():
+	Log.debug("升级")
+	var up_field_list=[
+		"current_lin_qi","product_speeding","product_value"
+	]
+	for i in up_field_list:
+		self[i].do_growth()
+	pass
+	
+	
 func save_json():
 	var re:Dictionary={}
 	re.merge({

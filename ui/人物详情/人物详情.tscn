@@ -21,6 +21,10 @@ text = "等级"
 [node name="年龄" type="Label" parent="."]
 layout_mode = 2
 
+[node name="性别" type="Label" parent="."]
+layout_mode = 2
+text = "性别"
+
 [node name="寿命" parent="." instance=ExtResource("1_1i8yk")]
 layout_mode = 2
 "名称" = "寿命"
@@ -60,3 +64,7 @@ layout_mode = 2
 [node name="怀孕周期" parent="." instance=ExtResource("1_1i8yk")]
 layout_mode = 2
 "名称" = "怀孕周期"
+
+[node name="动作速度" parent="." instance=ExtResource("2_egbrg")]
+layout_mode = 2
+"名称" = "动作速度"

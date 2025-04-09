@@ -75,5 +75,8 @@ custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 1
 
+[node name="年龄" type="Label" parent="."]
+layout_mode = 2
+
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/操作/修炼" to="." method="_on_修炼_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/操作/升级" to="." method="_on_升级_pressed"]

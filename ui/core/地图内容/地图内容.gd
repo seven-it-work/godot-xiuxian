@@ -50,9 +50,12 @@ func _show_detail(people:People):
 
 
 func _on_修炼_pressed() -> void:
-	GlobalInfo.player.xiu_lian()
-	$"VBoxContainer/HBoxContainer/VBoxContainer/操作/修炼".init(func(): return maxi(GlobalInfo.player.action_cool_times,GlobalInfo.player.lingqi_absorb_cool_times))
-	GlobalInfo.player.action_cool_times=GlobalInfo.player.action_cool_time.get_current()
+	var re=PracticeDecision.new().execute({"people":GlobalInfo.player},true)
+	if DecisionEntity.is_success(re):
+		$"VBoxContainer/HBoxContainer/VBoxContainer/操作/修炼".init(func(): return maxi(GlobalInfo.player.action_cool_times,GlobalInfo.player.lingqi_absorb_cool_times))
+	else:
+		pass
+		#print("修炼失败",re)
 	pass # Replace with function body.
 
 

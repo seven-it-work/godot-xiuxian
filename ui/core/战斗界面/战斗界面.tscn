@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh58wwtdxvjqh"]
+
+[ext_resource type="Script" path="res://ui/core/战斗界面/战斗界面.gd" id="1_2oo8s"]
+
+[node name="战斗界面" type="PanelContainer"]
+offset_right = 1143.0
+offset_bottom = 645.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_2oo8s")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "技能与操作"

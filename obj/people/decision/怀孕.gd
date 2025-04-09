@@ -6,32 +6,34 @@ func get_action_key(dic:Dictionary={})->String:
 	return "怀孕"
 
 
-func _before_execute(dic:Dictionary={})->int:
+func _before_execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	if people.is_pregnancy():
-		return Result.FAILURE
+		return DecisionEntity.Error("已经怀孕了，怎么还能再怀孕呢？")
 	if people.is_man:
-		return Result.FAILURE
-	return _calculate_pregnancy_probability(people)
+		return DecisionEntity.Error("我是男性，怎么怀孕你告诉我！")
+	if _calculate_pregnancy_probability(people):
+		return DecisionEntity.Success()
+	return DecisionEntity.Error("运气不好，没有怀孕成功")
 
-func _execute(dic:Dictionary={})->int:
+func _execute(dic:Dictionary={})->Dictionary:
 	if !dic.has("people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var people=dic.get("people")
 	
 	if !dic.has("target_people"):
 		Log.err("参数错误")
-		return Result.FAILURE
+		return DecisionEntity.ErrorCode(-1,"参数错误")
 	var target_people=dic.get("target_people")
 
 	people.pregnancy.current=1;
 	# 生产孩子胚胎
 	people.pregnancy_people=_generate_new_child(target_people,people)
-	return Result.SUCCESS
+	return DecisionEntity.Success()
 
 func _after_execute(dic:Dictionary={}):
 	pass
