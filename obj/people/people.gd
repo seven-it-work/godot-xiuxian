@@ -26,6 +26,7 @@ var id:String=""
 @export var is_player:bool=false
 ## 集气速度(战斗中使用)
 @export var attack_speed:RandomPropertie;
+var attack_speed_times:int=0;
 ## 性别
 @export var is_man:bool=true
 ## 最大寿命 （天为单位），这里没有用current改为birth来计算年龄

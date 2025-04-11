@@ -16,6 +16,8 @@ static var statistics_map:Dictionary={}
 static var game_setting:Dictionary={}
 # 一个队列，拥有记录玩家与ai的交互动作，里面存的是交互方法
 static var ai_interaction_queue:Array=[]
+# 技能
+static var all_skill:AllSkill=AllSkill.new()
 
 #### 这下面是决策
 static var recovery_decision:RecoveryDecision=RecoveryDecision.new()

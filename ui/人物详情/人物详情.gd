@@ -4,18 +4,18 @@ extends VBoxContainer
 
 func _process(delta: float) -> void:
 	if is_instance_valid(people):
-		$人物等级.text = "等级：" + str(people.lv.current)
-		$年龄.text = "年龄：%s岁" % str(people.get_age("year"))
+		$HBoxContainer/VBoxContainer/人物等级.text = "等级：" + str(people.lv.current)
+		$HBoxContainer/VBoxContainer/年龄.text = "年龄：%s岁" % str(people.get_age("year"))
 		$寿命.propertie.current=people.get_age()
 	pass
 
 func init(people:People):
 	self.people=people
-	$人物名称.text = people.name_str
+	$HBoxContainer/VBoxContainer/人物名称.text = people.name_str
 	if people.is_man: 
-		$"性别".text="性别：男" 
+		$HBoxContainer/VBoxContainer/性别.text="性别：男" 
 	else: 
-		$"性别".text="性别：女" 
+		$HBoxContainer/VBoxContainer/性别.text="性别：女" 
 	$寿命.propertie=people.max_life
 	$灵气值.propertie=people.lingqi
 	$吸收灵气量.propertie=people.lingqi_absorb

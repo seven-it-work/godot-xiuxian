@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2m318o60mnq8"]
+
+[ext_resource type="Script" path="res://技能/攻击/攻击.gd" id="1_8c7d1"]
+[ext_resource type="PackedScene" uid="uid://beorlyq0r1v8c" path="res://ui/core/战斗界面/技能.tscn" id="1_qdib2"]
+[ext_resource type="Script" path="res://obj/properties/random_propertie.gd" id="2_0d1j6"]
+
+[node name="攻击" node_paths=PackedStringArray("skill_cooldown") instance=ExtResource("1_qdib2")]
+script = ExtResource("1_8c7d1")
+id = "attack"
+description = "对一个敌方玩家造成攻击"
+name_str = "攻击"
+skill_cooldown = NodePath("RandomPropertie")
+
+[node name="RandomPropertie" type="Node" parent="." index="1"]
+script = ExtResource("2_0d1j6")
+name_str = "冷却"

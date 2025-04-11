@@ -6,6 +6,11 @@ func _init() -> void:
 	pass
 
 func _ready() -> void:
+	# 基本信息加载
+	# 技能注册
+	var skill_path=["res://技能/攻击/攻击.tscn"]
+	for i in skill_path:
+		GlobalInfo.all_skill.register(load(i).instantiate())
 	Log.info("开始")
 	_on_start_game_pressed()
 	pass
@@ -32,13 +37,32 @@ func change_tips(tipsTscnName:String,data):
 		Log.error("不存在场景",tipsTscnName)
 	pass
 
+## 切换core
+func change_core(tipsTscnName:String,data):
+	var tips=$HBoxContainer/core.find_child(tipsTscnName)
+	if tips:
+		# 隐藏其它的节点
+		for i in $HBoxContainer/core.get_children():
+			i.hide()
+		if tips.has_method("init"):
+			tips.init(data)
+		tips.show()
+		pass
+	else:
+		Log.error("不存在场景",tipsTscnName)
+	pass
+
 func _on_start_game_pressed() -> void:
 #	新游戏
 	GlobalInfo.start_new()
 	_start_game()
 	$"HBoxContainer/玩家信息/VBoxContainer/VBoxContainer/人物详情".init(GlobalInfo.player)
-	$"HBoxContainer/core/地图".init()
-	$"HBoxContainer/core/地图内容".init(GlobalInfo.place_map[GlobalInfo.player.place_id])
+	#$"HBoxContainer/core/地图".init()
+	#$"HBoxContainer/core/地图内容".init(GlobalInfo.place_map[GlobalInfo.player.place_id])
+	change_core("战斗界面",{
+		"user_team":[GlobalInfo.player],
+		"target_team":[GlobalInfo.people_map.values().pick_random()]
+	})
 	pass # Replace with function body.
 	
 func _start_game():
@@ -55,6 +79,12 @@ func _start_game():
 var year_count:int=0
 
 func _on_时间流逝_timeout() -> void:
+	if $"HBoxContainer/core/战斗界面".visible:
+		$"HBoxContainer/core/战斗界面".do_action()
+		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".disabled=true
+		_on_游戏速度_value_changed(100)
+		return
+	$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".disabled=false
 	if !GlobalInfo.is_pause:
 		# 现实1秒钟  游戏1天
 		GlobalInfo.game_time+=1

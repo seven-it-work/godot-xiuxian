@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6kcwr887wrm0"]
+
+[ext_resource type="Texture2D" uid="uid://cyodi5src1lxb" path="res://asserts/默认图/1744333682552_15_黑白.png" id="1_6k1ek"]
+[ext_resource type="StyleBox" uid="uid://7mp0lw4qan0c" path="res://ui/core/战斗界面/战斗人物介绍.tres" id="1_tal8n"]
+[ext_resource type="Script" path="res://ui/core/战斗界面/战斗人物介绍.gd" id="1_y2i3d"]
+[ext_resource type="PackedScene" uid="uid://cnt3w83w4pb17" path="res://ui/others/BarPropertieTscn/BarPropertieTscn.tscn" id="2_xel3w"]
+[ext_resource type="PackedScene" uid="uid://dc2s77l30i6bd" path="res://ui/others/RandomPropertieTscn/RandomPropertieTscn.tscn" id="3_g7pat"]
+
+[sub_resource type="Animation" id="Animation_i4d41"]
+resource_name = "shake"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-8, -6), Vector2(7, 5), Vector2(-5, -4), Vector2(4, 3), Vector2(-3, -2), Vector2(2, 1), Vector2(-1, -0.5), Vector2(0.5, 0.3), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:be_attack_border_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_j65d4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:be_attack_border_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6mqh5"]
+_data = {
+"RESET": SubResource("Animation_j65d4"),
+"shake": SubResource("Animation_i4d41")
+}
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 183.0
+offset_bottom = 263.0
+theme_override_styles/panel = ExtResource("1_tal8n")
+script = ExtResource("1_y2i3d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_6k1ek")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="人物名称" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "人物名称"
+
+[node name="人物等级" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "等级"
+
+[node name="年龄" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="性别" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "性别"
+
+[node name="生命值" parent="VBoxContainer" instance=ExtResource("2_xel3w")]
+layout_mode = 2
+"名称" = "生命值"
+
+[node name="攻击力" parent="VBoxContainer" instance=ExtResource("3_g7pat")]
+layout_mode = 2
+"名称" = "攻击力"
+
+[node name="防御力" parent="VBoxContainer" instance=ExtResource("3_g7pat")]
+layout_mode = 2
+"名称" = "防御力"
+
+[node name="集气速度" parent="VBoxContainer" instance=ExtResource("3_g7pat")]
+layout_mode = 2
+"名称" = "集气速度"
+
+[node name="逃跑概率" parent="VBoxContainer" instance=ExtResource("3_g7pat")]
+layout_mode = 2
+"名称" = "逃跑概率"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6mqh5")
+}

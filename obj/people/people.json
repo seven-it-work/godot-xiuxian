@@ -13,11 +13,11 @@
 	"attack_speed": {
 		"current": 0,
 		"filename": "res://obj/properties/random_propertie.gd",
-		"growth_factor": -0.01,
+		"growth_factor": -1,
 		"max_growth": 3,
-		"max_v": 3,
+		"max_v": 300,
 		"min_growth": 0,
-		"min_v": 1,
+		"min_v": 60,
 		"name_str": "集气速度",
 		"score": 0
 	},

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dekyku5jukbs2"]
+[gd_scene load_steps=5 format=3 uid="uid://dekyku5jukbs2"]
 
 [ext_resource type="PackedScene" uid="uid://cnt3w83w4pb17" path="res://ui/others/BarPropertieTscn/BarPropertieTscn.tscn" id="1_1i8yk"]
 [ext_resource type="Script" path="res://ui/人物详情/人物详情.gd" id="1_wlkon"]
 [ext_resource type="PackedScene" uid="uid://dc2s77l30i6bd" path="res://ui/others/RandomPropertieTscn/RandomPropertieTscn.tscn" id="2_egbrg"]
+[ext_resource type="Texture2D" uid="uid://b7uckcq7fmckn" path="res://asserts/默认图/1744333880633_641_黑白.png" id="2_joqun"]
 
 [node name="人物详情" type="VBoxContainer"]
 offset_right = 146.0
@@ -10,18 +11,29 @@ offset_bottom = 336.0
 size_flags_horizontal = 3
 script = ExtResource("1_wlkon")
 
-[node name="人物名称" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_joqun")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="人物名称" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "人物名称"
 
-[node name="人物等级" type="Label" parent="."]
+[node name="人物等级" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "等级"
 
-[node name="年龄" type="Label" parent="."]
+[node name="年龄" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="性别" type="Label" parent="."]
+[node name="性别" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "性别"
 
