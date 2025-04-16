@@ -16,8 +16,9 @@ cmd_path="res://addons/GDExcelExporter/ee.exe"
 [application]
 
 config/name="修仙1.1"
-run/main_scene="uid://b2vecloaiebc8"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+run/main_scene="res://demo1/main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
@@ -66,3 +67,4 @@ move_down={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
