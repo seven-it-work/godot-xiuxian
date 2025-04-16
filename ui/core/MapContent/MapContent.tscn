@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh58wwtdxvjqh"]
+[gd_scene load_steps=4 format=3 uid="uid://bsj4pw6xyqlk6"]
 
-[ext_resource type="Script" path="res://ui/core/地图内容/地图内容.gd" id="1_4vgtn"]
+[ext_resource type="Script" path="res://ui/core/MapContent/MapContent.gd" id="1_4vgtn"]
 [ext_resource type="PackedScene" uid="uid://ca18mecieqdb8" path="res://ui/tips/地图点击tips/地图详情.tscn" id="1_21xrs"]
 [ext_resource type="PackedScene" uid="uid://cwxnvif5krapq" path="res://ui/others/动作冷却按钮/动作冷却按钮.tscn" id="2_wxjyr"]
 
-[node name="地图内容" type="PanelContainer"]
+[node name="MapContent" type="PanelContainer"]
 offset_right = 1143.0
 offset_bottom = 645.0
 size_flags_horizontal = 3

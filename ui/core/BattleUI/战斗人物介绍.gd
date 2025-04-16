@@ -3,7 +3,7 @@ extends PanelContainer
 
 var people:People
 var is_click:bool=false
-@onready var not_select_panel=preload("res://ui/core/战斗界面/战斗人物介绍.tres")
+@onready var not_select_panel=preload("res://ui/core/BattleUI/战斗人物介绍.tres")
 
 
 func _ready() -> void:

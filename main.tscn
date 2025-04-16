@@ -1,29 +1,29 @@
 [gd_scene load_steps=12 format=3 uid="uid://cqi0vduabab5i"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cdn7sa03ncx80" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cdewsuqswvjmv" path="res://ui/others/游戏时间/游戏时间.tscn" id="2_hc0md"]
 [ext_resource type="PackedScene" uid="uid://duns6b76maa2a" path="res://ui/tips/地图点击tips/地图点击tips.tscn" id="2_jl8uk"]
 [ext_resource type="PackedScene" uid="uid://dekyku5jukbs2" path="res://ui/人物详情/人物详情.tscn" id="3_hb7c7"]
 [ext_resource type="PackedScene" uid="uid://dlkk8ls71gbkh" path="res://ui/地图/地图.tscn" id="4_quw5l"]
-[ext_resource type="Script" path="res://ui/core/地图内容/地图内容.gd" id="6_litjs"]
-[ext_resource type="PackedScene" uid="uid://bh58wwtdxvjqh" path="res://ui/core/战斗界面/战斗界面.tscn" id="6_yto5g"]
+[ext_resource type="PackedScene" uid="uid://bsj4pw6xyqlk6" path="res://ui/core/MapContent/MapContent.tscn" id="6_42alj"]
+[ext_resource type="PackedScene" path="res://ui/core/BattleUI/BattleUI.tscn" id="6_ll75y"]
 [ext_resource type="PackedScene" uid="uid://032gjitbhijh" path="res://ui/tips/人员点击tips/人员点击tips.tscn" id="7_i4727"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwkk2"]
 content_margin_left = 60.0
 content_margin_top = 20.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfejm"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6vj3"]
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_swr5x"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c2w5"]
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -85,16 +85,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_kwkk2")
 
-[node name="地图内容" parent="HBoxContainer/core" instance=ExtResource("6_yto5g")]
+[node name="MapContent" parent="HBoxContainer/core" instance=ExtResource("6_42alj")]
 visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bfejm")
-script = ExtResource("6_litjs")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d6vj3")
 
-[node name="战斗界面" parent="HBoxContainer/core" instance=ExtResource("6_yto5g")]
+[node name="BattleUI" parent="HBoxContainer/core" instance=ExtResource("6_ll75y")]
 visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_swr5x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3c2w5")
 
 [node name="tips" type="ScrollContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)

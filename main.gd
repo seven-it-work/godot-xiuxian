@@ -8,7 +8,7 @@ func _init() -> void:
 func _ready() -> void:
 	# 基本信息加载
 	# 技能注册
-	var skill_path=["res://技能/攻击/攻击.tscn"]
+	var skill_path=["res://技能/攻击/攻击.tscn","res://技能/逃跑/逃跑.tscn"]
 	for i in skill_path:
 		GlobalInfo.all_skill.register(load(i).instantiate())
 	Log.info("开始")
@@ -52,17 +52,21 @@ func change_core(tipsTscnName:String,data):
 		Log.error("不存在场景",tipsTscnName)
 	pass
 
+## 战斗结束
+func fight_over(data:Dictionary):
+	Log.info("战斗结束",data)
+	$HBoxContainer/core/BattleUI.fight_over=true
+	change_core("MapContent",GlobalInfo.place_map[GlobalInfo.player.place_id])
+	pass
+
 func _on_start_game_pressed() -> void:
 #	新游戏
 	GlobalInfo.start_new()
 	_start_game()
 	$"HBoxContainer/玩家信息/VBoxContainer/VBoxContainer/人物详情".init(GlobalInfo.player)
 	#$"HBoxContainer/core/地图".init()
-	#$"HBoxContainer/core/地图内容".init(GlobalInfo.place_map[GlobalInfo.player.place_id])
-	change_core("战斗界面",{
-		"user_team":[GlobalInfo.player],
-		"target_team":[GlobalInfo.people_map.values().pick_random()]
-	})
+	change_core("MapContent",GlobalInfo.place_map[GlobalInfo.player.place_id])
+
 	pass # Replace with function body.
 	
 func _start_game():
@@ -79,10 +83,10 @@ func _start_game():
 var year_count:int=0
 
 func _on_时间流逝_timeout() -> void:
-	if $"HBoxContainer/core/战斗界面".visible:
-		$"HBoxContainer/core/战斗界面".do_action()
+	if $"HBoxContainer/core/BattleUI".visible:
+		$"HBoxContainer/core/BattleUI".do_action()
 		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".disabled=true
-		_on_游戏速度_value_changed(100)
+		$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/游戏速度/游戏速度".set_value(100)
 		return
 	$"HBoxContainer/玩家信息/VBoxContainer/相关按钮/暂停".disabled=false
 	if !GlobalInfo.is_pause:

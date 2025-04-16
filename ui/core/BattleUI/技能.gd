@@ -20,7 +20,6 @@ signal pressed
 func _process(delta: float) -> void:
 	if is_instance_valid(people_attack_speed_callable):
 		var people_attack_speed=people_attack_speed_callable.call()
-		
 		pass
 
 func do_action():
@@ -35,6 +34,7 @@ func _ready() -> void:
 ## 使用技能
 func use_skill(user:PeopleFight,target:PeopleFight,user_team:Array,target_team:Array):
 	people_attack_speed_callable=_get_people_attack_speed.bind(user)
+	print(people_attack_speed_callable.call())
 	if !skill_cooldown:
 		Log.err("错误技能，没有冷却时间")
 	skill_cooldown_times=skill_cooldown.get_current()
@@ -48,9 +48,32 @@ func skill_func(user:PeopleFight,target:PeopleFight,user_team:Array,target_team:
 
 
 func _get_people_attack_speed(people:PeopleFight):
-	return people.people.attack_speed
+	return people.people.attack_speed_times
 
 
 func _on_button_pressed() -> void:
 	pressed.emit()
 	pass # Replace with function body.
+
+func set_disable(b:bool):
+	$VBoxContainer/Button.set_disabled(b)
+
+
+func save_json():
+	var re:Dictionary={}
+	var t=get_scene_file_path()
+	re.merge({
+		"filename" : get_script().resource_path.replace(".gd",".tscn"),
+		"id":self.id,
+		"description":self.description,
+		"name_str":self.name_str,
+		"skill_cooldown":ObjectUtils.obj_2_json(skill_cooldown),
+	},true)
+	return re
+	
+func load_json(json:Dictionary):
+		id=json.get("id")
+		description=json.get("description")
+		name_str=json.get("name_str")
+		skill_cooldown=ObjectUtils.json_2_obj(json.get("skill_cooldown"))
+	

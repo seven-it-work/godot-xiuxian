@@ -7,9 +7,12 @@ var is_player_turn:bool=true
 var log_text:Array=[]
 var pre_log_text_len:int=0;
 var fightPlayer:PeopleFight
+var fight_over:bool=false
 
 func _process(delta: float) -> void:
 	if is_player_turn:
+		return
+	if fight_over:
 		return
 	for i in all_people.values():
 		i["label"].position.x=i["unit"]*i["data"].attack_speed_times
@@ -23,6 +26,7 @@ func _process(delta: float) -> void:
 
 func init(dic:Dictionary):
 	GlobalInfo.is_pause=true
+	fight_over=false
 	var user_team=dic["user_team"]
 	var target_team=dic["target_team"]
 	all_people.clear()
@@ -61,19 +65,24 @@ func init(dic:Dictionary):
 	pass
 
 func _init_player_skill():
-	$"VBoxContainer/HBoxContainer/VBoxContainer/GridContainer/攻击".pressed.connect(user_skill.bind($"VBoxContainer/HBoxContainer/VBoxContainer/GridContainer/攻击"))
+	for i in $VBoxContainer/HBoxContainer/VBoxContainer/GridContainer.get_children():
+		i.free()
+	for i in fightPlayer.people.skill_list:
+		$VBoxContainer/HBoxContainer/VBoxContainer/GridContainer.add_child(i)
+		i.pressed.connect(user_skill.bind(i))
+		i.set_disable(true)
 	pass
 
 func user_skill(skill:Skill):
 	skill.use_skill(self.fightPlayer,null,$VBoxContainer/HBoxContainer/user_team.get_children(),$VBoxContainer/HBoxContainer/target_team.get_children())
-	is_player_turn=false
+	_change_player_turn(false)
 	pass
 
 func _init_ui(user_team:Array,target_team:Array):
 	for i in $VBoxContainer/HBoxContainer/user_team.get_children():
 		i.free()
 	for i in user_team:
-		var p=preload("res://ui/core/战斗界面/战斗人物介绍.tscn").instantiate()
+		var p=preload("res://ui/core/BattleUI/战斗人物介绍.tscn").instantiate()
 		p.init(i)
 		if i.is_player:
 			fightPlayer=p;
@@ -83,7 +92,7 @@ func _init_ui(user_team:Array,target_team:Array):
 	for i in $VBoxContainer/HBoxContainer/target_team.get_children():
 		i.free()
 	for i in target_team:
-		var p=preload("res://ui/core/战斗界面/战斗人物介绍.tscn").instantiate()
+		var p=preload("res://ui/core/BattleUI/战斗人物介绍.tscn").instantiate()
 		p.init(i)
 		all_people[i.id]["fightPeople"]=p
 		$VBoxContainer/HBoxContainer/target_team.add_child(p)
@@ -107,8 +116,16 @@ func _change_people_attack_speed(dic:Dictionary):
 			p.attack_speed_times-=1
 
 func do_action():
+	if fight_over:
+		return
+	var is_fight_over=_check_is_fight_over()
+	if is_fight_over=="胜利" || is_fight_over=="失败":
+		GlobalInfo.main_node.fight_over({
+			"type":is_fight_over
+		})
+		return
 	if is_player_turn:
-		$VBoxContainer/HBoxContainer/VBoxContainer/GridContainer.show()
+		_change_player_turn(true)
 		return
 	while true:
 		if attack_queues.is_empty():
@@ -116,12 +133,12 @@ func do_action():
 		var attacker:Dictionary=all_people[attack_queues.pop_front()]
 		var fightPeople:PeopleFight=attacker["fightPeople"]
 		if fightPeople.people.is_player:
-			is_player_turn=true
+			_change_player_turn(true)
 			return
 		else:
 			log_text.append("【%s】进行攻击".format([fightPeople.people.name_str]))
 			# ai执行
-			GlobalInfo.all_skill.get_skill_by_id("attack").use_skill(fightPeople,null,$VBoxContainer/HBoxContainer/target_team.get_children(),$VBoxContainer/HBoxContainer/user_team.get_children())
+			GlobalInfo.all_skill.get_skill_by_id("攻击").use_skill(fightPeople,null,$VBoxContainer/HBoxContainer/target_team.get_children(),$VBoxContainer/HBoxContainer/user_team.get_children())
 			pass
 	for i in all_people.values():
 		_change_people_attack_speed(i)
@@ -129,3 +146,21 @@ func do_action():
 		if i.has_method("do_action"):
 			i.do_action()
 	pass
+
+func _change_player_turn(b:bool):
+	is_player_turn=b;
+	for i in $VBoxContainer/HBoxContainer/VBoxContainer/GridContainer.get_children():
+		if i.has_method("set_disable"):
+			i.set_disable(!b)
+
+
+func _check_is_fight_over():
+	var survival=$VBoxContainer/HBoxContainer/target_team.get_children().filter(func(f:PeopleFight): return !f.people.is_dead())
+	if survival.is_empty():
+		return "胜利"
+	
+	survival=$VBoxContainer/HBoxContainer/user_team.get_children().filter(func(f:PeopleFight): return !f.people.is_dead())
+	if survival.is_empty():
+		return "失败"
+	return "战斗中"
+	

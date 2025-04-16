@@ -71,3 +71,4 @@ game_pause_can_click = true
 [connection signal="pressed" from="操作/道侣" to="." method="_on_道侣_pressed"]
 [connection signal="pressed" from="操作/结婚" to="." method="_on_结婚_pressed"]
 [connection signal="pressed" from="操作/交配" to="." method="_on_交配_pressed"]
+[connection signal="pressed" from="操作/攻击" to="." method="_on_攻击_pressed"]

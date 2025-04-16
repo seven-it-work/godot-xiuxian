@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh58wwtdxvjqh"]
+[gd_scene load_steps=4 format=3 uid="uid://bak5p4m5n34q2"]
 
-[ext_resource type="Script" path="res://ui/core/战斗界面/战斗界面.gd" id="1_2oo8s"]
-[ext_resource type="PackedScene" uid="uid://b2m318o60mnq8" path="res://技能/攻击/攻击.tscn" id="2_hwug2"]
-[ext_resource type="PackedScene" uid="uid://c6kcwr887wrm0" path="res://ui/core/战斗界面/战斗人物介绍.tscn" id="3_me7xa"]
+[ext_resource type="Script" path="res://ui/core/BattleUI/BattleUI.gd" id="1_2oo8s"]
+[ext_resource type="PackedScene" uid="uid://cv5jw56rjm4yf" path="res://技能/攻击/攻击.tscn" id="2_hwug2"]
+[ext_resource type="PackedScene" uid="uid://c6kcwr887wrm0" path="res://ui/core/BattleUI/战斗人物介绍.tscn" id="3_me7xa"]
 
-[node name="战斗界面" type="PanelContainer"]
+[node name="BattleUI" type="PanelContainer"]
 offset_right = 1143.0
 offset_bottom = 645.0
 size_flags_horizontal = 3
@@ -28,6 +28,9 @@ alignment = 1
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 
+[node name="PanelContainer" parent="VBoxContainer/HBoxContainer/user_team" instance=ExtResource("3_me7xa")]
+layout_mode = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -38,7 +41,6 @@ layout_mode = 2
 text = "显示"
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
@@ -53,5 +55,4 @@ custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 
 [node name="PanelContainer" parent="VBoxContainer/HBoxContainer/target_team" instance=ExtResource("3_me7xa")]
-visible = false
 layout_mode = 2

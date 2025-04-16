@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2vecloaiebc8"]
+
+[ext_resource type="Script" uid="uid://b8lhgnp620fjl" path="res://demo1/player.gd" id="1_3uoiv"]
+[ext_resource type="Texture2D" uid="uid://bcn5hnvl1y4gu" path="res://demo1/24gl-circle.png" id="1_xsofd"]
+[ext_resource type="Script" uid="uid://b8f1pdi7eailq" path="res://demo1/sprite_2d.gd" id="2_0h00m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xsofd"]
+radius = 110.85
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0h00m"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r0388"]
+
+[node name="Main" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -34.0
+offset_right = 1141.0
+offset_bottom = 611.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(246, 119)
+scale = Vector2(1, 1)
+script = ExtResource("1_3uoiv")
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+scale = Vector2(0.1875, 0.1875)
+texture = ExtResource("1_xsofd")
+script = ExtResource("2_0h00m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+scale = Vector2(0.1875, 0.1875)
+shape = SubResource("CircleShape2D_xsofd")
+
+[node name="VisionArea" type="Area2D" parent="player"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="player/VisionArea"]
+material = SubResource("ShaderMaterial_0h00m")
+occluder = SubResource("OccluderPolygon2D_r0388")
