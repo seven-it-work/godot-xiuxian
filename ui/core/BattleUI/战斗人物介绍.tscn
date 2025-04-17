@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cyodi5src1lxb" path="res://asserts/默认图/1744333682552_15_黑白.png" id="1_6k1ek"]
 [ext_resource type="StyleBox" uid="uid://7mp0lw4qan0c" path="res://ui/core/BattleUI/战斗人物介绍.tres" id="1_tal8n"]
-[ext_resource type="Script" path="res://ui/core/BattleUI/战斗人物介绍.gd" id="1_y2i3d"]
+[ext_resource type="Script" uid="uid://c7dsa3m1syiq5" path="res://ui/core/BattleUI/战斗人物介绍.gd" id="1_y2i3d"]
 [ext_resource type="PackedScene" uid="uid://cnt3w83w4pb17" path="res://ui/others/BarPropertieTscn/BarPropertieTscn.tscn" id="2_xel3w"]
 [ext_resource type="PackedScene" uid="uid://dc2s77l30i6bd" path="res://ui/others/RandomPropertieTscn/RandomPropertieTscn.tscn" id="3_g7pat"]
 
@@ -63,8 +63,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6mqh5"]
 _data = {
-"RESET": SubResource("Animation_j65d4"),
-"shake": SubResource("Animation_i4d41")
+&"RESET": SubResource("Animation_j65d4"),
+&"shake": SubResource("Animation_i4d41")
 }
 
 [node name="PanelContainer" type="PanelContainer"]

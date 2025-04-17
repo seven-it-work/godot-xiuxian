@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cqi0vduabab5i"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bh8kb3jv6bucx" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cdewsuqswvjmv" path="res://ui/others/游戏时间/游戏时间.tscn" id="2_hc0md"]
 [ext_resource type="PackedScene" uid="uid://duns6b76maa2a" path="res://ui/tips/地图点击tips/地图点击tips.tscn" id="2_jl8uk"]
 [ext_resource type="PackedScene" uid="uid://dekyku5jukbs2" path="res://ui/人物详情/人物详情.tscn" id="3_hb7c7"]

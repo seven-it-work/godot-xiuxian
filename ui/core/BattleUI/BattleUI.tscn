@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bak5p4m5n34q2"]
 
-[ext_resource type="Script" path="res://ui/core/BattleUI/BattleUI.gd" id="1_2oo8s"]
+[ext_resource type="Script" uid="uid://6vul2wbmcmvc" path="res://ui/core/BattleUI/BattleUI.gd" id="1_2oo8s"]
 [ext_resource type="PackedScene" uid="uid://cv5jw56rjm4yf" path="res://技能/攻击/攻击.tscn" id="2_hwug2"]
 [ext_resource type="PackedScene" uid="uid://c6kcwr887wrm0" path="res://ui/core/BattleUI/战斗人物介绍.tscn" id="3_me7xa"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cwxnvif5krapq"]
 
-[ext_resource type="Script" path="res://ui/others/动作冷却按钮/动作冷却按钮.gd" id="1_rg171"]
+[ext_resource type="Script" uid="uid://3bs4upr0vkrd" path="res://ui/others/动作冷却按钮/动作冷却按钮.gd" id="1_rg171"]
 
 [node name="动作冷却按钮" type="PanelContainer"]
 offset_right = 68.0

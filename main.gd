@@ -66,7 +66,6 @@ func _on_start_game_pressed() -> void:
 	$"HBoxContainer/玩家信息/VBoxContainer/VBoxContainer/人物详情".init(GlobalInfo.player)
 	#$"HBoxContainer/core/地图".init()
 	change_core("MapContent",GlobalInfo.place_map[GlobalInfo.player.place_id])
-
 	pass # Replace with function body.
 	
 func _start_game():

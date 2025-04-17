@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlkk8ls71gbkh"]
 
-[ext_resource type="Script" path="res://ui/地图/地图.gd" id="1_ii7j0"]
+[ext_resource type="Script" uid="uid://dt20ckq7xgpj2" path="res://ui/地图/地图.gd" id="1_ii7j0"]
 [ext_resource type="PackedScene" uid="uid://bpuc7a4xyriur" path="res://ui/地图/地图button.tscn" id="1_w42ku"]
 
 [node name="地图" type="PanelContainer"]

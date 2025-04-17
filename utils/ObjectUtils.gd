@@ -140,8 +140,6 @@ static func calculate_time_difference(timestamp1: int, timestamp2: int, unit: St
 			return (timestamp2 - timestamp1)/24/60/60
 		_:
 			return 0  # 默认返回 0，如果单位无效
-
-
 	
 ## 从json中获取path的值 path用. 来表示子
 static func get_nested_value(data:Dictionary,key_path:String):
@@ -179,3 +177,26 @@ static func free_obj(obj):
 		# 不释放
 		pass
 	pass
+
+## 判断是否为空
+static func is_empty(v)->bool:
+	if v==null:
+		return true
+	if v is Dictionary:
+		return v.is_empty()
+	if v is Array:
+		return v.is_empty()
+	if v is String:
+		return v==""
+	return false
+
+## 合并
+static func merge(o,t,is_over:bool=false):
+	if o is Dictionary && t is Dictionary:
+		return o.merged(t,is_over)
+	if o is Array && t is Array:
+		var r=[]
+		r.append_array(o)
+		r.append_array(t)
+		return r
+	Log.err("只支持 Dictionary 和 Array")

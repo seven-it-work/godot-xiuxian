@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dekyku5jukbs2"]
 
 [ext_resource type="PackedScene" uid="uid://cnt3w83w4pb17" path="res://ui/others/BarPropertieTscn/BarPropertieTscn.tscn" id="1_1i8yk"]
-[ext_resource type="Script" path="res://ui/人物详情/人物详情.gd" id="1_wlkon"]
+[ext_resource type="Script" uid="uid://cvtc0ww4yrqtr" path="res://ui/人物详情/人物详情.gd" id="1_wlkon"]
 [ext_resource type="PackedScene" uid="uid://dc2s77l30i6bd" path="res://ui/others/RandomPropertieTscn/RandomPropertieTscn.tscn" id="2_egbrg"]
 [ext_resource type="Texture2D" uid="uid://b7uckcq7fmckn" path="res://asserts/默认图/1744333880633_641_黑白.png" id="2_joqun"]
 

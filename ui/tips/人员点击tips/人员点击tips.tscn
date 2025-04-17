@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://032gjitbhijh"]
 
 [ext_resource type="PackedScene" uid="uid://dekyku5jukbs2" path="res://ui/人物详情/人物详情.tscn" id="1_2mcjh"]
-[ext_resource type="Script" path="res://ui/tips/人员点击tips/人员点击tips.gd" id="1_qya16"]
+[ext_resource type="Script" uid="uid://bf43vmrsr6q04" path="res://ui/tips/人员点击tips/人员点击tips.gd" id="1_qya16"]
 [ext_resource type="PackedScene" uid="uid://cwxnvif5krapq" path="res://ui/others/动作冷却按钮/动作冷却按钮.tscn" id="3_r5jra"]
 
 [node name="人员点击tips" type="VBoxContainer"]

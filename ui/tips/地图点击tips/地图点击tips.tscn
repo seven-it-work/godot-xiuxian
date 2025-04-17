@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://duns6b76maa2a"]
 
-[ext_resource type="Script" path="res://ui/tips/地图点击tips/地图点击tips.gd" id="1_g7gej"]
+[ext_resource type="Script" uid="uid://bni6dogwvi3qo" path="res://ui/tips/地图点击tips/地图点击tips.gd" id="1_g7gej"]
 [ext_resource type="PackedScene" uid="uid://ca18mecieqdb8" path="res://ui/tips/地图点击tips/地图详情.tscn" id="2_6qqg0"]
 
 [node name="地图点击tips" type="VBoxContainer"]

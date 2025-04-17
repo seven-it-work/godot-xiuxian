@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bpuc7a4xyriur"]
 
-[ext_resource type="Script" path="res://ui/地图/地图button.gd" id="1_2xymq"]
+[ext_resource type="Script" uid="uid://dos60kstapg2g" path="res://ui/地图/地图button.gd" id="1_2xymq"]
 
 [node name="地图button" type="PanelContainer"]
 custom_minimum_size = Vector2(160, 150)

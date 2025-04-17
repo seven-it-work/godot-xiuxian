@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://beorlyq0r1v8c"]
 
-[ext_resource type="Script" path="res://ui/core/BattleUI/技能.gd" id="1_qel8v"]
+[ext_resource type="Script" uid="uid://cq4fnhcjua2xh" path="res://ui/core/BattleUI/技能.gd" id="1_qel8v"]
 
 [node name="技能" type="PanelContainer"]
 custom_minimum_size = Vector2(130, 160)

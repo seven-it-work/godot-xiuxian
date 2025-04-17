@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
-@export var speed = 300
-@export var light_texture_scale = 5.0  # 控制视野范围
+@export var speed = 100
 
+
+
+func _ready() -> void:
+	pass
 
 func _process(delta: float) -> void:
 	# WASD移动
