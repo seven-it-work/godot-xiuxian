@@ -69,6 +69,8 @@ static func probability(v:float,max:float=100)->bool:
 
 ## 自定义json创建实体方法
 static func json_2_obj(json):
+	if json == null:
+		return null
 	if json is Array:
 		return json.map(func(t): return json_2_obj(t))
 	if json is Dictionary:
@@ -94,6 +96,8 @@ static func json_2_obj(json):
 
 ## 自定义json转换方法
 static func obj_2_json(obj):
+	if obj == null:
+		return null
 	if obj is Dictionary:
 		var re={}
 		for key in obj:

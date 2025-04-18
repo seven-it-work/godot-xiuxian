@@ -27,4 +27,5 @@ func init(people:People):
 	$逃跑概率.propertie=people.fight_escape_probability
 	$怀孕周期.propertie=people.pregnancy
 	$"动作速度".propertie=people.action_cool_time
+	$GridContainer/weapon.init(people.weapon)
 	pass

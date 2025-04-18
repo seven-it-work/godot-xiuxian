@@ -66,6 +66,10 @@ const MAX_PREGNANCY_COUNT:float = 10.0
 @export var skill_list:Array=[GlobalInfo.all_skill.get_skill_by_id("攻击"),GlobalInfo.all_skill.get_skill_by_id("逃跑")]
 ## 最大技能数量
 @export var skill_max_size:int=4
+## 背包(key:类别，value:[])
+@export var backpack:Dictionary={}
+## 武器装备
+@export var weapon:Weapon
 
 
 func do_action():
@@ -308,6 +312,7 @@ func save_json():
 		"lingqi_absorb_cool_times":lingqi_absorb_cool_times,
 		"fight_escape_probability":ObjectUtils.obj_2_json(fight_escape_probability),
 		"skill_list":ObjectUtils.obj_2_json(skill_list),
+		"weapon":ObjectUtils.obj_2_json(weapon)
 	},true)
 	return re
 	
@@ -341,8 +346,12 @@ func load_json(json:Dictionary):
 	lingqi_absorb_cool_times=json["lingqi_absorb_cool_times"]
 	fight_escape_probability=ObjectUtils.json_2_obj(json["fight_escape_probability"])
 	skill_list=ObjectUtils.json_2_obj(json.get("skill_list",[]))
+	weapon=ObjectUtils.json_2_obj(json.get("weapon",null))
+
+func _save_in_bak():
 	var temp=FileAccess.open("res://obj/people/people.bak.json",FileAccess.WRITE)
 	temp.store_string(JSON.stringify(save_json()))
+
 ## 击杀他人
 func kill(target:People):
 	GlobalInfo.remove_people(target)

@@ -63,6 +63,8 @@ func _on_start_game_pressed() -> void:
 #	新游戏
 	GlobalInfo.start_new()
 	_start_game()
+	GlobalInfo.player.weapon=Weapon.new().coverage_data_by_excel(1)
+	GlobalInfo.player._save_in_bak()
 	$"HBoxContainer/玩家信息/VBoxContainer/VBoxContainer/人物详情".init(GlobalInfo.player)
 	#$"HBoxContainer/core/地图".init()
 	change_core("MapContent",GlobalInfo.place_map[GlobalInfo.player.place_id])

@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dekyku5jukbs2"]
+[gd_scene load_steps=6 format=3 uid="uid://dekyku5jukbs2"]
 
 [ext_resource type="PackedScene" uid="uid://cnt3w83w4pb17" path="res://ui/others/BarPropertieTscn/BarPropertieTscn.tscn" id="1_1i8yk"]
 [ext_resource type="Script" uid="uid://cvtc0ww4yrqtr" path="res://ui/人物详情/人物详情.gd" id="1_wlkon"]
 [ext_resource type="PackedScene" uid="uid://dc2s77l30i6bd" path="res://ui/others/RandomPropertieTscn/RandomPropertieTscn.tscn" id="2_egbrg"]
 [ext_resource type="Texture2D" uid="uid://b7uckcq7fmckn" path="res://asserts/默认图/1744333880633_641_黑白.png" id="2_joqun"]
+[ext_resource type="PackedScene" uid="uid://c4ycjwy66hyjp" path="res://ui/others/武器ui/weapon.tscn" id="5_joy8j"]
 
 [node name="人物详情" type="VBoxContainer"]
-offset_right = 146.0
-offset_bottom = 336.0
+offset_right = 200.0
+offset_bottom = 511.0
 size_flags_horizontal = 3
 script = ExtResource("1_wlkon")
 
@@ -80,3 +81,15 @@ layout_mode = 2
 [node name="动作速度" parent="." instance=ExtResource("2_egbrg")]
 layout_mode = 2
 "名称" = "动作速度"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="weapon" parent="GridContainer" instance=ExtResource("5_joy8j")]
+layout_mode = 2
+
+[node name="weapon2" parent="GridContainer" instance=ExtResource("5_joy8j")]
+layout_mode = 2

@@ -67,6 +67,8 @@ func get_growth()->float:
 
 ## 随机分配成长值（将随机分配给min、max）
 func random_add_growth(growth_num:float):
+	if growth_num<=0:
+		return
 	self.score+=growth_num
 	var remaining=growth_num;
 	for i in 200:
