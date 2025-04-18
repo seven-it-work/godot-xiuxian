@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://beorlyq0r1v8c" path="res://ui/core/BattleUI/技能.tscn" id="1_aabhy"]
 [ext_resource type="Script" uid="uid://en8i2m6c3qw1" path="res://技能/逃跑/逃跑.gd" id="2_50ae5"]
-[ext_resource type="Script" uid="uid://c78bi6pqvoa86" path="res://obj/properties/random_propertie.gd" id="3_uj7sc"]
+[ext_resource type="Script" uid="uid://c3q7lyaam3kdg" path="res://obj/properties/random_propertie.gd" id="3_uj7sc"]
 
 [node name="逃跑" node_paths=PackedStringArray("skill_cooldown") instance=ExtResource("1_aabhy")]
 script = ExtResource("2_50ae5")

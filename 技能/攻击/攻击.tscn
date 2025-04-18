@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dw4u0cqx03cbe" path="res://技能/攻击/攻击.gd" id="1_8c7d1"]
 [ext_resource type="PackedScene" uid="uid://beorlyq0r1v8c" path="res://ui/core/BattleUI/技能.tscn" id="1_qdib2"]
-[ext_resource type="Script" uid="uid://c78bi6pqvoa86" path="res://obj/properties/random_propertie.gd" id="3_666qx"]
+[ext_resource type="Script" uid="uid://c3q7lyaam3kdg" path="res://obj/properties/random_propertie.gd" id="3_666qx"]
 
 [node name="攻击" node_paths=PackedStringArray("skill_cooldown") instance=ExtResource("1_qdib2")]
 script = ExtResource("1_8c7d1")

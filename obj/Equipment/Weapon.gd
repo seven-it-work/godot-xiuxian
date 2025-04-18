@@ -1,5 +1,5 @@
-extends Equipment
 class_name Weapon
+extends Equipment
 
 func get_type()->String:
 	return "Weapon"
