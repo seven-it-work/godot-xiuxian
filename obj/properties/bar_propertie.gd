@@ -7,6 +7,9 @@ extends GrowthPropertie
 ## 最大值
 @export var max_v:float=0;
 
+func _get_type()->String:
+	return "BarPropertie"
+
 ## 将最大值进行成长，同时当前值也会增加
 func do_growth():
 	var g_value=self.get_growth()
@@ -18,7 +21,11 @@ func add_current(v:float):
 	super.add_current(v);
 	self.current=minf(self.current,max_v)
 
-
+func merge(other:Dictionary)->Dictionary:
+	var re:Dictionary=super.merge(other)
+	re.set("max_v",other.get("max_v",0)+re.get("max_v",0))
+	re.set("min_v",other.get("min_v",0)+re.get("min_v",0))
+	return re
 
 func save_json():
 	var re:Dictionary=super.save_json()

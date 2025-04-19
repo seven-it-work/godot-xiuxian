@@ -6,6 +6,16 @@ class_name RandomPropertie
 ## 最大值
 @export var max_v:float=0;
 
+func _get_type()->String:
+	return "RandomPropertie"
+
+func merge(other:Dictionary)->Dictionary:
+	var re:Dictionary=super.merge(other)
+	re.set("min_v",other.get("min_v",0)+re.get("min_v",0))
+	re.set("max_v",other.get("max_v",0)+re.get("max_v",0))
+	return re
+
+
 func save_json():
 	var re:Dictionary=super.save_json()
 	re.merge({

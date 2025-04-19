@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://di83olcv7ys4"]
+
+[ext_resource type="Texture2D" uid="uid://b7uckcq7fmckn" path="res://asserts/默认图/1744333880633_641_黑白.png" id="1_5wq88"]
+[ext_resource type="Script" uid="uid://blvydexm1lim8" path="res://v2.0/ui/ui组件/玩家详情ui.gd" id="1_8mxfc"]
+[ext_resource type="PackedScene" uid="uid://da3kxylom77n5" path="res://v2.0/ui/ui组件/属性组件.tscn" id="3_5wq88"]
+
+[node name="玩家详情ui" type="PanelContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_8mxfc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="基础信息" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="人物头像" type="TextureRect" parent="VBoxContainer/基础信息"]
+layout_mode = 2
+texture = ExtResource("1_5wq88")
+expand_mode = 3
+
+[node name="简单信息" type="VBoxContainer" parent="VBoxContainer/基础信息"]
+layout_mode = 2
+
+[node name="人物名称" type="Label" parent="VBoxContainer/基础信息/简单信息"]
+layout_mode = 2
+text = "名称：xxx"
+
+[node name="人物等级" type="Label" parent="VBoxContainer/基础信息/简单信息"]
+layout_mode = 2
+text = "等级：大乘期大圆满"
+
+[node name="年龄" type="Label" parent="VBoxContainer/基础信息/简单信息"]
+layout_mode = 2
+text = "年龄：91"
+
+[node name="性别" type="Label" parent="VBoxContainer/基础信息/简单信息"]
+layout_mode = 2
+text = "性别：男"
+
+[node name="属性信息" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/属性信息"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="lingqi" parent="VBoxContainer/属性信息/GridContainer" instance=ExtResource("3_5wq88")]
+layout_mode = 2
+
+[node name="lingqi_absorb" parent="VBoxContainer/属性信息/GridContainer" instance=ExtResource("3_5wq88")]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "人员ui"

@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://f4qv7c1uept8"]
+
+[ext_resource type="Script" uid="uid://c7qb1a57j8f0v" path="res://v2.0/ui/ui组件/跑马灯label.gd" id="1_he7bk"]
+
+[node name="跑马灯label" type="ScrollContainer"]
+offset_right = 60.0
+offset_bottom = 30.0
+vertical_scroll_mode = 0
+script = ExtResource("1_he7bk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 23)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1.0~10.0"
+
+[node name="bak" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 23)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1.0~10.0"
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

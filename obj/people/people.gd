@@ -71,6 +71,13 @@ const MAX_PREGNANCY_COUNT:float = 10.0
 ## 武器装备
 @export var weapon:Weapon
 
+## 获取属性+武器属性的计算数据
+func get_attribute_data(属性名称:String)->Dictionary:
+	#if weapon:
+		## 如果武器中有这个属性
+		#if weapon.has(属性名称):
+			#return self[属性名称].merge(weapon[属性名称].save_json())
+	return self[属性名称].save_json()
 
 func do_action():
 	# 年龄计算

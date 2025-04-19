@@ -16,7 +16,7 @@ cmd_path="res://addons/GDExcelExporter/ee.exe"
 [application]
 
 config/name="修仙1.1"
-run/main_scene="res://main.tscn"
+run/main_scene="uid://cj55of8eliq5p"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -34,6 +34,9 @@ Settings="*res://settings/dist/settings.gd"
 
 [display]
 
+window/size/viewport_width=360
+window/size/viewport_height=540
+window/size/initial_position_type=0
 window/stretch/mode="canvas_items"
 
 [editor_plugins]

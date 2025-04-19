@@ -10,6 +10,16 @@ class_name GrowthPropertie
 ## 成长评分
 @onready var score:float=0;
 
+func _get_type()->String:
+	return "GrowthPropertie"
+
+func merge(other:Dictionary)->Dictionary:
+	var re:Dictionary=super.merge(other)
+	re.set("min_growth",other.get("min_growth",0)+re.get("min_growth",0))
+	re.set("max_growth",other.get("max_growth",0)+re.get("max_growth",0))
+	return re
+
+
 ## 继承父母
 # 两种模式
 # 1、区间混合(稳定)

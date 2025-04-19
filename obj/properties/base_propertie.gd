@@ -9,12 +9,21 @@ class_name BasePropertie
 ## 当前值
 @export var current:float=0;
 
+func _get_type()->String:
+	return "BasePropertie"
+
+func merge(other:Dictionary)->Dictionary:
+	var re:Dictionary=save_json()
+	re.set("current",other.get("current",0)+re.get("current",0))
+	return re
+
 func save_json():
 	var re:Dictionary={}
 	re.merge({
 		"filename" : get_script().resource_path,
 		"name_str":self.name_str,
 		"current":self.current,
+		"type_info":self._get_type()
 	},true)
 	return re
 	
