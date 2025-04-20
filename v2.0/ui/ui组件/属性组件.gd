@@ -2,11 +2,16 @@ extends PanelContainer
 
 @export var data:Dictionary={}
 
+func _ready() -> void:
+	pass
+
 func init(data:Dictionary):
 	if data.is_empty():
 		return
+	print(data)
 	if data.has("name_str"):
-		$"HBoxContainer/跑马灯label".init(data.get("name_str"))
+		$"HBoxContainer/name_str".init(data.get("name_str"))
+		pass
 	if data.has("type_info"):
 		var type_info = data.get("type_info")
 		if type_info=="BarPropertie":
@@ -18,7 +23,6 @@ func init(data:Dictionary):
 			$HBoxContainer/otherValue.visible=true
 		elif type_info=="RandomPropertie":
 			$HBoxContainer/randomValue.visible=true
-			print("%.1f~%.1f"%[data.get("min_v",0),data.get("max_v",0)])
 			$HBoxContainer/randomValue.init("%.1f~%.1f"%[data.get("min_v",0),data.get("max_v",0)])
 			
 		else:

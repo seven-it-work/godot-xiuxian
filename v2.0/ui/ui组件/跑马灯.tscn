@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyge72q8nikhj"]
+
+[ext_resource type="Script" uid="uid://cbyfrafu63owj" path="res://v2.0/ui/ui组件/跑马灯.gd" id="1_s5yku"]
+[ext_resource type="Script" uid="uid://b0w2n4y8lwk0x" path="res://v2.0/ui/ui组件/跑马灯core.gd" id="2_g0tl0"]
+
+[node name="跑马灯" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_s5yku")
+
+[node name="跑马灯core" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 6.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+script = ExtResource("2_g0tl0")
+
+[node name="Label" type="Label" parent="跑马灯core"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="bak" type="Label" parent="跑马灯core"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
