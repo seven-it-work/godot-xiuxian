@@ -2,7 +2,6 @@ extends PanelContainer
 
 @export var people:People
 
-
 func init(people:People):
 	self.people=people
 	find_child("人物名称").text = people.name_str
@@ -13,8 +12,23 @@ func init(people:People):
 	$"VBoxContainer/基础信息/简单信息/人物名称".text="名称：%s"%people.name_str
 	$"VBoxContainer/基础信息/简单信息/人物等级".text="等级：%d"%people.lv.get_current()
 	$"VBoxContainer/基础信息/简单信息/年龄".text="年龄：%d"%people.get_age("year")
-	$"VBoxContainer/属性信息/GridContainer/lingqi".init(people.get_attribute_data("lingqi"))
-	$"VBoxContainer/属性信息/GridContainer/lingqi_absorb".init(people.get_attribute_data("lingqi_absorb"))
+	var property_list=[
+		"lingqi",
+		"hp",
+		"lingqi_absorb",
+		"atk",
+		"lingqi_absorb_cool_time",
+		"def",
+		"attack_speed",
+		"max_life",
+		"action_cool_time",
+		"pregnancy",
+		"fight_escape_probability"
+	]
+	for property in property_list:
+		var property_ui=preload("res://v2.0/ui/ui组件/属性组件.tscn").instantiate()
+		$"VBoxContainer/属性信息".add_child(property_ui)
+		property_ui.init(people.get_attribute_data(property))
 	pass
 
 	

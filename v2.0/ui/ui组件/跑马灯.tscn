@@ -5,6 +5,7 @@
 
 [node name="跑马灯" type="Control"]
 clip_contents = true
+custom_minimum_size = Vector2(60, 23)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1

@@ -166,7 +166,7 @@ func can_equipment(p:People)->bool:
 	return true
 
 func _merged(excelData1:Dictionary,excelData2:Dictionary,key:String,defalutValue):
-	excelData1.set(key,ObjectUtils.merge(excelData1.get(key,defalutValue),excelData2.get(key,defalutValue)))
+	excelData1[key]=ObjectUtils.merge(excelData1.get(key,defalutValue),excelData2.get(key,defalutValue))
 	
 
 func _ready() -> void:

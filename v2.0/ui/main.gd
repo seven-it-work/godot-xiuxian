@@ -9,7 +9,7 @@ func _ready() -> void:
 	GlobalInfo.player.weapon=Weapon.new().coverage_data_by_excel(1)
 	GlobalInfo.player._save_in_bak()
 	
-	$"PanelContainer/VBoxContainer/玩家详情ui".init(GlobalInfo.player)
+	$"ScrollContainer/PanelContainer/VBoxContainer/玩家详情ui".init(GlobalInfo.player)
 	
 	#$寿命.propertie=people.max_life
 	#$灵气值.propertie=people.lingqi

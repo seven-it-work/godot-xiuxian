@@ -15,8 +15,8 @@ func _get_type()->String:
 
 func merge(other:Dictionary)->Dictionary:
 	var re:Dictionary=super.merge(other)
-	re.set("min_growth",other.get("min_growth",0)+re.get("min_growth",0))
-	re.set("max_growth",other.get("max_growth",0)+re.get("max_growth",0))
+	re["min_growth"]=other.get("min_growth",0)+re.get("min_growth",0)
+	re["max_growth"]=other.get("max_growth",0)+re.get("max_growth",0)
 	return re
 
 

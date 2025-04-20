@@ -14,7 +14,7 @@ func _get_type()->String:
 
 func merge(other:Dictionary)->Dictionary:
 	var re:Dictionary=save_json()
-	re.set("current",other.get("current",0)+re.get("current",0))
+	re["current"]=other.get("current",0)+re.get("current",0)
 	return re
 
 func save_json():

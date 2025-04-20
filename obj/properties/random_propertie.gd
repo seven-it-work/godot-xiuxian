@@ -11,8 +11,8 @@ func _get_type()->String:
 
 func merge(other:Dictionary)->Dictionary:
 	var re:Dictionary=super.merge(other)
-	re.set("min_v",other.get("min_v",0)+re.get("min_v",0))
-	re.set("max_v",other.get("max_v",0)+re.get("max_v",0))
+	re["min_v"]=other.get("min_v",0)+re.get("min_v",0)
+	re["max_v"]=other.get("max_v",0)+re.get("max_v",0)
 	return re
 
 

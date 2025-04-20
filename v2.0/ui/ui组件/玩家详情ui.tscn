@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://di83olcv7ys4"]
+[gd_scene load_steps=3 format=3 uid="uid://di83olcv7ys4"]
 
 [ext_resource type="Texture2D" uid="uid://b7uckcq7fmckn" path="res://asserts/默认图/1744333880633_641_黑白.png" id="1_5wq88"]
 [ext_resource type="Script" uid="uid://blvydexm1lim8" path="res://v2.0/ui/ui组件/玩家详情ui.gd" id="1_8mxfc"]
-[ext_resource type="PackedScene" uid="uid://da3kxylom77n5" path="res://v2.0/ui/ui组件/属性组件.tscn" id="3_5wq88"]
 
 [node name="玩家详情ui" type="PanelContainer"]
 size_flags_vertical = 3
@@ -39,20 +38,30 @@ text = "年龄：91"
 layout_mode = 2
 text = "性别：男"
 
-[node name="属性信息" type="VBoxContainer" parent="VBoxContainer"]
+[node name="空" type="Label" parent="VBoxContainer/基础信息"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/属性信息"]
+[node name="操作按钮" type="VBoxContainer" parent="VBoxContainer/基础信息"]
 layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="背包" type="Button" parent="VBoxContainer/基础信息/操作按钮"]
+layout_mode = 2
+text = "背包"
+
+[node name="背包2" type="Button" parent="VBoxContainer/基础信息/操作按钮"]
+layout_mode = 2
+text = "背包2"
+
+[node name="背包3" type="Button" parent="VBoxContainer/基础信息/操作按钮"]
+layout_mode = 2
+text = "背包3"
+
+[node name="属性信息" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 2
-
-[node name="lingqi" parent="VBoxContainer/属性信息/GridContainer" instance=ExtResource("3_5wq88")]
-layout_mode = 2
-
-[node name="lingqi_absorb" parent="VBoxContainer/属性信息/GridContainer" instance=ExtResource("3_5wq88")]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "人员ui"

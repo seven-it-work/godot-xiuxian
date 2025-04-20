@@ -8,7 +8,6 @@ func _ready() -> void:
 func init(data:Dictionary):
 	if data.is_empty():
 		return
-	print(data)
 	if data.has("name_str"):
 		$"HBoxContainer/name_str".init(data.get("name_str"))
 		pass
