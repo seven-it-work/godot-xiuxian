@@ -1,4 +1,0 @@
-gd_excelexporter.core.engine-WARNING:~$装备.xlsx 不是配置表，跳过！
-gd_excelexporter.core.engine-INFO:导出：D:\github\godot\godot-xiuxian\settings\data\装备.xlsx:Weapon => D:\github\godot\godot-xiuxian\settings\dist\装备\Weapon.gd
-gd_excelexporter.core.engine-INFO:导出：D:\github\godot\godot-xiuxian\settings\data\装备.xlsx:示例-demo2 => D:\github\godot\godot-xiuxian\settings\dist\装备\demo2.gd
-gd_excelexporter.generators.gds2-INFO:创建：dist\settings.gd
