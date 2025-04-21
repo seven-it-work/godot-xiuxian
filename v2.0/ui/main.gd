@@ -11,6 +11,7 @@ func _ready() -> void:
 	
 	$"ScrollContainer/PanelContainer/VBoxContainer/玩家详情ui".init(GlobalInfo.player)
 	
+	GlobalInfo.main_node=self
 	#$寿命.propertie=people.max_life
 	#$灵气值.propertie=people.lingqi
 	#$吸收灵气量.propertie=people.lingqi_absorb
@@ -22,4 +23,27 @@ func _ready() -> void:
 	#$逃跑概率.propertie=people.fight_escape_probability
 	#$怀孕周期.propertie=people.pregnancy
 	#$动作速度.propertie=people.action_cool_time
+	pass
+
+func open_dialog(type:String,data=null,node:Node=null):
+	for i in $"Window/自定义".get_children():
+		i.free()
+	
+	$"Window/自定义".hide()
+	$"Window/地图点击ui".hide()
+	$"Window/大地图".hide()
+	if type=="自定义":
+		if node==null:
+			Log.error("参数错误")
+		$"Window/自定义".add_child(node)
+		if node.has_method("init"):
+			node.init(data)
+		$"Window/自定义".show()
+		return
+	if type=="地图点击ui":
+		$"Window/地图点击ui".show()
+		return
+	if type=="大地图":
+		$"Window/大地图".show()
+		return
 	pass

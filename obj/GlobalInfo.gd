@@ -1,6 +1,6 @@
 @tool
 extends Node
-static var main_node:Main
+static var main_node
 
 static var is_pause:bool=true
 static var place_map:Dictionary={}
