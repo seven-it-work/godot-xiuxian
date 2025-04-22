@@ -16,7 +16,7 @@ cmd_path="res://addons/GDExcelExporter/ee.exe"
 [application]
 
 config/name="修仙1.1"
-run/main_scene="res://v2.0/ui/main.tscn"
+run/main_scene="uid://cj55of8eliq5p"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/image="uid://dv0wj3lnmu0j1"
 config/icon="uid://d23vrrv5oamx2"

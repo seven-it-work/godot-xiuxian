@@ -1,5 +1,8 @@
 extends Control
 
+func _process(delta: float) -> void:
+	pass
+
 func _ready() -> void:
 	var skill_path=["res://技能/攻击/攻击.tscn","res://技能/逃跑/逃跑.tscn"]
 	for i in skill_path:
@@ -9,7 +12,7 @@ func _ready() -> void:
 	GlobalInfo.player.weapon=Weapon.new().coverage_data_by_excel(1)
 	GlobalInfo.player._save_in_bak()
 	
-	$"ScrollContainer/PanelContainer/VBoxContainer/玩家详情ui".init(GlobalInfo.player)
+	$"ScrollContainer/PanelContainer/VBoxContainer/玩家详情ui"._update(GlobalInfo.player)
 
 	GlobalInfo.main_node=self
 	#$寿命.propertie=people.max_life

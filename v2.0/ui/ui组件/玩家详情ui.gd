@@ -2,7 +2,7 @@ extends PanelContainer
 
 @export var people:People
 
-func init(people:People):
+func _update(people:People):
 	self.people=people
 	find_child("人物名称").text = people.name_str
 	if people.is_man: 
@@ -28,7 +28,7 @@ func init(people:People):
 	for property in property_list:
 		var property_ui=preload("res://v2.0/ui/ui组件/属性组件.tscn").instantiate()
 		$"VBoxContainer/属性信息".add_child(property_ui)
-		property_ui.init(people.get_attribute_data(property))
+		property_ui._update(people.get_attribute_data(property))
 	pass
 
 	

@@ -5,7 +5,7 @@ extends Control
 func _ready() -> void:
 	pass
 
-func init(text:String):
+func _update(text:String):
 	$"跑马灯core".size=size
 	
 	$跑马灯core/Label.text = text
@@ -18,40 +18,23 @@ func init(text:String):
 		$跑马灯core/bak.visible=true
 		$"跑马灯core".start=true
 	pass
-
-
-func _on_gui_input(event: InputEvent) -> void:
-	$Window/Label.text="_on_gui_input:%s"%event.get_class()
-	if $Window.visible:
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
 		$Window.visible=false
 		return
 	if event is InputEventScreenTouch:
-		# 触摸开始/结束
-		if event.pressed:
-			$Window.visible=true
-			return
-	if event is InputEventMouseButton:
-		$Window.visible=true
+		$Window.visible=false
 		return
 	$Window.visible=false
-	pass # Replace with function body.
+	pass
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	$Window/Label.text="_unhandled_key_input:%s"%event.get_class()
-	if event is InputEventKey:
-		if event.pressed:
-			print("按键：", event.keycode)
-			$Window.visible=false
-
-func _unhandled_input(event: InputEvent) -> void:
-	$Window/Label.text="_unhandled_input:%s"%event.get_class()
-	if event is InputEventKey:
-		if event.pressed:
-			print("按键：", event.keycode)
-			$Window.visible=false
-	elif event is InputEventMouseButton:
-		print("鼠标：", event.position)
-		$Window.visible=false
-	elif event is InputEventScreenTouch:
-		$Window.visible=false
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		$Window.visible=true
+		$Window.position=event.global_position
+		return
+	if event is InputEventScreenTouch:
+		$Window.visible=true
+		$Window.position=event.position
 		return

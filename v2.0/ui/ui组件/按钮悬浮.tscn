@@ -1,16 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://yre5l2hej2q5"]
+[gd_scene load_steps=2 format=3 uid="uid://bvd6rjg88i4sg"]
 
 [ext_resource type="Script" uid="uid://dopgrfnmm6r87" path="res://v2.0/ui/ui组件/按钮悬浮.gd" id="1_u7fks"]
 
 [node name="按钮悬浮" type="Button"]
+offset_right = 38.0
+offset_bottom = 31.0
 text = "test"
 script = ExtResource("1_u7fks")
 
 [node name="Window" type="Window" parent="."]
-visible = false
-
-[node name="Label" type="Label" parent="Window"]
-offset_right = 40.0
-offset_bottom = 23.0
+initial_position = 2
+size = Vector2i(300, 450)
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

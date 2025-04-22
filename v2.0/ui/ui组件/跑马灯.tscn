@@ -28,7 +28,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Window" type="Window" parent="."]
-initial_position = 4
+position = Vector2i(130, 257)
+size = Vector2i(100, 26)
 visible = false
 borderless = true
 

@@ -5,11 +5,11 @@ extends PanelContainer
 func _ready() -> void:
 	pass
 
-func init(data:Dictionary):
+func _update(data:Dictionary):
 	if data.is_empty():
 		return
 	if data.has("name_str"):
-		$"HBoxContainer/name_str".init(data.get("name_str"))
+		$"HBoxContainer/name_str"._update(data.get("name_str"))
 		pass
 	if data.has("type_info"):
 		var type_info = data.get("type_info")
@@ -22,7 +22,7 @@ func init(data:Dictionary):
 			$HBoxContainer/otherValue.visible=true
 		elif type_info=="RandomPropertie":
 			$HBoxContainer/randomValue.visible=true
-			$HBoxContainer/randomValue.init("%.1f~%.1f"%[data.get("min_v",0),data.get("max_v",0)])
+			$HBoxContainer/randomValue._update("%.1f~%.1f"%[data.get("min_v",0),data.get("max_v",0)])
 			
 		else:
 			Log.error("属性类型错误：%s"%type_info)
