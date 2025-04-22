@@ -10,7 +10,7 @@ func _ready() -> void:
 	GlobalInfo.player._save_in_bak()
 	
 	$"ScrollContainer/PanelContainer/VBoxContainer/玩家详情ui".init(GlobalInfo.player)
-	
+
 	GlobalInfo.main_node=self
 	#$寿命.propertie=people.max_life
 	#$灵气值.propertie=people.lingqi
@@ -23,6 +23,10 @@ func _ready() -> void:
 	#$逃跑概率.propertie=people.fight_escape_probability
 	#$怀孕周期.propertie=people.pregnancy
 	#$动作速度.propertie=people.action_cool_time
+	pass
+
+## 对核心布局进行场景切换
+func change_core_tscn(tscn:String,initData):
 	pass
 
 func open_dialog(type:String,data=null,node:Node=null):

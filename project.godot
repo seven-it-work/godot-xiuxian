@@ -35,6 +35,7 @@ window/size/viewport_width=360
 window/size/viewport_height=540
 window/size/initial_position_type=0
 window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
 window/handheld/orientation=1
 
 [editor_plugins]
