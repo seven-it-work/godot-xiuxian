@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cj55of8eliq5p"]
+[gd_scene load_steps=7 format=3 uid="uid://cj55of8eliq5p"]
 
 [ext_resource type="Script" uid="uid://by3tb4cuganui" path="res://v2.0/ui/main.gd" id="1_feavk"]
 [ext_resource type="PackedScene" uid="uid://di83olcv7ys4" path="res://v2.0/ui/ui组件/玩家详情ui.tscn" id="2_sng55"]
+[ext_resource type="PackedScene" uid="uid://s3xk1mi8ryxb" path="res://v2.0/object/map/MapObj.tscn" id="3_tl1qf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sng55"]
 content_margin_left = 5.0
@@ -14,16 +15,24 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6iytd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feavk"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -116,12 +125,11 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 360.0
+offset_bottom = 558.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_tl1qf")
 
 [node name="Core" type="VBoxContainer" parent="PanelContainer"]
-custom_minimum_size = Vector2(360, 540)
 layout_mode = 2
 
 [node name="tips" type="ScrollContainer" parent="PanelContainer/Core"]
@@ -140,7 +148,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_6iytd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_feavk")
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/Core/CoreMain/Map"]
 layout_mode = 2
@@ -149,34 +157,7 @@ theme_override_constants/v_separation = 10
 columns = 5
 
 [node name="Button" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
-layout_mode = 2
-text = "地图ui"
-
-[node name="Button2" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
-layout_mode = 2
-text = "地图ui"
-
-[node name="Button3" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
-layout_mode = 2
-text = "地图ui"
-
-[node name="Button4" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
-layout_mode = 2
-text = "地图ui"
-
-[node name="Button5" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
-layout_mode = 2
-text = "地图ui"
-
-[node name="Button6" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
-layout_mode = 2
-text = "地图ui"
-
-[node name="Button7" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
-layout_mode = 2
-text = "地图ui"
-
-[node name="Button8" type="Button" parent="PanelContainer/Core/CoreMain/Map/GridContainer"]
+visible = false
 layout_mode = 2
 text = "地图ui"
 
@@ -223,3 +204,13 @@ layout_mode = 2
 
 [node name="Player" type="PanelContainer" parent="PanelContainer/FightCore"]
 layout_mode = 2
+
+[node name="AllData" type="SubViewport" parent="."]
+
+[node name="MapList" type="SubViewport" parent="AllData"]
+
+[node name="新手村" parent="AllData/MapList" instance=ExtResource("3_tl1qf")]
+name_str = "新手村"
+
+[node name="青风山" parent="AllData/MapList" instance=ExtResource("3_tl1qf")]
+name_str = "青风山"
