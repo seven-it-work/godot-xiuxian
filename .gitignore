@@ -10,3 +10,5 @@ project.godot
 # 只保留特定文件
 !/addons/**/.keep
 修仙1.1.apk
+.vscode
+.vs

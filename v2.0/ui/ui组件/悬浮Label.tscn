@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbp8knv5e5hsn"]
+
+[sub_resource type="GDScript" id="GDScript_1x05e"]
+script/source = "extends Label
+
+@onready var popup = $PopupPanel
+
+func _ready():
+	# 设置标签可点击
+	gui_input.connect(_on_label_clicked)  # 连接信号
+	# 设置弹窗初始状态
+	popup.hide()
+
+# 处理标签点击
+func _on_label_clicked(event: InputEvent):
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			# 显示弹窗
+			popup.show()
+			# 阻止事件继续传播
+			get_viewport().set_input_as_handled()
+
+func _unhandled_input(event: InputEvent):
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			# 检查点击是否在弹窗外
+			var popup_rect = Rect2(popup.position, popup.size)  # 使用 position 和 size
+			if not popup_rect.has_point(event.position):
+				# 隐藏弹窗
+				popup.hide()
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	pass # Replace with function body.
+"
+
+[node name="悬浮label" type="Label"]
+offset_left = 95.0
+offset_top = 50.0
+offset_right = 219.0
+offset_bottom = 135.0
+text = "123"
+script = SubResource("GDScript_1x05e")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+
+[node name="Label" type="Label" parent="PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 96.0
+text = "ces"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

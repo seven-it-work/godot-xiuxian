@@ -1,6 +1,9 @@
 extends Control
 
 func _process(delta: float) -> void:
+	var rect=get_viewport().get_visible_rect()
+	print(rect)
+	$ScrollContainer.size=rect.size
 	pass
 
 func _ready() -> void:

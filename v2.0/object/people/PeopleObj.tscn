@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0dosq6lkla6s"]
+
+[ext_resource type="Script" uid="uid://b0maqgh3mvq1w" path="res://v2.0/object/equipment/EquipmentObj.gd" id="1_nvjkh"]
+
+[node name="PeopleObj" type="Node"]
+
+[node name="Properties" type="SubViewport" parent="."]
+
+[node name="e_shou" type="Node" parent="Properties"]
+script = ExtResource("1_nvjkh")
+metadata/_custom_type_script = "uid://b0maqgh3mvq1w"

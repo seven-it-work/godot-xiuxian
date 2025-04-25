@@ -11,5 +11,8 @@ script = ExtResource("1_u7fks")
 [node name="Window" type="Window" parent="."]
 initial_position = 2
 size = Vector2i(300, 450)
+visible = false
 
-[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
