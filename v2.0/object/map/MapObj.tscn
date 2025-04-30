@@ -9,7 +9,9 @@ script = ExtResource("1_w3aiu")
 
 [node name="ui" type="Node" parent="."]
 
-[node name="EnterButton" type="Button" parent="ui"]
+[node name="MapTipsButton" type="Button" parent="ui"]
 visible = false
 offset_right = 8.0
 offset_bottom = 8.0
+
+[connection signal="pressed" from="ui/MapTipsButton" to="." method="_on_map_tips_button_pressed"]
