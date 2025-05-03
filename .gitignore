@@ -6,7 +6,6 @@ project.godot
 *.tmp
 /.vscode
 # 忽略 addons 下所有内容
-/addons/*
 # 只保留特定文件
 !/addons/**/.keep
 修仙1.1.apk
