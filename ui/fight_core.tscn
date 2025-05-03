@@ -1,0 +1,112 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpchb871i4wd2"]
+
+[ext_resource type="Script" uid="uid://c815vontiqvvm" path="res://ui/fight_core.gd" id="1_06x3n"]
+[ext_resource type="Texture2D" uid="uid://b3cvnl7nlrpbj" path="res://asserts/默认图/1744283217487_768.png" id="1_n0m2s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar4ev"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nk2m"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4w4kc"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4kgx"]
+draw_center = false
+
+[node name="FightCore" type="Control"]
+custom_minimum_size = Vector2(360, 540)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 540.0
+script = ExtResource("1_06x3n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 360.0
+offset_bottom = 539.0
+
+[node name="FightLog" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "战斗日志"
+
+[node name="Enemy" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ar4ev")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Enemy"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Enemy/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7nk2m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Enemy/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Enemy/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("1_n0m2s")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Enemy/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4w4kc")
+
+[node name="Player" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r4kgx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Player"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Player/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7nk2m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Player/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Player/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("1_n0m2s")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Player/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "按钮"
+
+[connection signal="pressed" from="VBoxContainer/GridContainer/Button" to="." method="_on_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cj55of8eliq5p"]
+[gd_scene load_steps=12 format=3 uid="uid://cj55of8eliq5p"]
 
 [ext_resource type="Script" uid="uid://by3tb4cuganui" path="res://ui/main.gd" id="1_feavk"]
 [ext_resource type="StyleBox" uid="uid://dgnfik02ofero" path="res://ui/ui组件/coreMain.tres" id="2_feavk"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bv66eathc7hol" path="res://ui/map_tips.gd" id="3_fkxlp"]
 [ext_resource type="Script" uid="uid://eeo57ce0wjnv" path="res://ui/map_detail.gd" id="3_lefqy"]
 [ext_resource type="PackedScene" uid="uid://s3xk1mi8ryxb" path="res://object/map/MapObj.tscn" id="3_tl1qf"]
-[ext_resource type="Texture2D" uid="uid://b3cvnl7nlrpbj" path="res://asserts/默认图/1744283217487_768.png" id="6_ar4ev"]
+[ext_resource type="PackedScene" uid="uid://dpchb871i4wd2" path="res://ui/fight_core.tscn" id="6_ar4ev"]
 [ext_resource type="Script" uid="uid://3dgsoof28foe" path="res://object/people/people_obj.gd" id="7_xcjyc"]
 [ext_resource type="PackedScene" uid="uid://d0dosq6lkla6s" path="res://object/people/PeopleObj.tscn" id="8_04ebt"]
 
@@ -21,30 +21,6 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar4ev"]
-draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nk2m"]
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-expand_margin_left = 3.0
-expand_margin_top = 3.0
-expand_margin_right = 3.0
-expand_margin_bottom = 3.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4w4kc"]
-draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4kgx"]
-draw_center = false
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -235,78 +211,8 @@ size_flags_vertical = 3
 [node name="玩家详情ui" parent="PanelContainer/Core/PlayerInfo/PanelContainer" instance=ExtResource("2_sng55")]
 layout_mode = 2
 
-[node name="FightCore" type="VBoxContainer" parent="PanelContainer"]
-custom_minimum_size = Vector2(360, 540)
+[node name="FightCore" parent="PanelContainer" instance=ExtResource("6_ar4ev")]
 layout_mode = 2
-
-[node name="FightLog" type="RichTextLabel" parent="PanelContainer/FightCore"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "战斗日志"
-
-[node name="Enemy" type="PanelContainer" parent="PanelContainer/FightCore"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ar4ev")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/FightCore/Enemy"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/FightCore/Enemy/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7nk2m")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FightCore/Enemy/HBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/FightCore/Enemy/HBoxContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-texture = ExtResource("6_ar4ev")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/FightCore/Enemy/HBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/FightCore"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_4w4kc")
-
-[node name="Player" type="PanelContainer" parent="PanelContainer/FightCore"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r4kgx")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/FightCore/Player"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/FightCore/Player/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7nk2m")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FightCore/Player/HBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/FightCore/Player/HBoxContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-texture = ExtResource("6_ar4ev")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/FightCore/Player/HBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/FightCore"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="PanelContainer/FightCore/GridContainer"]
-layout_mode = 2
-text = "按钮"
 
 [node name="AllData" type="SubViewport" parent="."]
 
