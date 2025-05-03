@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://da3kxylom77n5"]
+
+[ext_resource type="Script" uid="uid://h7teuo00pjg4" path="res://ui/ui组件/属性组件.gd" id="1_2v8ax"]
+[ext_resource type="PackedScene" uid="uid://dyge72q8nikhj" path="res://ui/ui组件/跑马灯.tscn" id="3_7mjn3"]
+
+[node name="属性组件" type="PanelContainer"]
+offset_right = 170.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+script = ExtResource("1_2v8ax")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="name_str" parent="HBoxContainer" instance=ExtResource("3_7mjn3")]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="randomValue" parent="HBoxContainer" instance=ExtResource("3_7mjn3")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="otherValue" type="Label" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1

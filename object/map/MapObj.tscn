@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://s3xk1mi8ryxb"]
+
+[ext_resource type="Script" uid="uid://bvsxsub436jgx" path="res://object/map/map_obj.gd" id="1_w3aiu"]
+
+[node name="MapObj" type="Node"]
+script = ExtResource("1_w3aiu")
+
+[node name="Properties" type="SubViewport" parent="."]
+
+[node name="ui" type="Node" parent="."]
+
+[node name="MapTipsButton" type="Button" parent="ui"]
+visible = false
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="ui/MapTipsButton" to="." method="_on_map_tips_button_pressed"]

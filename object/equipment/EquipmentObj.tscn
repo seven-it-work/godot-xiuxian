@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx38h5o0ka2br"]
+
+[ext_resource type="Script" uid="uid://o1lpemflooil" path="res://object/equipment/equipment_obj.gd" id="1_gc3vf"]
+
+[node name="EquipmentObj" type="Node"]
+script = ExtResource("1_gc3vf")
+
+[node name="Properties" type="SubViewport" parent="."]
+
+[node name="word_group" type="Node" parent="Properties"]

@@ -23,11 +23,8 @@ config/icon="uid://d23vrrv5oamx2"
 
 [autoload]
 
-SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 Log="*res://addons/logger/logger.gd"
 uuid="*res://addons/uuid/uuid.gd"
-GlobalInfo="*res://obj/GlobalInfo.gd"
-Settings="*res://settings/dist/settings.gd"
 
 [display]
 
@@ -40,7 +37,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDExcelExporter/plugin.cfg", "res://addons/logger/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/uuid/plugin.cfg")
+enabled=PackedStringArray("res://addons/logger/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/uuid/plugin.cfg")
 
 [input]
 

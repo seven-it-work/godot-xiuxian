@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdewsuqswvjmv"]
-
-[ext_resource type="Script" uid="uid://do1xtp071fk6x" path="res://ui/others/游戏时间/游戏时间.gd" id="1_p2u1k"]
-
-[node name="游戏时间" type="Label"]
-text = "xx年xx月xx日"
-script = ExtResource("1_p2u1k")
