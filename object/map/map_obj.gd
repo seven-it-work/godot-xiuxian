@@ -19,7 +19,7 @@ func people_leave(p:PeopleObj):
 
 
 func _ready() -> void:
-	var t=PeopleObj.new()
+	var t=Monster.new()
 	t.name_str="怪物1"
 	master_list.append(t)
 	self.uid=uuid.v4()

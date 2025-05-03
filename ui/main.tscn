@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cj55of8eliq5p"]
+[gd_scene load_steps=12 format=3 uid="uid://cj55of8eliq5p"]
 
 [ext_resource type="Script" uid="uid://by3tb4cuganui" path="res://ui/main.gd" id="1_feavk"]
 [ext_resource type="StyleBox" uid="uid://dgnfik02ofero" path="res://ui/ui组件/coreMain.tres" id="2_feavk"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://bv66eathc7hol" path="res://ui/map_tips.gd" id="3_fkxlp"]
 [ext_resource type="Script" uid="uid://eeo57ce0wjnv" path="res://ui/map_detail.gd" id="3_lefqy"]
 [ext_resource type="PackedScene" uid="uid://s3xk1mi8ryxb" path="res://object/map/MapObj.tscn" id="3_tl1qf"]
+[ext_resource type="Texture2D" uid="uid://b3cvnl7nlrpbj" path="res://asserts/默认图/1744283217487_768.png" id="6_ar4ev"]
 [ext_resource type="Script" uid="uid://3dgsoof28foe" path="res://object/people/people_obj.gd" id="7_xcjyc"]
+[ext_resource type="PackedScene" uid="uid://d0dosq6lkla6s" path="res://object/people/PeopleObj.tscn" id="8_04ebt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sng55"]
 content_margin_left = 5.0
@@ -120,6 +122,7 @@ offset_bottom = 558.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_tl1qf")
 
 [node name="Core" type="VBoxContainer" parent="PanelContainer"]
+visible = false
 layout_mode = 2
 
 [node name="tips" type="ScrollContainer" parent="PanelContainer/Core"]
@@ -213,7 +216,6 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="FightCore" type="VBoxContainer" parent="PanelContainer"]
-visible = false
 custom_minimum_size = Vector2(360, 540)
 layout_mode = 2
 
@@ -224,9 +226,56 @@ text = "战斗日志"
 
 [node name="Enemy" type="PanelContainer" parent="PanelContainer/FightCore"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/FightCore/Enemy"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FightCore/Enemy/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/FightCore/Enemy/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("6_ar4ev")
+expand_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/FightCore/Enemy/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/FightCore/Enemy/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/FightCore/Enemy/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("6_ar4ev")
+expand_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/FightCore/Enemy/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PanelContainer/FightCore/Enemy/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/FightCore/Enemy/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("6_ar4ev")
+expand_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/FightCore/Enemy/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
 
 [node name="Player" type="PanelContainer" parent="PanelContainer/FightCore"]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/FightCore/Player"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
 
 [node name="AllData" type="SubViewport" parent="."]
 
@@ -249,5 +298,9 @@ metadata/_custom_type_script = "uid://3dgsoof28foe"
 script = ExtResource("7_xcjyc")
 name_str = "人物2"
 metadata/_custom_type_script = "uid://3dgsoof28foe"
+
+[node name="PlayerList" type="SubViewport" parent="AllData"]
+
+[node name="Player" parent="AllData/PlayerList" instance=ExtResource("8_04ebt")]
 
 [connection signal="pressed" from="PanelContainer/Core/tips/panle/MapTips/ButtonGroup/Enter" to="PanelContainer/Core/tips/panle/MapTips" method="_on_enter_pressed"]

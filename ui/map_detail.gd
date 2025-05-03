@@ -16,6 +16,7 @@ func initMasterList():
 	for i in self.mapObj.master_list:
 		var b=Button.new()
 		b.text=i.name_str
+		b.pressed.connect(i.mapDetailClick)
 		$MasterList.add_child(b)
 	pass
 
