@@ -25,6 +25,7 @@ config/icon="uid://d23vrrv5oamx2"
 
 Log="*res://addons/logger/logger.gd"
 uuid="*res://addons/uuid/uuid.gd"
+Logger="*res://addons/logger/logger.gd"
 
 [display]
 
@@ -37,7 +38,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/logger/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/uuid/plugin.cfg")
+enabled=PackedStringArray("res://addons/logger/plugin.cfg", "res://addons/uuid/plugin.cfg")
 
 [input]
 
