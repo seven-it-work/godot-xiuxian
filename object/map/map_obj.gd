@@ -3,7 +3,8 @@ class_name MapObj
 var uid:String=""
 ## 名称
 @export var name_str=""
-## 怪物ID集合
+## 怪物列表
+var master_list:Array=[]
 
 ## 当前人员合集
 var people_dic:Dictionary={}
@@ -18,6 +19,9 @@ func people_leave(p:PeopleObj):
 
 
 func _ready() -> void:
+	var t=PeopleObj.new()
+	t.name_str="怪物1"
+	master_list.append(t)
 	self.uid=uuid.v4()
 	init()
 	pass

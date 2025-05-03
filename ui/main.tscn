@@ -185,13 +185,17 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="PanelContainer/Core/CoreMain/panle/MapDetail/Properties"]
 layout_mode = 2
-text = "名称"
+text = "名称：xxx"
 
 [node name="PeopleList" type="GridContainer" parent="PanelContainer/Core/CoreMain/panle/MapDetail"]
 layout_mode = 2
 
 [node name="MasterList" type="GridContainer" parent="PanelContainer/Core/CoreMain/panle/MapDetail"]
 layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/Core/CoreMain/panle/MapDetail/MasterList"]
+layout_mode = 2
+text = "怪物1"
 
 [node name="ButtonList" type="GridContainer" parent="PanelContainer/Core/CoreMain/panle/MapDetail"]
 layout_mode = 2
