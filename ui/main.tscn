@@ -118,7 +118,6 @@ offset_bottom = 558.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_tl1qf")
 
 [node name="Core" type="VBoxContainer" parent="PanelContainer"]
-visible = false
 layout_mode = 2
 
 [node name="tips" type="ScrollContainer" parent="PanelContainer/Core"]
@@ -212,6 +211,7 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="FightCore" parent="PanelContainer" instance=ExtResource("6_ar4ev")]
+visible = false
 layout_mode = 2
 
 [node name="AllData" type="SubViewport" parent="."]
@@ -239,5 +239,6 @@ metadata/_custom_type_script = "uid://3dgsoof28foe"
 [node name="PlayerList" type="SubViewport" parent="AllData"]
 
 [node name="Player" parent="AllData/PlayerList" instance=ExtResource("8_04ebt")]
+name_str = "玩家"
 
 [connection signal="pressed" from="PanelContainer/Core/tips/panle/MapTips/ButtonGroup/Enter" to="PanelContainer/Core/tips/panle/MapTips" method="_on_enter_pressed"]

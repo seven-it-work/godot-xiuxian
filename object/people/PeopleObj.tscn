@@ -16,6 +16,7 @@ max_v = 100.0
 growth_min = 10.0
 growth_max = 20.0
 growth_factor = 1.0
+data_type = 2
 metadata/_custom_type_script = "uid://cmj4fpeq7si5v"
 
 [node name="atk" type="Node" parent="Properties"]
@@ -40,4 +41,21 @@ growth_factor = 1.0
 data_type = 1
 metadata/_custom_type_script = "uid://cmj4fpeq7si5v"
 
-[node name="e_shou" type="Node" parent="Properties"]
+[node name="lv" type="Node" parent="Properties"]
+script = ExtResource("2_5bnjb")
+name_str = "等级"
+current_value = 1.0
+growth_min = 1.0
+growth_max = 1.0
+growth_factor = 1.0
+metadata/_custom_type_script = "uid://cmj4fpeq7si5v"
+
+[node name="age" type="Node" parent="Properties"]
+script = ExtResource("2_5bnjb")
+name_str = "年龄"
+max_v = 70.0
+growth_min = 1.0
+growth_max = 1.0
+growth_factor = 1.0
+data_type = 2
+metadata/_custom_type_script = "uid://cmj4fpeq7si5v"

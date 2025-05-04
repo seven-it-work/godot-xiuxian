@@ -7,6 +7,8 @@ script = ExtResource("1_w3aiu")
 
 [node name="Properties" type="SubViewport" parent="."]
 
+[node name="master_list" type="SubViewport" parent="Properties"]
+
 [node name="ui" type="Node" parent="."]
 
 [node name="MapTipsButton" type="Button" parent="ui"]

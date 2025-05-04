@@ -5,7 +5,7 @@ extends Control
 func _ready() -> void:
 	pass
 
-func _update(text:String):
+func init(text:String):
 	$"跑马灯core".size=size
 	
 	$跑马灯core/Label.text = text

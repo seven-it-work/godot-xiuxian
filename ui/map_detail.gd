@@ -13,7 +13,7 @@ func init(mapObj:MapObj):
 func initMasterList():
 	for i in $MasterList.get_children():
 		i.free()
-	for i in self.mapObj.master_list:
+	for i in self.mapObj.master_list.get_children():
 		var b=Button.new()
 		b.text=i.name_str
 		b.pressed.connect(i.mapDetailClick)

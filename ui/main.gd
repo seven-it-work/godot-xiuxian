@@ -24,6 +24,7 @@ func _ready() -> void:
 	# 初始化人物，随机将人物分配到map中
 	for i in $AllData/PeopleList.get_children():
 		i.enter_map($AllData/MapList.get_children().pick_random())
+	$"PanelContainer/Core/PlayerInfo/PanelContainer/玩家详情ui".init()
 	pass
 
 ## 对核心布局进行场景切换
@@ -56,4 +57,9 @@ func change_tips(tscn:String,initData=null):
 	pass
 
 func open_dialog(type:String,data=null,node:Node=null):
+	pass
+	
+func do_fight():
+	$PanelContainer/Core.visible=false
+	$PanelContainer/FightCore.visible=true
 	pass

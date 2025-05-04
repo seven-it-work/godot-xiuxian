@@ -4,7 +4,7 @@ var uid:String=""
 ## 名称
 @export var name_str=""
 ## 怪物列表
-var master_list:Array=[]
+@onready var master_list=$Properties/master_list
 
 ## 当前人员合集
 var people_dic:Dictionary={}
@@ -21,7 +21,7 @@ func people_leave(p:PeopleObj):
 func _ready() -> void:
 	var t=Monster.new()
 	t.name_str="怪物1"
-	master_list.append(t)
+	master_list.add_child(t)
 	self.uid=uuid.v4()
 	init()
 	pass
