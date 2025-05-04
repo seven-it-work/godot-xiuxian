@@ -3,8 +3,13 @@
 [ext_resource type="Script" uid="uid://3dgsoof28foe" path="res://object/people/people_obj.gd" id="1_nvjkh"]
 [ext_resource type="Script" uid="uid://cmj4fpeq7si5v" path="res://object/properties/properties.gd" id="2_5bnjb"]
 
-[node name="PeopleObj" type="Node"]
+[node name="PeopleObj" type="Node" node_paths=PackedStringArray("hp", "atk", "def", "lv", "age")]
 script = ExtResource("1_nvjkh")
+hp = NodePath("Properties/hp")
+atk = NodePath("Properties/atk")
+def = NodePath("Properties/def")
+lv = NodePath("Properties/lv")
+age = NodePath("Properties/age")
 
 [node name="Properties" type="SubViewport" parent="."]
 

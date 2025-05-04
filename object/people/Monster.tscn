@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0mbevka7plk"]
+[gd_scene load_steps=3 format=3 uid="uid://c0mbevka7plk"]
 
-[ext_resource type="Script" uid="uid://cpocne8jikn48" path="res://object/people/monster.gd" id="1_r4yio"]
+[ext_resource type="PackedScene" uid="uid://d0dosq6lkla6s" path="res://object/people/PeopleObj.tscn" id="1_r4yio"]
+[ext_resource type="Script" uid="uid://cpocne8jikn48" path="res://object/people/monster.gd" id="2_lurnq"]
 
-[node name="Monster" type="Node"]
-script = ExtResource("1_r4yio")
-metadata/_custom_type_script = "uid://3dgsoof28foe"
+[node name="Monster" instance=ExtResource("1_r4yio")]
+script = ExtResource("2_lurnq")

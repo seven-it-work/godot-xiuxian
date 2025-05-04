@@ -59,7 +59,8 @@ func change_tips(tscn:String,initData=null):
 func open_dialog(type:String,data=null,node:Node=null):
 	pass
 	
-func do_fight():
+func do_fight(targetList:Array):
 	$PanelContainer/Core.visible=false
 	$PanelContainer/FightCore.visible=true
+	$PanelContainer/FightCore.init(targetList)
 	pass

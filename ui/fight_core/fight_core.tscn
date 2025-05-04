@@ -1,26 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dpchb871i4wd2"]
+[gd_scene load_steps=7 format=3 uid="uid://dpchb871i4wd2"]
 
-[ext_resource type="Script" uid="uid://c815vontiqvvm" path="res://ui/fight_core.gd" id="1_06x3n"]
-[ext_resource type="Texture2D" uid="uid://b3cvnl7nlrpbj" path="res://asserts/默认图/1744283217487_768.png" id="1_n0m2s"]
+[ext_resource type="Script" uid="uid://c815vontiqvvm" path="res://ui/fight_core/fight_core.gd" id="1_06x3n"]
+[ext_resource type="PackedScene" uid="uid://3wxaiypyevcu" path="res://ui/fight_core/fight_people_ui.tscn" id="2_638yt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar4ev"]
 draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nk2m"]
-draw_center = false
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-expand_margin_left = 3.0
-expand_margin_top = 3.0
-expand_margin_right = 3.0
-expand_margin_bottom = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4w4kc"]
 draw_center = false
@@ -59,21 +43,7 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Enemy/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7nk2m")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Enemy/HBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Enemy/HBoxContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-texture = ExtResource("1_n0m2s")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Enemy/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" parent="VBoxContainer/Enemy/HBoxContainer" instance=ExtResource("2_638yt")]
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
@@ -90,21 +60,7 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Player/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7nk2m")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Player/HBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Player/HBoxContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-texture = ExtResource("1_n0m2s")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Player/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" parent="VBoxContainer/Player/HBoxContainer" instance=ExtResource("2_638yt")]
 layout_mode = 2
 
 [node name="SplitContainer" type="ScrollContainer" parent="VBoxContainer"]

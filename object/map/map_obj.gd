@@ -19,7 +19,7 @@ func people_leave(p:PeopleObj):
 
 
 func _ready() -> void:
-	var t=Monster.new()
+	var t=load("res://object/people/Monster.tscn").instantiate()
 	t.name_str="怪物1"
 	master_list.add_child(t)
 	self.uid=uuid.v4()

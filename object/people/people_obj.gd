@@ -6,11 +6,11 @@ var current_place_id:String=""
 @export var name_str:String=""
 @export var is_man:bool=true
 
-@onready var hp: Property = $Properties/hp
-@onready var atk: Property = $Properties/atk
-@onready var def: Property = $Properties/def
-@onready var lv:Property=$Properties/lv
-@onready var age:Property=$Properties/age
+@export var hp: Property
+@export var atk: Property
+@export var def: Property
+@export var lv:Property
+@export var age:Property
 
 
 func get_age():

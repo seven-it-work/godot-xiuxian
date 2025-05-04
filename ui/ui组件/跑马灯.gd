@@ -19,22 +19,3 @@ func init(text:String):
 		$"跑马灯core".start=true
 	pass
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		$Window.visible=false
-		return
-	if event is InputEventScreenTouch:
-		$Window.visible=false
-		return
-	$Window.visible=false
-	pass
-
-func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		$Window.visible=true
-		$Window.position=event.global_position
-		return
-	if event is InputEventScreenTouch:
-		$Window.visible=true
-		$Window.position=event.position
-		return

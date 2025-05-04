@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cj55of8eliq5p"]
+[gd_scene load_steps=11 format=3 uid="uid://cj55of8eliq5p"]
 
 [ext_resource type="Script" uid="uid://by3tb4cuganui" path="res://ui/main.gd" id="1_feavk"]
 [ext_resource type="StyleBox" uid="uid://dgnfik02ofero" path="res://ui/ui组件/coreMain.tres" id="2_feavk"]
@@ -6,8 +6,7 @@
 [ext_resource type="Script" uid="uid://bv66eathc7hol" path="res://ui/map_tips.gd" id="3_fkxlp"]
 [ext_resource type="Script" uid="uid://eeo57ce0wjnv" path="res://ui/map_detail.gd" id="3_lefqy"]
 [ext_resource type="PackedScene" uid="uid://s3xk1mi8ryxb" path="res://object/map/MapObj.tscn" id="3_tl1qf"]
-[ext_resource type="PackedScene" uid="uid://dpchb871i4wd2" path="res://ui/fight_core.tscn" id="6_ar4ev"]
-[ext_resource type="Script" uid="uid://3dgsoof28foe" path="res://object/people/people_obj.gd" id="7_xcjyc"]
+[ext_resource type="PackedScene" uid="uid://dpchb871i4wd2" path="res://ui/fight_core/fight_core.tscn" id="6_ar4ev"]
 [ext_resource type="PackedScene" uid="uid://d0dosq6lkla6s" path="res://object/people/PeopleObj.tscn" id="8_04ebt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sng55"]
@@ -226,15 +225,11 @@ name_str = "青风山"
 
 [node name="PeopleList" type="SubViewport" parent="AllData"]
 
-[node name="PeopleObj" type="Node" parent="AllData/PeopleList"]
-script = ExtResource("7_xcjyc")
-name_str = "人物1"
-metadata/_custom_type_script = "uid://3dgsoof28foe"
+[node name="PeopleObj" parent="AllData/PeopleList" instance=ExtResource("8_04ebt")]
+name_str = "ai1"
 
-[node name="PeopleObj2" type="Node" parent="AllData/PeopleList"]
-script = ExtResource("7_xcjyc")
-name_str = "人物2"
-metadata/_custom_type_script = "uid://3dgsoof28foe"
+[node name="PeopleObj2" parent="AllData/PeopleList" instance=ExtResource("8_04ebt")]
+name_str = "ai2"
 
 [node name="PlayerList" type="SubViewport" parent="AllData"]
 
