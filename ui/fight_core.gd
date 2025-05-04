@@ -3,6 +3,11 @@ extends Control
 func _process(delta: float) -> void:
 	pass
 
+func init():
+	var main_node=get_node("/root/Main")
+	main_node.puase=true
+	pass
+
 func 技能特效(特效node:Node):
 	特效node.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
 	add_child(特效node)
