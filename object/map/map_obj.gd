@@ -1,4 +1,4 @@
-extends Node
+extends DoAction
 class_name MapObj
 var uid:String=""
 ## 名称

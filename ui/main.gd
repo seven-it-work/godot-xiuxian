@@ -1,10 +1,17 @@
 extends Control
 class_name MainNode
+## doaction的暂停判断
+var puase:bool=false
+## doaction的速度
+var action_speed:int=1;
 
 func _process(delta: float) -> void:
 	var rect=get_viewport().get_visible_rect()
 	$PanelContainer.size=rect.size
 	pass
+
+func is_puase()->bool:
+	return puase;
 
 func _ready() -> void:
 	# start game

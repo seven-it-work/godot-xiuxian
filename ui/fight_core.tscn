@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpchb871i4wd2"]
+[gd_scene load_steps=8 format=3 uid="uid://dpchb871i4wd2"]
 
 [ext_resource type="Script" uid="uid://c815vontiqvvm" path="res://ui/fight_core.gd" id="1_06x3n"]
 [ext_resource type="Texture2D" uid="uid://b3cvnl7nlrpbj" path="res://asserts/默认图/1744283217487_768.png" id="1_n0m2s"]
@@ -26,7 +26,10 @@ expand_margin_bottom = 3.0
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4kgx"]
+content_margin_bottom = 10.0
 draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06x3n"]
 
 [node name="FightCore" type="Control"]
 custom_minimum_size = Vector2(360, 540)
@@ -40,9 +43,10 @@ script = ExtResource("1_06x3n")
 layout_mode = 2
 offset_right = 360.0
 offset_bottom = 539.0
+alignment = 1
 
 [node name="FightLog" type="RichTextLabel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "战斗日志"
 
@@ -103,11 +107,82 @@ stretch_mode = 5
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Player/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+[node name="SplitContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 105)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/GridContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/SplitContainer"]
+custom_minimum_size = Vector2(0, 105)
 layout_mode = 2
-text = "按钮"
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 10
+columns = 3
 
-[connection signal="pressed" from="VBoxContainer/GridContainer/Button" to="." method="_on_button_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SplitContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_06x3n")
+text = "对随机个敌人造成伤害"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+text = "普通攻击"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/SplitContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_06x3n")
+text = "对随机个敌人造成伤害"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+text = "普通攻击"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/SplitContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_06x3n")
+text = "对随机个敌人造成伤害"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+text = "普通攻击"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/SplitContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_06x3n")
+text = "对随机个敌人造成伤害"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/SplitContainer/GridContainer/VBoxContainer4"]
+layout_mode = 2
+text = "普通攻击"
+
+[connection signal="pressed" from="VBoxContainer/SplitContainer/GridContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SplitContainer/GridContainer/VBoxContainer2/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SplitContainer/GridContainer/VBoxContainer3/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SplitContainer/GridContainer/VBoxContainer4/Button" to="." method="_on_button_pressed"]

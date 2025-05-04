@@ -1,5 +1,5 @@
 class_name PeopleObj
-extends Node
+extends DoAction
 
 var uid:String=""
 var current_place_id:String=""
@@ -9,6 +9,10 @@ var current_place_id:String=""
 @onready var atk: Property = $Properties/atk
 @onready var def: Property = $Properties/def
 
+
+func do_action():
+	print("执行了")
+	pass
 
 ###### Equipment
 
